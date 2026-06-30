@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/brand-mark.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Google tag (gtag.js) — Google Ads AW-18153637752 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18153637752"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18153637752');
+    </script>
+
+    <title>Portfolio Value Creation | Business Intuitive</title>
+    <meta name="description" content="Business Intuitive is the digital value-creation partner for lower-middle-market sponsors. We build the operational systems — dashboards, automation, internal tools — that lift portfolio-company EBITDA and de-risk exits, without adding headcount." />
+    <meta name="keywords" content="portfolio value creation, private equity operating partner, portfolio operations, digital value creation, lower middle market, operational dashboards, back office automation, EBITDA, exit readiness, Business Intuitive" />
+    <meta name="author" content="Business Intuitive" />
+    <meta name="theme-color" content="#0B0C0E" />
+    <link rel="canonical" href="https://businessintuitive.tech/portfolio-value-creation" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://businessintuitive.tech/portfolio-value-creation" />
+    <meta property="og:title" content="Portfolio Value Creation | Business Intuitive" />
+    <meta property="og:description" content="The digital value-creation partner for lower-middle-market sponsors. Dashboards, automation, and internal tools that lift portfolio-company EBITDA — without the FTE add." />
+    <meta property="og:site_name" content="Business Intuitive" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://businessintuitive.tech/assets/og-portfolio.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Digital value creation for your portfolio — without the FTE add" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Portfolio Value Creation | Business Intuitive" />
+    <meta name="twitter:description" content="Digital value creation for your portfolio — without the FTE add." />
+    <meta name="twitter:image" content="https://businessintuitive.tech/assets/og-portfolio.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://businessintuitive.tech/portfolio-value-creation#service",
+          "name": "Portfolio Value Creation — Business Intuitive",
+          "description": "Digital value-creation partner for lower-middle-market private equity, mezzanine, and growth sponsors. We build operational dashboards, back-office automation, and internal tools for portfolio companies.",
+          "provider": { "@id": "https://businessintuitive.tech/#organization" },
+          "areaServed": "US",
+          "serviceType": ["Operational dashboards", "Workflow automation", "Internal tools and portals", "Digital front-end rebuilds", "Business intelligence"]
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://businessintuitive.tech/portfolio-value-creation#webpage",
+          "url": "https://businessintuitive.tech/portfolio-value-creation",
+          "name": "Portfolio Value Creation | Business Intuitive",
+          "isPartOf": { "@id": "https://businessintuitive.tech/#website" },
+          "about": { "@id": "https://businessintuitive.tech/portfolio-value-creation#service" }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Business Intuitive", "item": "https://businessintuitive.tech" },
+            { "@type": "ListItem", "position": 2, "name": "Portfolio Value Creation", "item": "https://businessintuitive.tech/portfolio-value-creation" }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/assets/brand.css" />
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bi-bg);
+        color: var(--bi-text);
+        font-family: var(--bi-font-sans);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(55vw 45vh at 80% -8%, rgba(22,162,174,0.16), transparent 60%),
+          radial-gradient(45vw 38vh at -5% 100%, rgba(15,111,120,0.10), transparent 60%);
+      }
+      .wrap { position: relative; z-index: 1; }
+      .container { max-width: var(--bi-maxw); margin: 0 auto; padding: 0 var(--bi-space-lg); }
+
+      /* nav */
+      .nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.1rem var(--bi-space-lg);
+        background: rgba(11,12,14,0.72);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--bi-line);
+      }
+      .nav__brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: var(--bi-text); }
+      .nav__brand img { width: 32px; height: 32px; }
+      .nav__brand b { font-family: var(--bi-font-display); font-weight: 600; font-size: 1.02rem; letter-spacing: var(--bi-track-snug); }
+      .nav__links { display: flex; align-items: center; gap: var(--bi-space-md); }
+      .nav__link { font-size: var(--bi-fs-sm); color: var(--bi-text-soft); text-decoration: none; transition: color 0.3s var(--bi-ease); letter-spacing: 0.01em; }
+      .nav__link:hover { color: var(--bi-teal-bright); }
+      .nav__link--prop { color: var(--bi-teal-bright); opacity: 0.82; }
+      .nav__link--prop:hover { opacity: 1; }
+
+      /* hero */
+      .hero { min-height: 92vh; display: flex; flex-direction: column; justify-content: center; padding: 9rem var(--bi-space-lg) var(--bi-space-2xl); position: relative; }
+      .hero__inner { max-width: var(--bi-maxw); margin: 0 auto; width: 100%; }
+      .hero__title { max-width: 20ch; margin: var(--bi-space-md) 0; }
+      .hero__sub { max-width: 60ch; margin-bottom: var(--bi-space-lg); }
+      .hero__cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+      /* strip */
+      .strip { border-top: 1px solid var(--bi-line); border-bottom: 1px solid var(--bi-line); padding: var(--bi-space-md) var(--bi-space-lg); }
+      .strip__list { max-width: var(--bi-maxw); margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--bi-space-lg); }
+      .strip__item { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-text-mute); }
+
+      /* sections */
+      .section { padding: var(--bi-space-3xl) 0; }
+      .head { max-width: 62ch; margin-bottom: var(--bi-space-xl); }
+      .head .bi-h2 { margin-top: 0.6rem; }
+      .grid { display: grid; gap: var(--bi-space-md); }
+      .grid--2 { grid-template-columns: repeat(2, 1fr); }
+      .grid--4 { grid-template-columns: repeat(4, 1fr); }
+      .cat { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-teal-bright); margin-bottom: 0.6rem; }
+      .card__desc { font-size: var(--bi-fs-sm); color: var(--bi-text-soft); line-height: 1.7; margin-top: 0.5rem; }
+
+      /* the gap (2-col with symptom panel) */
+      .split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: var(--bi-space-xl); align-items: center; padding: var(--bi-space-lg); border: 1px solid var(--bi-line); border-radius: var(--bi-r-lg); background: linear-gradient(180deg, var(--bi-surface-1), var(--bi-bg)); }
+      .panel { background: var(--bi-charcoal); border: 1px solid var(--bi-line); border-radius: var(--bi-r); padding: var(--bi-space-lg); box-shadow: var(--bi-shadow); }
+      .panel h4 { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-text-mute); margin-bottom: var(--bi-space-sm); }
+      .metric { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid var(--bi-line); gap: 1rem; }
+      .metric:last-of-type { border-bottom: none; }
+      .metric__k { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-wide); text-transform: uppercase; color: var(--bi-text-soft); }
+      .metric__v { font-family: var(--bi-font-mono); font-size: var(--bi-fs-sm); color: var(--bi-teal-bright); white-space: nowrap; }
+      .metric__v.bad { color: var(--bi-pink); }
+      .metric__v.up { color: var(--bi-lime); }
+
+      /* case study */
+      .case { border: 1px solid var(--bi-line); border-radius: var(--bi-r-lg); background: linear-gradient(180deg, var(--bi-surface-1), var(--bi-bg)); padding: var(--bi-space-xl) var(--bi-space-lg); }
+      .case__tag { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-lime); border: 1px solid var(--bi-line-strong); border-radius: var(--bi-r-pill); padding: 0.35rem 0.85rem; margin-bottom: var(--bi-space-md); }
+      .case__cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--bi-space-xl); margin-top: var(--bi-space-md); }
+      .case__cols h4 { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-teal-bright); margin-bottom: var(--bi-space-sm); }
+      .case__cols p, .case__cols li { font-size: var(--bi-fs-sm); color: var(--bi-text-soft); line-height: 1.7; }
+      .case__cols ul { list-style: none; }
+      .case__cols li { padding-left: 1.1rem; position: relative; margin-bottom: 0.5rem; }
+      .case__cols li::before { content: '→'; position: absolute; left: 0; color: var(--bi-teal-bright); }
+      .statrow { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--bi-space-md); margin: var(--bi-space-xl) 0 0; padding-top: var(--bi-space-lg); border-top: 1px solid var(--bi-line); }
+      .stat__n { font-family: var(--bi-font-display); font-size: 2.1rem; font-weight: 500; color: var(--bi-text); line-height: 1.05; }
+      .stat__n em { font-style: normal; color: var(--bi-lime); }
+      .stat__l { font-size: var(--bi-fs-xs); color: var(--bi-text-soft); line-height: 1.5; margin-top: 0.4rem; }
+      .case__take { margin-top: var(--bi-space-lg); padding: var(--bi-space-md) var(--bi-space-lg); border-left: 2px solid var(--bi-teal-bright); background: rgba(22,162,174,0.06); border-radius: 0 var(--bi-r) var(--bi-r) 0; }
+      .case__take p { color: var(--bi-text); font-size: var(--bi-fs-body); }
+      .note { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); color: var(--bi-text-mute); line-height: 1.6; margin-top: var(--bi-space-md); letter-spacing: 0.02em; }
+
+      /* path */
+      .path { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--bi-space-md); margin-top: var(--bi-space-lg); }
+      .step__n { font-family: var(--bi-font-display); font-size: 2.4rem; color: var(--bi-teal); opacity: 0.65; }
+      .step__t { font-weight: 600; margin: 0.4rem 0 0.3rem; }
+      .step__d { font-size: var(--bi-fs-sm); color: var(--bi-text-soft); line-height: 1.6; }
+
+      /* cta */
+      .cta { text-align: center; padding: var(--bi-space-3xl) var(--bi-space-lg); position: relative; }
+      .cta__inner { max-width: 720px; margin: 0 auto; }
+      .cta__title { margin-bottom: var(--bi-space-sm); }
+      .cta__sub { color: var(--bi-text-soft); margin-bottom: var(--bi-space-lg); }
+      .cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+      /* footer */
+      .footer { border-top: 1px solid var(--bi-line); padding: var(--bi-space-lg); display: flex; justify-content: space-between; align-items: center; gap: 1rem; color: var(--bi-text-mute); font-size: var(--bi-fs-sm); flex-wrap: wrap; }
+      .footer a { color: var(--bi-text-mute); text-decoration: none; transition: color 0.3s var(--bi-ease); }
+      .footer a:hover { color: var(--bi-teal-bright); }
+      .footer__links { display: flex; gap: var(--bi-space-md); flex-wrap: wrap; align-items: center; }
+
+      /* reveal */
+      .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--bi-ease), transform 0.8s var(--bi-ease); }
+      .reveal.in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .nav__links { display: none; }
+        .grid--4 { grid-template-columns: repeat(2, 1fr); }
+        .grid--2 { grid-template-columns: 1fr; }
+        .split { grid-template-columns: 1fr; gap: var(--bi-space-lg); }
+        .case__cols { grid-template-columns: 1fr; gap: var(--bi-space-lg); }
+        .statrow { grid-template-columns: repeat(2, 1fr); }
+        .path { grid-template-columns: 1fr; }
+        .hero { padding: 7rem var(--bi-space-md) var(--bi-space-xl); }
+      }
+      @media (max-width: 520px) {
+        .grid--4 { grid-template-columns: 1fr; }
+        .statrow { grid-template-columns: 1fr; }
+        .footer { flex-direction: column; text-align: center; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+      .engage-table { width: 100%; border-collapse: collapse; }
+      .engage-table th, .engage-table td { text-align: left; padding: 0.9rem var(--bi-space-sm); border-bottom: 1px solid var(--bi-line); font-size: var(--bi-fs-sm); }
+      .engage-table th { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-text-mute); border-bottom: 1px solid var(--bi-line-strong); }
+      .engage-table td:first-child { color: var(--bi-text); font-weight: 500; }
+      .engage-table td:nth-child(2) { font-family: var(--bi-font-mono); color: var(--bi-teal-bright); white-space: nowrap; }
+      .engage-table td:last-child { color: var(--bi-text-soft); }
+      @media (max-width: 600px) { .engage-table td:last-child { display: none; } }
+      .fit-list { list-style: none; max-width: 46ch; margin: var(--bi-space-md) 0 0; }
+      .fit-list li { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--bi-line); color: var(--bi-text-soft); font-size: var(--bi-fs-body); }
+      .fit-list li:last-child { border-bottom: none; }
+      .fit-check { color: var(--bi-lime); font-weight: 600; flex-shrink: 0; line-height: 1.6; }
+      /* ── Diagnostic Modal ── */
+      .diag-overlay { position:fixed; inset:0; background:rgba(0,0,0,.72); backdrop-filter:blur(4px); z-index:900; opacity:0; visibility:hidden; pointer-events:none; transition:opacity .2s,visibility .2s; }
+      .diag-overlay.open { opacity:1; visibility:visible; pointer-events:all; }
+      .diag-modal { position:fixed; top:50%; left:50%; transform:translate(-50%,-54%) scale(.97); z-index:901; width:min(600px,92vw); max-height:88vh; overflow-y:auto; background:var(--bi-surface-1); border:1px solid var(--bi-line-strong); border-radius:var(--bi-r-lg); padding:var(--bi-space-lg); opacity:0; visibility:hidden; pointer-events:none; transition:opacity .2s,transform .22s,visibility .2s; }
+      .diag-modal.open { opacity:1; visibility:visible; pointer-events:all; transform:translate(-50%,-50%) scale(1); }
+      .diag-modal__close { position:absolute; top:var(--bi-space-sm); right:var(--bi-space-sm); background:none; border:none; color:var(--bi-text-mute); font-size:1.1rem; cursor:pointer; padding:.5rem .7rem; border-radius:var(--bi-r-sm); line-height:1; }
+      .diag-modal__close:hover { color:var(--bi-text); background:var(--bi-surface-0); }
+      .diag-f { margin-top:var(--bi-space-md); display:flex; flex-direction:column; gap:var(--bi-space-sm); }
+      .diag-f__row { display:grid; grid-template-columns:1fr 1fr; gap:var(--bi-space-sm); }
+      .diag-f__field { display:flex; flex-direction:column; gap:.4rem; }
+      .diag-f__field label { font-family:var(--bi-font-mono); font-size:var(--bi-fs-xs); letter-spacing:var(--bi-track-mono); text-transform:uppercase; color:var(--bi-text-mute); }
+      .diag-f__field input,.diag-f__field select,.diag-f__field textarea { background:var(--bi-surface-0); border:1px solid var(--bi-line); border-radius:var(--bi-r-sm); color:var(--bi-text); font-family:var(--bi-font-body); font-size:var(--bi-fs-sm); padding:.65rem .85rem; outline:none; transition:border-color .15s; resize:vertical; color-scheme:dark; width:100%; box-sizing:border-box; }
+      .diag-f__field input:focus,.diag-f__field select:focus,.diag-f__field textarea:focus { border-color:var(--bi-teal-bright); }
+      .diag-f__field input::placeholder,.diag-f__field textarea::placeholder { color:var(--bi-text-mute); }
+      .diag-f__actions { display:flex; align-items:center; gap:var(--bi-space-sm); margin-top:.5rem; flex-wrap:wrap; }
+      .diag-status { font-size:var(--bi-fs-sm); color:var(--bi-text-soft); }
+      .diag-status.error { color:#f87171; }
+      .diag-success { text-align:center; padding:var(--bi-space-xl) 0; }
+      @media (max-width:520px) { .diag-f__row { grid-template-columns:1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+    <nav class="nav">
+      <a href="/" class="nav__brand">
+        <img src="/assets/brand-mark.svg" alt="Business Intuitive" />
+        <b>Business Intuitive</b>
+      </a>
+      <div class="nav__links">
+        <a href="#offer" class="nav__link">What We Build</a>
+        <a href="#case" class="nav__link">Case Study</a>
+        <a href="#how" class="nav__link">How It Works</a>
+        <a href="#engagements" class="nav__link">Pricing</a>
+        <a href="https://intelligence.businessintuitive.tech" class="nav__link nav__link--prop">Intelligence ↗</a>
+        <a href="https://gov.businessintuitive.tech" class="nav__link nav__link--prop">Federal ↗</a>
+        <a href="https://cal.com/businessintuitive" class="bi-btn bi-btn--primary" style="padding: 0.6rem 1.3rem;">Book a call</a>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero" id="top">
+      <div class="hero__inner">
+        <p class="bi-eyebrow">Portfolio Value Creation · For PE, Mezzanine &amp; Growth Sponsors</p>
+        <h1 class="bi-display hero__title">Operational systems for portfolio companies that outgrew spreadsheets.</h1>
+        <p class="bi-lead hero__sub">We build the dashboards, automation, and internal systems lower-middle-market portfolio companies need once spreadsheets stop scaling — fixed scope, right-sized, shipped in weeks.</p>
+        <div class="hero__cta">
+          <a href="#" class="bi-btn bi-btn--primary" onclick="diagOpen();return false;">Get a Portfolio Diagnostic</a>
+          <a href="#case" class="bi-btn bi-btn--ghost">See a representative engagement</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Capability strip -->
+    <section class="strip">
+      <div class="strip__list">
+        <span class="strip__item">Operational Dashboards</span>
+        <span class="strip__item">Back-Office Automation</span>
+        <span class="strip__item">Internal Tools &amp; Portals</span>
+        <span class="strip__item">Digital Front Door</span>
+        <span class="strip__item">Intelligence Layer</span>
+      </div>
+    </section>
+
+    <!-- Ideal Fit -->
+    <section class="section" id="fit" style="padding-top: var(--bi-space-xl); padding-bottom: var(--bi-space-xl);">
+      <div class="container">
+        <div class="split reveal">
+          <div>
+            <p class="bi-eyebrow">Ideal Fit</p>
+            <h2 class="bi-h2" style="margin-top: 0.6rem; max-width: 20ch;">Best for portfolio companies that:</h2>
+          </div>
+          <ul class="fit-list">
+            <li><span class="fit-check">✓</span> Run on spreadsheets and disconnected SaaS</li>
+            <li><span class="fit-check">✓</span> Have operational reporting bottlenecks</li>
+            <li><span class="fit-check">✓</span> Are $5M–$50M in revenue</li>
+            <li><span class="fit-check">✓</span> Need better visibility into margin, quoting, utilization, or workflows</li>
+            <li><span class="fit-check">✓</span> Aren’t big enough for enterprise integrators</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 · The Gap -->
+    <section class="section" id="gap">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">01 — The Gap</p>
+          <h2 class="bi-h2">The margin you can't see.</h2>
+        </div>
+        <div class="split reveal">
+          <div>
+            <p class="bi-body" style="color: var(--bi-text-soft);">The lower-middle-market companies you back are almost always under-digitized. They run on spreadsheets, fragmented SaaS, and tribal knowledge. That shows up as late, hand-built monitoring data, back-office labor that quietly caps margin, and processes that don't scale — so the company is harder to grow <em style="color:var(--bi-text);font-style:normal;">and</em> harder to sell.</p>
+            <p class="bi-body" style="color: var(--bi-text-soft); margin-top: var(--bi-space-sm);">It's rarely worth a full-time hire or a six-figure systems integrator — so it doesn't get fixed, and it drags on EBITDA and exit multiple. That's the gap we close.</p>
+          </div>
+          <div class="panel">
+            <h4>Typical portfolio company — before</h4>
+            <div class="metric"><span class="metric__k">Monthly reporting</span><span class="metric__v bad">9 days, by hand</span></div>
+            <div class="metric"><span class="metric__k">Operational visibility</span><span class="metric__v bad">Lagging / none</span></div>
+            <div class="metric"><span class="metric__k">Core tools</span><span class="metric__v bad">5+ disconnected</span></div>
+            <div class="metric"><span class="metric__k">Quote / bid turnaround</span><span class="metric__v bad">Days</span></div>
+            <div class="metric"><span class="metric__k">Admin overhead</span><span class="metric__v bad">High &amp; manual</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · What We Build -->
+    <section class="section" id="offer">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">02 — What We Build</p>
+          <h2 class="bi-h2">One partner across the operational stack.</h2>
+        </div>
+        <div class="grid grid--2">
+          <article class="bi-card reveal">
+            <p class="cat">Operational Dashboards</p>
+            <h3 class="bi-h3">The numbers, finally legible</h3>
+            <p class="card__desc">Live visibility into the KPIs your deal team already tracks at monitoring — revenue, backlog, margin, utilization. One source of truth, zero manual entry.</p>
+          </article>
+          <article class="bi-card reveal">
+            <p class="cat">Back-Office Automation</p>
+            <h3 class="bi-h3">The system runs the work</h3>
+            <p class="card__desc">Quoting, invoicing, scheduling, follow-up, payouts — wired into the tools they already use. Removes the manual work that quietly eats margin.</p>
+          </article>
+          <article class="bi-card reveal">
+            <p class="cat">Internal Tools &amp; Portals</p>
+            <h3 class="bi-h3">Replace the spreadsheet duct tape</h3>
+            <p class="card__desc">Custom internal tools and client/vendor portals that consolidate fragmented SaaS into one operating system the company actually runs on.</p>
+          </article>
+          <article class="bi-card reveal">
+            <p class="cat">Digital Front Door</p>
+            <h3 class="bi-h3">Where revenue depends on it</h3>
+            <p class="card__desc">Website and conversion rebuilds for portfolio companies where the digital front door is leaving revenue on the table — plus the intelligence layer to measure it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · Case Study -->
+    <section class="section" id="case">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">03 — Proof</p>
+          <h2 class="bi-h2">A representative engagement.</h2>
+        </div>
+        <div class="case reveal">
+          <span class="case__tag">● Representative operational build</span>
+          <h3 class="bi-h3" style="max-width: 38ch;">Field-services operator · LMM buyout portfolio · example of the type of build we scope</h3>
+          <div class="case__cols">
+            <div>
+              <h4>The situation</h4>
+              <p>A field-services business was growing but operationally opaque. Manual reporting, quoting in spreadsheets, job status scattered across multiple disconnected tools, and no real-time visibility into margin by job or crew — the deal team's picture was always a month behind.</p>
+            </div>
+            <div>
+              <h4>What we built (7 weeks)</h4>
+              <ul>
+                <li>A live operations dashboard: revenue, backlog, margin by job &amp; crew</li>
+                <li>Quote-and-bid automation replacing the spreadsheet process</li>
+                <li>An internal job-tracking tool that retired 5 disconnected tools</li>
+                <li>An auto-generated monthly board &amp; lender reporting pack</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="statrow">
+            <div>
+              <p class="cat" style="margin-bottom:0.4rem;">Reporting</p>
+              <p class="card__desc">Board and lender-monitoring cycle shortened. Packets assembled automatically — no manual assembly.</p>
+            </div>
+            <div>
+              <p class="cat" style="margin-bottom:0.4rem;">Admin overhead</p>
+              <p class="card__desc">Back-office labor significantly reduced through automation. Removed from the critical path.</p>
+            </div>
+            <div>
+              <p class="cat" style="margin-bottom:0.4rem;">Quoting &amp; bids</p>
+              <p class="card__desc">Standardized with bid automation. Multi-day turnarounds replaced by a consistent, repeatable workflow.</p>
+            </div>
+            <div>
+              <p class="cat" style="margin-bottom:0.4rem;">Tool consolidation</p>
+              <p class="card__desc">Multiple disconnected tools replaced with one operating system. Single source of truth for the deal team.</p>
+            </div>
+          </div>
+
+          <div class="case__take">
+            <p><strong>What the deal team got:</strong> clean monitoring data, lower admin drag on EBITDA, and a more scalable and operationally mature company at exit. No new headcount. Fixed scope.</p>
+          </div>
+
+          <p class="note">Representative operational build — an example of the types of systems modernization we scope for lower-middle-market operators. Client references available as engagements mature.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · How It Works -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">04 — How It Works</p>
+          <h2 class="bi-h2">Start with one company.</h2>
+        </div>
+        <div class="path">
+          <div class="reveal"><div class="step__n">01</div><h3 class="step__t">Operational diagnostic</h3><p class="step__d">We assess one portfolio company and map the highest-ROI systems gaps — no commitment to the rest of the portfolio.</p></div>
+          <div class="reveal"><div class="step__n">02</div><h3 class="step__t">Fixed-scope build</h3><p class="step__d">We ship the dashboard, automation, tool, or rebuild on a fixed scope and timeline. Weeks, not quarters.</p></div>
+          <div class="reveal"><div class="step__n">03</div><h3 class="step__t">Roll out across the portfolio</h3><p class="step__d">What works in one company becomes a repeatable playbook for the rest — and we stay on to maintain and iterate.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · Why sponsors use us -->
+    <section class="section" id="why">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">05 — Why Sponsors Use Us</p>
+          <h2 class="bi-h2">Built for the way you create value.</h2>
+        </div>
+        <div class="grid grid--4">
+          <div class="bi-card reveal"><p class="cat">Thesis-aligned</p><p class="card__desc">Cleaner monitoring data, lower admin drag on EBITDA, and a more scalable company at exit.</p></div>
+          <div class="bi-card reveal"><p class="cat">One vetted partner</p><p class="card__desc">Web systems, dashboards, automation, and intelligence from one bench partner — not five niche vendors to source and manage.</p></div>
+          <div class="bi-card reveal"><p class="cat">Right-sized for LMM</p><p class="card__desc">Built for sub-$50M-revenue companies — not enterprise-priced integrators or consultants.</p></div>
+          <div class="bi-card reveal"><p class="cat">Repeatable</p><p class="card__desc">What lands in one portfolio company rolls out across the rest as a standard playbook.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · Typical Engagements -->
+    <section class="section" id="engagements">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">06 — Typical Engagements</p>
+          <h2 class="bi-h2">No ambiguity on scope or cost.</h2>
+        </div>
+        <div class="reveal">
+          <table class="engage-table">
+            <thead>
+              <tr>
+                <th>Engagement type</th>
+                <th>Timeline</th>
+                <th>What's delivered</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Operational diagnostic</td>
+                <td>1–2 weeks</td>
+                <td>Systems gap map, prioritized recommendations, fixed-scope proposal for the follow-on build</td>
+              </tr>
+              <tr>
+                <td>Dashboard build</td>
+                <td>2–4 weeks</td>
+                <td>Live operational dashboard connected to existing data sources; deal-team monitoring view included</td>
+              </tr>
+              <tr>
+                <td>Workflow automation</td>
+                <td>3–6 weeks</td>
+                <td>One or more automated workflows replacing manual back-office processes</td>
+              </tr>
+              <tr>
+                <td>Internal portal or system</td>
+                <td>4–8 weeks</td>
+                <td>Custom internal tool, client/vendor portal, or operating platform replacing fragmented SaaS</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="bi-mono" style="margin-top: var(--bi-space-md); color: var(--bi-text-mute); font-size: var(--bi-fs-sm);">Most engagements fall between $5k–$35k fixed scope, depending on complexity. The diagnostic is always the first step on a new portfolio company.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+      <div class="cta__inner reveal">
+        <h2 class="bi-h1 cta__title">Bring us one messy portfolio company. We'll scope the operational drag.</h2>
+        <p class="bi-lead cta__sub">We’ll map the highest-ROI systems gap and scope a fixed-price fix. No generalist consulting — a tight diagnostic and a fast build.</p>
+        <div class="cta__btns">
+          <a href="#" class="bi-btn bi-btn--primary" onclick="diagOpen();return false;">Get a Portfolio Diagnostic</a>
+          <a href="mailto:hi@businessintuitive.tech?subject=Portfolio%20value%20creation" class="bi-btn bi-btn--signal">Email the team</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>&copy; 2026 Business Intuitive Inc. — The Intelligence Layer for Founders.</span>
+      <span class="footer__links">
+        <a href="https://intelligence.businessintuitive.tech">Intelligence</a>
+        <a href="https://gov.businessintuitive.tech">Federal</a>
+        <a href="https://www.bizapedia.com/wa/business-intuitive-inc.html">Verify</a>
+      </span>
+    </footer>
+
+    </div>
+
+    <script>
+      (function () {
+        var els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+        }, { threshold: 0.14 });
+        els.forEach(function (e) { io.observe(e); });
+      })();
+    </script>
+
+    <!-- Diagnostic Modal -->
+    <div class="diag-overlay" id="diagOverlay" onclick="diagClose()"></div>
+    <div class="diag-modal" id="diagModal" role="dialog" aria-modal="true" aria-labelledby="diagTitle">
+      <button class="diag-modal__close" onclick="diagClose()" aria-label="Close">✕</button>
+      <p class="bi-eyebrow">Portfolio Diagnostic</p>
+      <h2 class="bi-h2" id="diagTitle" style="margin-top:.5rem;max-width:24ch;">Tell us about the company.</h2>
+      <p style="color:var(--bi-text-soft);font-size:var(--bi-fs-sm);margin-top:.5rem;">We’ll review it and come back with a scoped fix — usually within 24 hours.</p>
+      <form class="diag-f" id="diagForm" novalidate>
+        <div class="diag-f__row">
+          <div class="diag-f__field">
+            <label for="diagName">Your name</label>
+            <input type="text" id="diagName" name="name" required placeholder="Jane Smith" autocomplete="name">
+          </div>
+          <div class="diag-f__field">
+            <label for="diagEmail">Work email</label>
+            <input type="email" id="diagEmail" name="email" required placeholder="you@fund.com" autocomplete="email">
+          </div>
+        </div>
+        <div class="diag-f__row">
+          <div class="diag-f__field">
+            <label for="diagFirm">Fund / firm</label>
+            <input type="text" id="diagFirm" name="firm" required placeholder="Argosy Private Equity">
+          </div>
+          <div class="diag-f__field">
+            <label for="diagRevenue">Portfolio company revenue</label>
+            <select id="diagRevenue" name="revenue">
+              <option value="">Select range</option>
+              <option value="Under $5M">Under $5M</option>
+              <option value="$5M–$15M">$5M–$15M</option>
+              <option value="$15M–$50M">$15M–$50M</option>
+              <option value="Over $50M">Over $50M</option>
+              <option value="Not sure">Not sure / early diligence</option>
+            </select>
+          </div>
+        </div>
+        <div class="diag-f__field">
+          <label for="diagChallenge">Which company, and what’s the operational drag? <span style="color:var(--bi-text-mute);text-transform:none;letter-spacing:0;">(2–3 sentences)</span></label>
+          <textarea id="diagChallenge" name="challenge" rows="3" placeholder="e.g. Field-services portco, ~$12M rev. Monthly reporting takes 10 days to close manually. Quoting is in spreadsheets."></textarea>
+        </div>
+        <div class="diag-f__actions">
+          <button type="submit" class="bi-btn bi-btn--primary" id="diagSubmit">Send diagnostic request</button>
+          <span class="diag-status" id="diagStatus" aria-live="polite"></span>
+        </div>
+      </form>
+      <div class="diag-success" id="diagSuccess" hidden>
+        <p class="bi-h3" style="color:var(--bi-teal-bright);">Request received.</p>
+        <p style="color:var(--bi-text-soft);margin-top:.6rem;">We’ll review the situation and reach out within 24 hours with a scope outline.</p>
+      </div>
+    </div>
+
+    <script>
+      function diagOpen() {
+        document.getElementById('diagModal').classList.add('open');
+        document.getElementById('diagOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function () { document.getElementById('diagName').focus(); }, 220);
+      }
+      function diagClose() {
+        document.getElementById('diagModal').classList.remove('open');
+        document.getElementById('diagOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') diagClose(); });
+      document.getElementById('diagForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var btn = document.getElementById('diagSubmit');
+        var status = document.getElementById('diagStatus');
+        btn.disabled = true; btn.textContent = 'Sending…';
+        status.textContent = ''; status.className = 'diag-status';
+        var data = {
+          name:      document.getElementById('diagName').value.trim(),
+          email:     document.getElementById('diagEmail').value.trim(),
+          firm:      document.getElementById('diagFirm').value.trim(),
+          revenue:   document.getElementById('diagRevenue').value,
+          challenge: document.getElementById('diagChallenge').value.trim(),
+        };
+        try {
+          var res = await fetch('/api/diagnostic-request.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          var json = await res.json();
+          if (json.success) {
+            document.getElementById('diagForm').hidden = true;
+            document.getElementById('diagSuccess').hidden = false;
+          } else { throw new Error(json.error || 'Submission failed'); }
+        } catch (err) {
+          status.textContent = err.message || 'Something went wrong — email us at hi@businessintuitive.tech';
+          status.className = 'diag-status error';
+          btn.disabled = false; btn.textContent = 'Send diagnostic request';
+        }
+      });
+    </script>
+
+    <!-- Studio chatbot -->
+    <script src="/assets/chatbot.js" defer></script>
+
+    <!-- First-party behavior analytics → BI analytics hub -->
+    <script defer src="/assets/bi-analytics.js"
+            data-hub="https://intelligence.businessintuitive.tech/api/track"
+            data-site="main"></script>
+
+  </body>
+</html>

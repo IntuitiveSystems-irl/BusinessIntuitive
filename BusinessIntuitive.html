@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/brand-mark.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Google tag (gtag.js) — Google Ads AW-18153637752 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18153637752"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18153637752');
+    </script>
+
+    <title>Business Intuitive | Custom Web Systems, Dashboards & Automation for Founders</title>
+    <meta name="description" content="Business Intuitive builds custom web systems, real-time dashboards, and automation for founder-led businesses — one operating layer instead of spreadsheet sprawl, missed follow-ups, and disconnected tools." />
+    <meta name="keywords" content="founder intelligence, business dashboards, custom web systems, automation, internal tools, operations dashboards, predictive analytics, Lightning, Nostr, Business Intuitive" />
+    <meta name="author" content="Business Intuitive" />
+    <meta name="theme-color" content="#0B0C0E" />
+    <link rel="canonical" href="https://businessintuitive.tech" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://businessintuitive.tech" />
+    <meta property="og:title" content="Business Intuitive | Custom Web Systems, Dashboards & Automation" />
+    <meta property="og:description" content="Custom web systems, real-time dashboards, and automation for founder-led businesses — one operating layer instead of tool chaos." />
+    <meta property="og:site_name" content="Business Intuitive" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://businessintuitive.tech/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Business Intuitive — custom web systems, dashboards, and automation" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Business Intuitive | Custom Web Systems, Dashboards & Automation" />
+    <meta name="twitter:description" content="Custom web systems, real-time dashboards, and automation for founder-led businesses." />
+    <meta name="twitter:image" content="https://businessintuitive.tech/assets/og-image.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://businessintuitive.tech/#organization",
+          "name": "Business Intuitive",
+          "url": "https://businessintuitive.tech",
+          "slogan": "The Intelligence Layer for Founders",
+          "description": "Business Intuitive is the intelligence layer for founders. We design and build the custom systems, dashboards, automation, and intelligence that turn instinct into infrastructure.",
+          "foundingDate": "2024"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://businessintuitive.tech/#website",
+          "url": "https://businessintuitive.tech",
+          "name": "Business Intuitive",
+          "publisher": { "@id": "https://businessintuitive.tech/#organization" }
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/assets/brand.css" />
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--bi-bg);
+        color: var(--bi-text);
+        font-family: var(--bi-font-sans);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(55vw 45vh at 80% -8%, rgba(59,130,246,0.16), transparent 60%),
+          radial-gradient(45vw 38vh at -5% 100%, rgba(22,162,174,0.12), transparent 60%);
+      }
+      .wrap { position: relative; z-index: 1; }
+      .container { max-width: var(--bi-maxw); margin: 0 auto; padding: 0 var(--bi-space-lg); }
+
+      /* nav */
+      .nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.1rem var(--bi-space-lg);
+        background: rgba(11,12,14,0.72);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--bi-line);
+      }
+      .nav__brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: var(--bi-text); }
+      .nav__brand img { width: 32px; height: 32px; }
+      .nav__brand b { font-family: var(--bi-font-display); font-weight: 600; font-size: 1.02rem; letter-spacing: var(--bi-track-snug); }
+      .nav__links { display: flex; align-items: center; gap: var(--bi-space-md); }
+      .nav__link { font-size: var(--bi-fs-sm); color: var(--bi-text-soft); text-decoration: none; transition: color 0.3s var(--bi-ease); letter-spacing: 0.01em; }
+      .nav__link:hover { color: var(--bi-lime); text-shadow: 0 0 18px rgba(200,255,90,0.45); }
+      .nav__link--prop { color: var(--bi-teal-bright); opacity: 0.82; }
+      .nav__link--prop:hover { opacity: 1; color: var(--bi-lime); text-shadow: 0 0 18px rgba(200,255,90,0.45); }
+      .nav__live { width: 7px; height: 7px; border-radius: 50%; background: var(--bi-lime); box-shadow: 0 0 10px rgba(200,255,90,0.65); animation: bi-pulse 2.4s var(--bi-ease) infinite; }
+      .nav__brand:hover b { color: var(--bi-lime); transition: color 0.3s var(--bi-ease); }
+      .hero .bi-btn--ghost:hover { border-color: var(--bi-lime); color: var(--bi-lime); box-shadow: var(--bi-glow-lime); }
+
+      /* hero */
+      .hero {
+        min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+        padding: 9rem var(--bi-space-lg) var(--bi-space-2xl);
+        position: relative;
+      }
+      .hero__inner { max-width: var(--bi-maxw); margin: 0 auto; width: 100%; }
+      .hero__title { max-width: 18ch; margin: var(--bi-space-md) 0; }
+      .hero__sub { max-width: 52ch; margin-bottom: var(--bi-space-lg); }
+      .hero__cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+      /* capability strip */
+      .strip { border-top: 1px solid var(--bi-line); border-bottom: 1px solid var(--bi-line); padding: var(--bi-space-md) var(--bi-space-lg); }
+      .strip__list { max-width: var(--bi-maxw); margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--bi-space-lg); }
+      .strip__item { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-text-mute); }
+
+      /* sections */
+      .section { padding: var(--bi-space-3xl) 0; }
+      .head { max-width: 60ch; margin-bottom: var(--bi-space-xl); }
+      .head .bi-h2 { margin-top: 0.6rem; }
+      .grid { display: grid; gap: var(--bi-space-md); }
+      .grid--2 { grid-template-columns: repeat(2, 1fr); }
+      .grid--4 { grid-template-columns: repeat(4, 1fr); }
+      .cat { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-teal-bright); margin-bottom: 0.6rem; }
+      .card__desc { font-size: var(--bi-fs-sm); color: var(--bi-text-soft); line-height: 1.7; margin-top: 0.5rem; }
+
+      /* intelligence feature */
+      .intel { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: var(--bi-space-xl); align-items: center; padding: var(--bi-space-lg); border: 1px solid var(--bi-line); border-radius: var(--bi-r-lg); background: linear-gradient(180deg, var(--bi-surface-1), var(--bi-bg)); }
+      .intel__panel { background: var(--bi-charcoal); border: 1px solid var(--bi-line); border-radius: var(--bi-r); padding: var(--bi-space-lg); box-shadow: var(--bi-shadow); }
+      .intel__panel h4 { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-text-mute); margin-bottom: var(--bi-space-sm); }
+      .metric { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid var(--bi-line); }
+      .metric:last-of-type { border-bottom: none; }
+      .metric__k { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-wide); text-transform: uppercase; color: var(--bi-text-soft); }
+      .metric__v { font-family: var(--bi-font-mono); font-size: var(--bi-fs-sm); color: var(--bi-teal-bright); }
+      .metric__v.up { color: var(--bi-lime); }
+
+      /* path */
+      .path { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--bi-space-md); margin-top: var(--bi-space-lg); }
+      .step__n { font-family: var(--bi-font-display); font-size: 2.4rem; color: var(--bi-teal); opacity: 0.65; }
+      .step__t { font-weight: 600; margin: 0.4rem 0 0.3rem; }
+      .step__d { font-size: var(--bi-fs-sm); color: var(--bi-text-soft); line-height: 1.6; }
+
+      /* founder */
+      .founder { text-align: center; max-width: 760px; margin: 0 auto; }
+      .founder__mark { width: 4px; height: 56px; background: var(--bi-dusty-pink); border-radius: 4px; margin: 0 auto var(--bi-space-md); }
+      .founder__name { font-family: var(--bi-font-display); font-size: 1.9rem; font-weight: 500; letter-spacing: var(--bi-track-snug); }
+      .founder__bio { color: var(--bi-text-soft); line-height: 1.85; margin: var(--bi-space-sm) 0 var(--bi-space-md); }
+      .founder__cred { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-wide); text-transform: uppercase; color: var(--bi-text-mute); }
+
+      /* activation */
+      .cta { text-align: center; padding: var(--bi-space-3xl) var(--bi-space-lg); position: relative; }
+      .cta__inner { max-width: 720px; margin: 0 auto; }
+      .cta__title { margin-bottom: var(--bi-space-sm); }
+      .cta__sub { color: var(--bi-text-soft); margin-bottom: var(--bi-space-lg); }
+      .cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+      /* book + lead capture */
+      .book { align-items: start; }
+      .book__row { display: flex; gap: 0.6rem; }
+      .book__row .lead-input { flex: 1; min-width: 0; }
+      input.lead-input[type="date"], select.lead-input { color-scheme: dark; }
+      .lead-input { width: 100%; background: var(--bi-charcoal); border: 1px solid var(--bi-line); border-radius: 8px; color: var(--bi-text); padding: 0.75rem 0.9rem; font-family: var(--bi-font-sans); font-size: var(--bi-fs-sm); margin-top: 0.7rem; outline: none; transition: border-color 0.3s var(--bi-ease); }
+      .lead-input:focus { border-color: var(--bi-teal-bright); }
+      .lead-input::placeholder { color: var(--bi-text-mute); }
+      .lead-status { margin-top: 0.6rem; font-size: var(--bi-fs-xs); color: var(--bi-dusty-pink); min-height: 1em; }
+
+      /* footer */
+      .footer { border-top: 1px solid var(--bi-line); padding: var(--bi-space-lg); display: flex; justify-content: space-between; align-items: center; gap: 1rem; color: var(--bi-text-mute); font-size: var(--bi-fs-sm); flex-wrap: wrap; }
+      .footer a { color: var(--bi-text-mute); text-decoration: none; transition: color 0.3s var(--bi-ease); }
+      .footer a:hover { color: var(--bi-teal-bright); }
+      .footer__links { display: flex; gap: var(--bi-space-md); flex-wrap: wrap; align-items: center; }
+
+      /* reveal */
+      .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s var(--bi-ease), transform 0.8s var(--bi-ease); }
+      .reveal.in { opacity: 1; transform: none; }
+
+      @media (max-width: 860px) {
+        .nav__links { display: none; }
+        .grid--4 { grid-template-columns: repeat(2, 1fr); }
+        .grid--2 { grid-template-columns: 1fr; }
+        .intel { grid-template-columns: 1fr; gap: var(--bi-space-lg); }
+        .path { grid-template-columns: repeat(2, 1fr); }
+        .hero { padding: 7rem var(--bi-space-md) var(--bi-space-xl); }
+      }
+      @media (max-width: 520px) {
+        .grid--4 { grid-template-columns: 1fr; }
+        .path { grid-template-columns: 1fr; }
+        .footer { flex-direction: column; text-align: center; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1; transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+    <nav class="nav">
+      <a href="#top" class="nav__brand">
+        <img src="/assets/brand-mark.svg" alt="Business Intuitive" />
+        <b>Business Intuitive</b>
+        <span class="nav__live" aria-hidden="true"></span>
+      </a>
+      <div class="nav__links">
+        <a href="#system" class="nav__link">The System</a>
+        <a href="#proof" class="nav__link">Proof</a>
+        <a href="#path" class="nav__link">The Path</a>
+        <a href="https://intelligence.businessintuitive.tech" class="nav__link nav__link--prop">Intelligence ↗</a>
+        <a href="https://gov.businessintuitive.tech" class="nav__link nav__link--prop">Federal ↗</a>
+        <a href="#book" class="bi-btn bi-btn--primary" style="padding: 0.6rem 1.3rem;">Book a call</a>
+      </div>
+    </nav>
+
+    <!-- 1 · The Clarity Statement -->
+    <header class="hero" id="top">
+      <div class="hero__inner">
+        <p class="bi-eyebrow">The Intelligence Layer for Founders</p>
+        <h1 class="bi-display hero__title">We build the <span style="color:var(--bi-blue-bright);">system</span> your business should already have.</h1>
+        <p class="bi-lead hero__sub">Custom web systems, real-time dashboards, and automation for founder-led businesses — one operating layer that replaces spreadsheet sprawl, missed follow-ups, and tool chaos. Scoped in days, shipped in weeks.</p>
+        <div class="hero__cta">
+          <a href="#book" class="bi-btn bi-btn--primary">Book a 15-min systems call</a>
+          <a href="#systems-read" class="bi-btn bi-btn--ghost">Get a free systems read →</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Capability strip -->
+    <section class="strip">
+      <div class="strip__list">
+        <span class="strip__item">Systems</span>
+        <span class="strip__item">Dashboards</span>
+        <span class="strip__item">Automation</span>
+        <span class="strip__item">Client Platforms</span>
+        <span class="strip__item">Lightning + Nostr</span>
+      </div>
+    </section>
+
+    <!-- 2 · The System -->
+    <section class="section" id="system">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">01 — The System</p>
+          <h2 class="bi-h2">Clarity is a system, not a feeling.</h2>
+        </div>
+        <div class="grid grid--2">
+          <article class="bi-card reveal">
+            <p class="cat">Custom Web Systems</p>
+            <h3 class="bi-h3">Sites that work like software</h3>
+            <p class="card__desc">Bespoke websites, web apps, and client portals — no templates. Built for performance, conversion, and the way your operation actually runs.</p>
+            <a href="#" class="bi-link" data-chat-open style="display:inline-block;margin-top:1rem;">Start a build →</a>
+          </article>
+          <article class="bi-card reveal">
+            <p class="cat">Operations Dashboards</p>
+            <h3 class="bi-h3">Your numbers, finally legible</h3>
+            <p class="card__desc">Real-time dashboards for leads, revenue, and team performance. Zero manual entry. One source of truth.</p>
+          </article>
+          <article class="bi-card reveal">
+            <p class="cat">Client Platforms</p>
+            <h3 class="bi-h3">Portals that close the loop</h3>
+            <p class="card__desc">Secure client portals for documents, updates, and payments — cutting email volume and friction.</p>
+          </article>
+          <article class="bi-card reveal">
+            <p class="cat">Automation Infrastructure</p>
+            <h3 class="bi-h3">The system runs the work</h3>
+            <p class="card__desc">Lead routing, follow-up, payouts, and Lightning + Nostr rails — wired into the tools you already use.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · The Intelligence Layer -->
+    <section class="section" id="intelligence">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">02 — The Intelligence Layer</p>
+          <h2 class="bi-h2">Intuition is data you haven't articulated yet.</h2>
+        </div>
+        <div class="intel reveal">
+          <div>
+            <p class="bi-body">A dedicated layer of dashboards, AI insight, and predictive models — the math behind every decision. Sharper, more technical, and built to tell you what's about to happen, not just what already did.</p>
+            <div style="margin-top: var(--bi-space-md);">
+              <a href="https://intelligence.businessintuitive.tech" class="bi-link bi-mono">Explore Intelligence →</a>
+            </div>
+          </div>
+          <div class="intel__panel">
+            <h4>Live Signal</h4>
+            <div class="metric"><span class="metric__k">MRR</span><span class="metric__v up">+18.4%</span></div>
+            <div class="metric"><span class="metric__k">DSCR</span><span class="metric__v">1.27</span></div>
+            <div class="metric"><span class="metric__k">Churn</span><span class="metric__v">2.1%</span></div>
+            <div class="metric"><span class="metric__k">Forecast</span><span class="metric__v up">On track</span></div>
+            <div class="bi-data-line" style="margin-top: var(--bi-space-md);"></div>
+            <p class="bi-mono" style="margin-top: 0.6rem; font-size: var(--bi-fs-xs); color: var(--bi-text-mute);">Modeling next 90 days…</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · The Proof -->
+    <section class="section" id="proof">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">03 — The Proof</p>
+          <h2 class="bi-h2">Run the number.</h2>
+        </div>
+        <div class="grid grid--4">
+          <div class="bi-card reveal"><div class="bi-display" style="font-size: 2.2rem;">40–60%</div><p class="card__desc"><strong style="color:var(--bi-text);font-weight:600;">Less admin overhead</strong><br>After client portals replaced email chains.</p></div>
+          <div class="bi-card reveal"><div class="bi-display" style="font-size: 2.2rem;">&lt;5 min</div><p class="card__desc"><strong style="color:var(--bi-text);font-weight:600;">Proposal generation</strong><br>Custom bid automation for field teams.</p></div>
+          <div class="bi-card reveal"><div class="bi-display" style="font-size: 2.2rem;">1</div><p class="card__desc"><strong style="color:var(--bi-text);font-weight:600;">Operating system</strong><br>Replacing fragmented SaaS workflows.</p></div>
+          <div class="bi-card reveal"><div class="bi-display" style="font-size: 2.2rem;">24/7</div><p class="card__desc"><strong style="color:var(--bi-text);font-weight:600;">Lead handling</strong><br>Automated routing and follow-up.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · The Path -->
+    <section class="section" id="path">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">04 — The Path</p>
+          <h2 class="bi-h2">How we work.</h2>
+        </div>
+        <div class="path">
+          <div class="reveal"><div class="step__n">01</div><h3 class="step__t">Discovery</h3><p class="step__d">We learn your business, your bottlenecks, and what success looks like.</p></div>
+          <div class="reveal"><div class="step__n">02</div><h3 class="step__t">Strategy</h3><p class="step__d">We architect a system that fits your operation — not a template.</p></div>
+          <div class="reveal"><div class="step__n">03</div><h3 class="step__t">Build</h3><p class="step__d">We ship custom code, designed for performance and maintainability.</p></div>
+          <div class="reveal"><div class="step__n">04</div><h3 class="step__t">Support</h3><p class="step__d">Ongoing care: edits, security, intelligence, and on-call support.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Founder -->
+    <section class="section">
+      <div class="container">
+        <div class="founder reveal">
+          <div class="founder__mark"></div>
+          <h2 class="founder__name">Lindsay Bachman</h2>
+          <p class="founder__bio">Lindsay designs and builds the systems founders actually use. With 13+ years in leadership and formal training across psychology, brain sciences, and clinical informatics, she turns instinct into infrastructure — sites, apps, dashboards, and intelligence that fit the business they're built for.</p>
+          <p class="founder__cred">US-Based · Custom Builds · No Templates</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · The Activation -->
+    <section class="section" id="book">
+      <div class="container">
+        <div class="head reveal">
+          <p class="bi-eyebrow">05 — The Activation</p>
+          <h2 class="bi-h1">Founders deserve intelligence.</h2>
+          <p class="bi-lead" style="margin-top:0.8rem;color:var(--bi-text-soft);">Book a 15-minute systems call — or tell us your bottleneck and get a specific read on what we'd fix first. No pitch, no template traps.</p>
+        </div>
+        <div class="book grid grid--2">
+          <div class="bi-card reveal" id="book-call">
+            <p class="cat">Book the call</p>
+            <h3 class="bi-h3">Request your 15-min call</h3>
+            <p class="card__desc">Tell us when works and we'll lock it in. You'll get a confirmation by email the moment you send this — no third-party calendar, no back-and-forth.</p>
+            <form id="callForm" novalidate>
+              <input class="lead-input" id="callName" type="text" placeholder="Your name" autocomplete="name" required />
+              <input class="lead-input" id="callEmail" type="email" placeholder="Work email" autocomplete="email" required />
+              <input class="lead-input" id="callPhone" type="tel" placeholder="Phone (optional)" autocomplete="tel" />
+              <div class="book__row">
+                <input class="lead-input" id="callDate" type="date" aria-label="Preferred date" required />
+                <select class="lead-input" id="callWindow" aria-label="Preferred time">
+                  <option value="Morning (8–11am)">Morning (8–11am)</option>
+                  <option value="Midday (11am–2pm)">Midday (11am–2pm)</option>
+                  <option value="Afternoon (2–5pm)">Afternoon (2–5pm)</option>
+                  <option value="Evening (5–7pm)">Evening (5–7pm)</option>
+                </select>
+              </div>
+              <select class="lead-input" id="callTz" aria-label="Time zone">
+                <option value="PT">Pacific (PT)</option>
+                <option value="MT">Mountain (MT)</option>
+                <option value="CT">Central (CT)</option>
+                <option value="ET">Eastern (ET)</option>
+              </select>
+              <textarea class="lead-input" id="callNote" rows="2" placeholder="Anything we should know? (optional)"></textarea>
+              <button type="submit" class="bi-btn bi-btn--primary" id="callBtn" style="width:100%;justify-content:center;margin-top:0.9rem;">Request my call</button>
+              <p class="lead-status" id="callStatus" role="status"></p>
+            </form>
+            <div id="callSuccess" hidden>
+              <p class="bi-body" style="color:var(--bi-lime);margin-top:1rem;">Got it — check your inbox for a confirmation. Lindsay will lock in your time and reply shortly. Urgent? <a class="bi-link" href="mailto:hi@businessintuitive.tech">hi@businessintuitive.tech</a></p>
+            </div>
+          </div>
+          <div class="bi-card reveal" id="systems-read">
+            <p class="cat">Not ready for a call?</p>
+            <h3 class="bi-h3">Get a free systems read</h3>
+            <p class="card__desc">Tell us what's slowing your operation down. You'll get a short, specific read on what we'd fix first — within one business day. No pitch deck, no obligation.</p>
+            <form id="leadForm" novalidate>
+              <input class="lead-input" id="leadName" type="text" placeholder="Your name" autocomplete="name" required />
+              <input class="lead-input" id="leadEmail" type="email" placeholder="Work email" autocomplete="email" required />
+              <input class="lead-input" id="leadBiz" type="text" placeholder="Business name" autocomplete="organization" required />
+              <textarea class="lead-input" id="leadChallenge" rows="4" placeholder="What's the bottleneck? (manual quotes, no follow-up, numbers living in six spreadsheets…)"></textarea>
+              <button type="submit" class="bi-btn bi-btn--signal" id="leadBtn" style="width:100%;justify-content:center;margin-top:0.9rem;">Send it — get the read</button>
+              <p class="lead-status" id="leadStatus" role="status"></p>
+            </form>
+            <div id="leadSuccess" hidden>
+              <p class="bi-body" style="color:var(--bi-lime);margin-top:1rem;">Got it — your read lands within one business day. Urgent? <a class="bi-link" href="mailto:hi@businessintuitive.tech">hi@businessintuitive.tech</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>&copy; 2026 Business Intuitive Inc. — The Intelligence Layer for Founders.</span>
+      <span class="footer__links">
+        <a href="/portfolio-value-creation">For Private Equity</a>
+        <a href="/investor-financing">Investor Financing</a>
+        <a href="https://intelligence.businessintuitive.tech">Intelligence</a>
+        <a href="https://gov.businessintuitive.tech">Federal</a>
+        <a href="https://www.bizapedia.com/wa/business-intuitive-inc.html">Verify</a>
+      </span>
+    </footer>
+
+    </div>
+
+    <script>
+      (function () {
+        var els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+        }, { threshold: 0.14 });
+        els.forEach(function (e) { io.observe(e); });
+      })();
+    </script>
+
+    <!-- Book-a-call form → /api/book-call.php (native, emails both parties via Resend) -->
+    <script>
+      (function () {
+        var form = document.getElementById('callForm');
+        if (!form) return;
+        var d = document.getElementById('callDate');
+        if (d) { d.min = new Date().toISOString().slice(0, 10); }
+        function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var btn = document.getElementById('callBtn');
+          var status = document.getElementById('callStatus');
+          var name = val('callName'), email = val('callEmail');
+          if (!name || !email) { status.textContent = 'Name and email are required.'; return; }
+          btn.disabled = true; btn.textContent = 'Requesting…'; status.textContent = '';
+          try {
+            var res = await fetch('/api/book-call.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: name, email: email, phone: val('callPhone'),
+                date: val('callDate'), window: val('callWindow'),
+                timezone: val('callTz'), note: val('callNote'), source: 'homepage'
+              })
+            });
+            var json = await res.json();
+            if (!json.success) throw new Error(json.error || 'Submission failed');
+            form.hidden = true;
+            document.getElementById('callSuccess').hidden = false;
+            if (window.biTrack) window.biTrack('call_request', 1, { form: 'book-call' });
+          } catch (err) {
+            status.textContent = (err && err.message) || 'Something went wrong — email hi@businessintuitive.tech';
+            btn.disabled = false; btn.textContent = 'Request my call';
+          }
+        });
+      })();
+    </script>
+
+    <!-- Systems-read lead form -->
+    <script>
+      (function () {
+        var form = document.getElementById('leadForm');
+        if (!form) return;
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var btn = document.getElementById('leadBtn');
+          var status = document.getElementById('leadStatus');
+          var name = document.getElementById('leadName').value.trim();
+          var email = document.getElementById('leadEmail').value.trim();
+          var biz = document.getElementById('leadBiz').value.trim();
+          var challenge = document.getElementById('leadChallenge').value.trim();
+          if (!name || !email || !biz) { status.textContent = 'Name, email, and business name are required.'; return; }
+          btn.disabled = true; btn.textContent = 'Sending…'; status.textContent = '';
+          try {
+            var res = await fetch('/api/diagnostic-request.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name: name, email: email, firm: biz, challenge: challenge, source: 'homepage' })
+            });
+            var json = await res.json();
+            if (!json.success) throw new Error(json.error || 'Submission failed');
+            form.hidden = true;
+            document.getElementById('leadSuccess').hidden = false;
+            if (window.biTrack) window.biTrack('lead_submit', 1, { form: 'systems-read' });
+          } catch (err) {
+            status.textContent = (err && err.message) || 'Something went wrong — email hi@businessintuitive.tech';
+            btn.disabled = false; btn.textContent = 'Send it — get the read';
+          }
+        });
+      })();
+    </script>
+
+    <!-- Studio chatbot — web-design / build intake (texts Lindsay) -->
+    <script src="/assets/chatbot.js" defer></script>
+
+    <!-- First-party behavior analytics → BI analytics hub -->
+    <script defer src="/assets/bi-analytics.js"
+            data-hub="https://intelligence.businessintuitive.tech/api/track"
+            data-site="main"></script>
+
+  </body>
+</html>

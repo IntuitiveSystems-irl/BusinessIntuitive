@@ -1,0 +1,32 @@
+# Business Intuitive — businessintuitive.tech
+# Allow all crawlers including AI search bots
+
+User-agent: *
+Allow: /
+
+# AI Search Crawlers — explicitly welcomed
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+Sitemap: https://businessintuitive.tech/sitemap.xml

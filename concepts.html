@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BI · Signature Object — Concept Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #06060a;
+      --surface: rgba(255,255,255,0.025);
+      --surface-2: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --border-soft: rgba(255,255,255,0.04);
+      --text: #ebebef;
+      --muted: rgba(255,255,255,0.55);
+      --dim: rgba(255,255,255,0.35);
+      --accent: #4ECDC4;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(78,205,196,0.05), transparent 55%),
+        radial-gradient(ellipse at 80% 100%, rgba(120,80,200,0.04), transparent 55%);
+    }
+
+    /* film grain */
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2' seed='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      z-index: 1;
+    }
+
+    .shell {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 72px 32px 96px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header {
+      max-width: 720px;
+      margin-bottom: 56px;
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(40px, 5vw, 60px);
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
+      color: #fff;
+    }
+    h1 em { font-style: italic; color: #cfcfd4; }
+
+    .lede {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 19px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 28px 24px;
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .corner {
+      position: absolute; width: 14px; height: 14px;
+      border: 1px solid rgba(78,205,196,0.45);
+      pointer-events: none;
+    }
+    .corner.tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+    .corner.br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .card-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .card-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--dim);
+    }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.05;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+    .card-title em { font-style: italic; color: #cfcfd4; }
+
+    .card-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 4px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 45%, #0e0e16 0%, #050507 70%, #030305 100%);
+      box-shadow: inset 0 0 90px rgba(0,0,0,0.65);
+      cursor: grab;
+    }
+    .canvas-wrap:active { cursor: grabbing; }
+    .canvas-wrap canvas { display: block; width: 100%; height: 100%; }
+
+    .canvas-hint {
+      position: absolute;
+      top: 14px; right: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      pointer-events: none;
+    }
+
+    .specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 28px;
+      margin-top: 24px;
+    }
+    .spec dt {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 6px;
+    }
+    .spec dd {
+      color: var(--text);
+      line-height: 1.5;
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .btn {
+      padding: 11px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 2px;
+      border: 1px solid var(--accent);
+      background: rgba(78,205,196,0.12);
+      color: var(--accent);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.18s ease;
+    }
+    .btn:hover { background: rgba(78,205,196,0.22); }
+
+    .btn.secondary {
+      background: transparent;
+      border-color: rgba(255,255,255,0.16);
+      color: #cfcfd4;
+    }
+    .btn.secondary:hover { background: rgba(255,255,255,0.04); }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 13px;
+      color: var(--muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      line-height: 1.7;
+      max-width: 740px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <header class="header">
+      <div class="eyebrow">Business Intuitive · Signature Object</div>
+      <h1>Two directions for the <em>centerpiece.</em></h1>
+      <p class="lede">Both designed to live inside your existing dark / glass / grain palette and replace the current canvas hero. Spin them, let them run, pick a winner.</p>
+    </header>
+
+    <section class="grid">
+
+      <!-- ─────────── Concept 01 — The Instrument ─────────── -->
+      <article class="card">
+        <span class="corner tl"></span><span class="corner br"></span>
+
+        <div class="card-meta">
+          <span class="card-label">Concept · The Instrument</span>
+          <span class="card-num">01</span>
+        </div>
+
+        <h2 class="card-title">The <em>Instrument</em></h2>
+        <p class="card-tagline">A precision artifact, lit like a museum piece.</p>
+
+        <div class="canvas-wrap">
+          <canvas id="canvas-01"></canvas>
+          <span class="canvas-hint">Drag to rotate</span>
+        </div>
+
+        <dl class="specs">
+          <div class="spec"><dt>Form</dt><dd>Concentric rings + glass core, calibrated tick ring</dd></div>
+          <div class="spec"><dt>Material</dt><dd>Optical glass, brushed titanium, teal accent</dd></div>
+          <div class="spec"><dt>Motion</dt><dd>Counter-rotating axes, breathing accent pulse</dd></div>
+          <div class="spec"><dt>Story</dt><dd>"We are the instrument that calibrates."</dd></div>
+        </dl>
+
+        <div class="actions">
+          <button class="btn" data-pick="01">Pick this one →</button>
+          <button class="btn secondary" data-toggle="01">Pause auto-rotate</button>
+        </div>
+      </article>
+
+      <!-- ─────────── Concept 03 — The Calibrated Form ─────────── -->
+      <article class="card">
+        <span class="corner tl"></span><span class="corner br"></span>
+
+        <div class="card-meta">
+          <span class="card-label">Concept · The Calibrated Form</span>
+          <span class="card-num">03</span>
+        </div>
+
+        <h2 class="card-title">The <em>Calibrated Form</em></h2>
+        <p class="card-tagline">A single shape, breathing between states.</p>
+
+        <div class="canvas-wrap">
+          <canvas id="canvas-03"></canvas>
+          <span class="canvas-hint">Drag to rotate</span>
+        </div>
+
+        <dl class="specs">
+          <div class="spec"><dt>Form</dt><dd>Icosahedron with subtle vertex breath</dd></div>
+          <div class="spec"><dt>Material</dt><dd>Smoke glass with iridescent edge film</dd></div>
+          <div class="spec"><dt>Motion</dt><dd>~18s breath cycle, slow drift on two axes</dd></div>
+          <div class="spec"><dt>Story</dt><dd>"Form fits function. Calibrated."</dd></div>
+        </dl>
+
+        <div class="actions">
+          <button class="btn" data-pick="03">Pick this one →</button>
+          <button class="btn secondary" data-toggle="03">Pause auto-rotate</button>
+        </div>
+      </article>
+
+    </section>
+
+    <footer>
+      <p>
+        Drag inside either canvas to rotate. The final hero would feature
+        <em>one</em> concept at full viewport scale, integrated into the existing
+        geometric homepage. These prototypes use Three.js loaded from CDN
+        (~120 kb gz) with PBR lighting, ACES tone mapping, and a procedural
+        studio environment — same techniques used in production.
+      </p>
+    </footer>
+  </main>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+    // ──────────────────────────────────────────────────────────────
+    // Shared scene factory
+    // ──────────────────────────────────────────────────────────────
+    function makeScene(canvas, opts = {}) {
+      const renderer = new THREE.WebGLRenderer({
+        canvas, antialias: true, alpha: true, powerPreference: 'high-performance'
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = opts.exposure ?? 1.05;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+      const scene = new THREE.Scene();
+
+      // Procedural studio environment for proper PBR reflections
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+      camera.position.set(0, 0.5, opts.distance ?? 5.4);
+
+      const controls = new OrbitControls(camera, canvas);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.06;
+      controls.enablePan = false;
+      controls.enableZoom = false;
+      controls.minDistance = 3;
+      controls.maxDistance = 8;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = opts.rotateSpeed ?? 0.5;
+
+      function resize() {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        if (canvas.width !== w * renderer.getPixelRatio() ||
+            canvas.height !== h * renderer.getPixelRatio()) {
+          renderer.setSize(w, h, false);
+          camera.aspect = w / Math.max(h, 1);
+          camera.updateProjectionMatrix();
+        }
+      }
+
+      return { renderer, scene, camera, controls, resize };
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Concept 01 — The Instrument
+    // ──────────────────────────────────────────────────────────────
+    function buildInstrument() {
+      const canvas = document.getElementById('canvas-01');
+      const ctx = makeScene(canvas, { distance: 5.6, rotateSpeed: 0.45, exposure: 1.0 });
+      const { scene } = ctx;
+
+      // ─── Materials
+      const titanium = new THREE.MeshPhysicalMaterial({
+        color: 0xc8ccd4, metalness: 1.0, roughness: 0.28, envMapIntensity: 1.4
+      });
+      const titaniumDark = new THREE.MeshPhysicalMaterial({
+        color: 0x6a6e78, metalness: 1.0, roughness: 0.42, envMapIntensity: 1.0
+      });
+      const glass = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        metalness: 0,
+        roughness: 0.04,
+        transmission: 0.95,
+        thickness: 0.6,
+        ior: 1.45,
+        envMapIntensity: 1.6,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.05
+      });
+      const accentEmissive = new THREE.MeshStandardMaterial({
+        color: 0x4ECDC4,
+        emissive: 0x4ECDC4,
+        emissiveIntensity: 1.5,
+        roughness: 0.3,
+        metalness: 0.4
+      });
+
+      const instrument = new THREE.Group();
+
+      // ─── Outer ring + tick marks (the calibration scale)
+      const outerGroup = new THREE.Group();
+
+      const ring1 = new THREE.Mesh(
+        new THREE.TorusGeometry(1.7, 0.035, 24, 200),
+        titanium
+      );
+      ring1.rotation.x = Math.PI / 2;
+      outerGroup.add(ring1);
+
+      const ticks = new THREE.Group();
+      for (let i = 0; i < 60; i++) {
+        const major = i % 5 === 0;
+        const tick = new THREE.Mesh(
+          new THREE.BoxGeometry(0.018, major ? 0.13 : 0.07, 0.012),
+          titaniumDark
+        );
+        const ang = (i / 60) * Math.PI * 2;
+        tick.position.set(Math.cos(ang) * 1.78, 0, Math.sin(ang) * 1.78);
+        tick.lookAt(0, 0, 0);
+        ticks.add(tick);
+      }
+      ticks.rotation.x = Math.PI / 2;
+      outerGroup.add(ticks);
+
+      // ─── Middle ring (tilted)
+      const middleGroup = new THREE.Group();
+      const ring2 = new THREE.Mesh(
+        new THREE.TorusGeometry(1.25, 0.04, 24, 160),
+        titanium
+      );
+      ring2.rotation.x = Math.PI / 2;
+      middleGroup.add(ring2);
+
+      // accent indicator dot on ring 2
+      const dot2 = new THREE.Mesh(
+        new THREE.SphereGeometry(0.07, 24, 24),
+        accentEmissive
+      );
+      dot2.position.set(1.25, 0, 0);
+      middleGroup.add(dot2);
+      middleGroup.rotation.set(0.55, 0.0, 0.35);
+
+      // ─── Inner ring (steeper tilt)
+      const innerGroup = new THREE.Group();
+      const ring3 = new THREE.Mesh(
+        new THREE.TorusGeometry(0.86, 0.038, 24, 140),
+        titaniumDark
+      );
+      ring3.rotation.x = Math.PI / 2;
+      innerGroup.add(ring3);
+
+      // crossbar inside the inner ring (suggests an axis)
+      const crossbar = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.018, 0.018, 1.7, 16),
+        titaniumDark
+      );
+      crossbar.rotation.z = Math.PI / 2;
+      innerGroup.add(crossbar);
+      innerGroup.rotation.set(-0.4, 0.2, -0.55);
+
+      // ─── Central glass shell
+      const shell = new THREE.Mesh(
+        new THREE.SphereGeometry(0.5, 64, 64),
+        glass
+      );
+
+      // ─── Inner heart: emissive octahedron
+      const heart = new THREE.Mesh(
+        new THREE.OctahedronGeometry(0.13, 0),
+        accentEmissive
+      );
+
+      instrument.add(outerGroup, middleGroup, innerGroup, shell, heart);
+      scene.add(instrument);
+
+      // ─── Lights
+      const accentLight = new THREE.PointLight(0x4ECDC4, 1.4, 6, 1.5);
+      scene.add(accentLight);
+
+      const dirKey = new THREE.DirectionalLight(0xffffff, 0.9);
+      dirKey.position.set(3, 4, 2);
+      scene.add(dirKey);
+
+      const dirFill = new THREE.DirectionalLight(0x6688ff, 0.45);
+      dirFill.position.set(-3, -1, -2);
+      scene.add(dirFill);
+
+      const state = { t: 0, paused: false };
+
+      function animate(dt) {
+        if (state.paused) return;
+        state.t += dt;
+        outerGroup.rotation.y += dt * 0.18;
+        middleGroup.rotation.z += dt * 0.32;
+        innerGroup.rotation.x += dt * 0.55;
+
+        heart.rotation.x += dt * 0.6;
+        heart.rotation.y += dt * 0.42;
+        heart.position.y = Math.sin(state.t * 1.3) * 0.06;
+
+        accentLight.intensity = 1.1 + Math.sin(state.t * 2.0) * 0.3;
+      }
+      return { ...ctx, animate, state };
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Concept 03 — The Calibrated Form
+    // ──────────────────────────────────────────────────────────────
+    function buildForm() {
+      const canvas = document.getElementById('canvas-03');
+      const ctx = makeScene(canvas, { distance: 4.6, rotateSpeed: 0.35, exposure: 1.1 });
+      const { scene } = ctx;
+
+      const formMat = new THREE.MeshPhysicalMaterial({
+        color: 0x131318,
+        metalness: 0.0,
+        roughness: 0.18,
+        transmission: 0.55,
+        thickness: 1.6,
+        ior: 1.42,
+        iridescence: 1.0,
+        iridescenceIOR: 1.32,
+        iridescenceThicknessRange: [120, 880],
+        envMapIntensity: 1.7,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.08
+      });
+
+      const formGeo = new THREE.IcosahedronGeometry(1.18, 1);
+      const original = formGeo.attributes.position.array.slice();
+
+      const form = new THREE.Mesh(formGeo, formMat);
+      scene.add(form);
+
+      // subtle edge highlight
+      const edges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(formGeo, 1),
+        new THREE.LineBasicMaterial({
+          color: 0xffffff, transparent: true, opacity: 0.16
+        })
+      );
+      form.add(edges);
+
+      // inner glowing core (two-layer for depth)
+      const coreOuter = new THREE.Mesh(
+        new THREE.SphereGeometry(0.34, 32, 32),
+        new THREE.MeshBasicMaterial({
+          color: 0x4ECDC4, transparent: true, opacity: 0.55
+        })
+      );
+      form.add(coreOuter);
+
+      const coreInner = new THREE.Mesh(
+        new THREE.SphereGeometry(0.18, 24, 24),
+        new THREE.MeshBasicMaterial({ color: 0xffffff })
+      );
+      form.add(coreInner);
+
+      // lights
+      const dirKey = new THREE.DirectionalLight(0xffffff, 1.4);
+      dirKey.position.set(2, 3, 2);
+      scene.add(dirKey);
+
+      const dirFill = new THREE.DirectionalLight(0x4ECDC4, 0.5);
+      dirFill.position.set(-3, -2, -1);
+      scene.add(dirFill);
+
+      const state = { t: 0, paused: false };
+
+      function animate(dt) {
+        if (state.paused) return;
+        state.t += dt;
+        form.rotation.y += dt * 0.18;
+        form.rotation.x = Math.sin(state.t * 0.4) * 0.18;
+
+        // breathing scale + per-vertex wobble
+        const pos = formGeo.attributes.position;
+        const breath = 1 + Math.sin(state.t * 0.55) * 0.045;
+        const wobble = 0.022;
+        for (let i = 0; i < pos.count; i++) {
+          const ox = original[i*3], oy = original[i*3+1], oz = original[i*3+2];
+          const local = 1 + Math.sin(state.t * 0.8 + i * 0.55) * wobble;
+          pos.array[i*3]   = ox * breath * local;
+          pos.array[i*3+1] = oy * breath * local;
+          pos.array[i*3+2] = oz * breath * local;
+        }
+        pos.needsUpdate = true;
+        formGeo.computeVertexNormals();
+
+        coreInner.scale.setScalar(1 + Math.sin(state.t * 1.6) * 0.18);
+        coreOuter.scale.setScalar(1 + Math.sin(state.t * 0.9) * 0.08);
+      }
+      return { ...ctx, animate, state };
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Run loop
+    // ──────────────────────────────────────────────────────────────
+    const c1 = buildInstrument();
+    const c3 = buildForm();
+    const all = [c1, c3];
+
+    let last = performance.now();
+    function tick(now) {
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+      for (const c of all) {
+        c.resize();
+        c.animate(dt);
+        c.controls.update();
+        c.renderer.render(c.scene, c.camera);
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // Pause toggles
+    document.querySelectorAll('[data-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.toggle;
+        const c = id === '01' ? c1 : c3;
+        c.controls.autoRotate = !c.controls.autoRotate;
+        c.state.paused = !c.controls.autoRotate;
+        btn.textContent = c.controls.autoRotate ? 'Pause auto-rotate' : 'Resume auto-rotate';
+      });
+    });
+
+    // Pick handlers — just visual feedback for now
+    document.querySelectorAll('[data-pick]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.pick;
+        btn.textContent = `✓ Concept ${id} selected`;
+        btn.style.background = 'rgba(78,205,196,0.3)';
+        setTimeout(() => {
+          alert(
+            `You picked Concept ${id}.\n\n` +
+            `Tell Cascade "let's go with concept ${id}" and it'll integrate this into the homepage hero (replacing the current canvas).`
+          );
+        }, 100);
+      });
+    });
+
+    window.addEventListener('resize', () => all.forEach(c => c.resize()));
+  </script>
+</body>
+</html>

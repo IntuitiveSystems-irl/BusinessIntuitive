@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BI · Calibrated Form — Color Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #06060a;
+      --surface: rgba(255,255,255,0.025);
+      --border: rgba(255,255,255,0.08);
+      --border-soft: rgba(255,255,255,0.04);
+      --text: #ebebef;
+      --muted: rgba(255,255,255,0.55);
+      --dim: rgba(255,255,255,0.35);
+      --accent: #4ECDC4;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(78,205,196,0.045), transparent 55%),
+        radial-gradient(ellipse at 80% 100%, rgba(255,80,160,0.035), transparent 55%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2' seed='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      z-index: 1;
+    }
+
+    .shell {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 64px 32px 96px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header {
+      max-width: 740px;
+      margin-bottom: 48px;
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(38px, 4.5vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    h1 em { font-style: italic; color: #cfcfd4; }
+
+    .lede {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 1180px) { .grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 760px)  { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 22px;
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .corner {
+      position: absolute; width: 12px; height: 12px;
+      border: 1px solid rgba(78,205,196,0.4);
+      pointer-events: none;
+    }
+    .corner.tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+    .corner.br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .card-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .card-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--dim);
+    }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.05;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .card-title em { font-style: italic; color: #cfcfd4; }
+
+    .card-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: grab;
+    }
+    .canvas-wrap:active { cursor: grabbing; }
+    .canvas-wrap canvas { display: block; width: 100%; height: 100%; }
+
+    .canvas-hint {
+      position: absolute;
+      top: 12px; right: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.32);
+      pointer-events: none;
+    }
+
+    .swatches {
+      display: flex;
+      gap: 6px;
+      margin-top: 18px;
+    }
+    .sw {
+      width: 28px; height: 28px;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .sw::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: -16px; left: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.16em;
+      color: var(--dim);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .palette-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 28px;
+      margin-bottom: 6px;
+    }
+
+    .palette-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .btn {
+      padding: 10px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 2px;
+      border: 1px solid var(--accent);
+      background: rgba(78,205,196,0.12);
+      color: var(--accent);
+      cursor: pointer;
+      transition: background 0.18s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover { background: rgba(78,205,196,0.22); }
+
+    .btn.secondary {
+      background: transparent;
+      border-color: rgba(255,255,255,0.16);
+      color: #cfcfd4;
+    }
+    .btn.secondary:hover { background: rgba(255,255,255,0.04); }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 13px;
+      color: var(--muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      line-height: 1.7;
+      max-width: 740px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <header class="header">
+      <div class="eyebrow">Calibrated Form · Color Lab</div>
+      <h1>Three palettes for the <em>centerpiece.</em></h1>
+      <p class="lede">Same form, same motion. Three distinct color stories. All running at once so you can compare on equal footing.</p>
+    </header>
+
+    <section class="grid">
+
+      <!-- ──────── 01 — Aurora ──────── -->
+      <article class="card">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="card-meta">
+          <span class="card-label">Palette</span>
+          <span class="card-num">01 · Aurora</span>
+        </div>
+        <h2 class="card-title">The <em>Aurora</em></h2>
+        <p class="card-tagline">Northern lights through smoke glass.</p>
+
+        <div class="canvas-wrap" data-bg="aurora">
+          <canvas id="canvas-aurora"></canvas>
+          <span class="canvas-hint">Drag to rotate</span>
+        </div>
+
+        <div class="palette-name">The Notes</div>
+        <p class="palette-desc">Deep violet glass body · teal-to-magenta iridescence · cyan core inside a magenta halo. Stays cerebral, adds intensity. Plays with your existing teal accent.</p>
+
+        <div class="swatches">
+          <span class="sw" style="background:#0a0a18" data-label="bg"></span>
+          <span class="sw" style="background:#1a1428" data-label="form"></span>
+          <span class="sw" style="background:#FF3D9D" data-label="halo"></span>
+          <span class="sw" style="background:#4ECDC4" data-label="core"></span>
+          <span class="sw" style="background:#C341FF" data-label="fill"></span>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-pick="aurora">Pick this one →</button>
+          <button class="btn secondary" data-toggle="aurora">Pause</button>
+        </div>
+      </article>
+
+      <!-- ──────── 02 — Solar ──────── -->
+      <article class="card">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="card-meta">
+          <span class="card-label">Palette</span>
+          <span class="card-num">02 · Solar</span>
+        </div>
+        <h2 class="card-title">The <em>Solar</em></h2>
+        <p class="card-tagline">Golden hour, captured in glass.</p>
+
+        <div class="canvas-wrap" data-bg="solar">
+          <canvas id="canvas-solar"></canvas>
+          <span class="canvas-hint">Drag to rotate</span>
+        </div>
+
+        <div class="palette-name">The Notes</div>
+        <p class="palette-desc">Amber-tinted glass · gold-to-rose iridescence · molten gold core. Warmer, more "expensive object." Different vibe — would warm up the whole site.</p>
+
+        <div class="swatches">
+          <span class="sw" style="background:#1a0a05" data-label="bg"></span>
+          <span class="sw" style="background:#2a1a0a" data-label="form"></span>
+          <span class="sw" style="background:#FFB347" data-label="halo"></span>
+          <span class="sw" style="background:#FFE89C" data-label="core"></span>
+          <span class="sw" style="background:#FF7B6B" data-label="fill"></span>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-pick="solar">Pick this one →</button>
+          <button class="btn secondary" data-toggle="solar">Pause</button>
+        </div>
+      </article>
+
+      <!-- ──────── 03 — Spectrum ──────── -->
+      <article class="card">
+        <span class="corner tl"></span><span class="corner br"></span>
+        <div class="card-meta">
+          <span class="card-label">Palette</span>
+          <span class="card-num">03 · Spectrum</span>
+        </div>
+        <h2 class="card-title">The <em>Spectrum</em></h2>
+        <p class="card-tagline">A spectroscope, alive in the dark.</p>
+
+        <div class="canvas-wrap" data-bg="spectrum">
+          <canvas id="canvas-spectrum"></canvas>
+          <span class="canvas-hint">Drag to rotate</span>
+        </div>
+
+        <div class="palette-name">The Notes</div>
+        <p class="palette-desc">Near-black glass · full-spectrum iridescence · three colored lights orbit the form, pushing the iridescence through every hue as they pass. The most "involved with color."</p>
+
+        <div class="swatches">
+          <span class="sw" style="background:#050507" data-label="bg"></span>
+          <span class="sw" style="background:#080812" data-label="form"></span>
+          <span class="sw" style="background:#4ECDC4" data-label="orbit·1"></span>
+          <span class="sw" style="background:#FF3D9D" data-label="orbit·2"></span>
+          <span class="sw" style="background:#FFB347" data-label="orbit·3"></span>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-pick="spectrum">Pick this one →</button>
+          <button class="btn secondary" data-toggle="spectrum">Pause</button>
+        </div>
+      </article>
+
+    </section>
+
+    <footer>
+      <p>
+        Drag inside any canvas to rotate. All three render at the same time so the comparison is honest.
+        Pick a palette and tell Cascade — it'll then drop the chosen variant into the homepage hero at full viewport scale.
+      </p>
+    </footer>
+  </main>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+    // ──────────────────────────────────────────────────────────────
+    // Background painter — paints the canvas wrap with a per-variant gradient
+    // ──────────────────────────────────────────────────────────────
+    const BACKGROUNDS = {
+      aurora:   'radial-gradient(circle at 50% 40%, #14142a 0%, #0a0a18 55%, #050510 100%)',
+      solar:    'radial-gradient(circle at 50% 40%, #2a1408 0%, #15080a 55%, #050202 100%)',
+      spectrum: 'radial-gradient(circle at 50% 50%, #0a0a14 0%, #050507 60%, #020203 100%)',
+    };
+    document.querySelectorAll('[data-bg]').forEach(w => {
+      w.style.background = BACKGROUNDS[w.dataset.bg];
+      w.style.boxShadow  = 'inset 0 0 90px rgba(0,0,0,0.65)';
+    });
+
+    // ──────────────────────────────────────────────────────────────
+    // Shared scene factory
+    // ──────────────────────────────────────────────────────────────
+    function makeScene(canvas, opts = {}) {
+      const renderer = new THREE.WebGLRenderer({
+        canvas, antialias: true, alpha: true, powerPreference: 'high-performance'
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = opts.exposure ?? 1.1;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+      const scene = new THREE.Scene();
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+      camera.position.set(0, 0, opts.distance ?? 4.6);
+
+      const controls = new OrbitControls(camera, canvas);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.06;
+      controls.enablePan = false;
+      controls.enableZoom = false;
+      controls.minDistance = 3;
+      controls.maxDistance = 8;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = opts.rotateSpeed ?? 0.4;
+
+      function resize() {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        if (canvas.width  !== w * renderer.getPixelRatio() ||
+            canvas.height !== h * renderer.getPixelRatio()) {
+          renderer.setSize(w, h, false);
+          camera.aspect = w / Math.max(h, 1);
+          camera.updateProjectionMatrix();
+        }
+      }
+
+      return { renderer, scene, camera, controls, resize };
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Build a calibrated form with a given color config
+    // ──────────────────────────────────────────────────────────────
+    function buildForm(canvasId, config) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = makeScene(canvas, config.scene || {});
+      const { scene } = ctx;
+
+      // ─── Form material
+      const formMat = new THREE.MeshPhysicalMaterial({
+        color: config.formColor,
+        metalness: 0.0,
+        roughness: 0.18,
+        transmission: config.transmission ?? 0.55,
+        thickness: config.thickness ?? 1.6,
+        ior: config.ior ?? 1.42,
+        iridescence: config.iridescence ?? 1.0,
+        iridescenceIOR: config.iridescenceIOR ?? 1.32,
+        iridescenceThicknessRange: config.iridescenceThicknessRange ?? [120, 880],
+        envMapIntensity: config.envMapIntensity ?? 1.7,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.08,
+      });
+
+      const formGeo = new THREE.IcosahedronGeometry(1.18, 1);
+      const original = formGeo.attributes.position.array.slice();
+      const form = new THREE.Mesh(formGeo, formMat);
+      scene.add(form);
+
+      // ─── Edges
+      const edges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(formGeo, 1),
+        new THREE.LineBasicMaterial({
+          color: config.edgeColor ?? 0xffffff,
+          transparent: true,
+          opacity: config.edgeOpacity ?? 0.16,
+        })
+      );
+      form.add(edges);
+
+      // ─── Core (two layered spheres)
+      const coreOuter = new THREE.Mesh(
+        new THREE.SphereGeometry(0.34, 32, 32),
+        new THREE.MeshBasicMaterial({
+          color: config.haloColor,
+          transparent: true,
+          opacity: config.haloOpacity ?? 0.55,
+        })
+      );
+      form.add(coreOuter);
+
+      const coreInner = new THREE.Mesh(
+        new THREE.SphereGeometry(0.18, 24, 24),
+        new THREE.MeshBasicMaterial({ color: config.coreColor })
+      );
+      form.add(coreInner);
+
+      // ─── Lights
+      const dirKey = new THREE.DirectionalLight(config.keyColor ?? 0xffffff, config.keyIntensity ?? 1.4);
+      dirKey.position.set(2, 3, 2);
+      scene.add(dirKey);
+
+      const dirFill = new THREE.DirectionalLight(config.fillColor ?? 0x4ECDC4, config.fillIntensity ?? 0.5);
+      dirFill.position.set(-3, -2, -1);
+      scene.add(dirFill);
+
+      // ─── Optional rim light
+      if (config.rimColor) {
+        const rim = new THREE.DirectionalLight(config.rimColor, config.rimIntensity ?? 0.4);
+        rim.position.set(0, -3, 2);
+        scene.add(rim);
+      }
+
+      // ─── Optional orbiting colored lights (Spectrum variant)
+      const orbitLights = [];
+      if (config.orbitLights) {
+        for (const [color, phase] of config.orbitLights) {
+          const pl = new THREE.PointLight(color, 1.2, 6, 1.4);
+          pl.userData.phase = phase;
+          scene.add(pl);
+          orbitLights.push(pl);
+        }
+      }
+
+      const state = { t: 0, paused: false };
+
+      function animate(dt) {
+        if (state.paused) return;
+        state.t += dt;
+        form.rotation.y += dt * 0.18;
+        form.rotation.x = Math.sin(state.t * 0.4) * 0.18;
+
+        // breathing
+        const pos = formGeo.attributes.position;
+        const breath = 1 + Math.sin(state.t * 0.55) * 0.045;
+        const wobble = 0.022;
+        for (let i = 0; i < pos.count; i++) {
+          const ox = original[i*3], oy = original[i*3+1], oz = original[i*3+2];
+          const local = 1 + Math.sin(state.t * 0.8 + i * 0.55) * wobble;
+          pos.array[i*3]   = ox * breath * local;
+          pos.array[i*3+1] = oy * breath * local;
+          pos.array[i*3+2] = oz * breath * local;
+        }
+        pos.needsUpdate = true;
+        formGeo.computeVertexNormals();
+
+        coreInner.scale.setScalar(1 + Math.sin(state.t * 1.6) * 0.18);
+        coreOuter.scale.setScalar(1 + Math.sin(state.t * 0.9) * 0.08);
+
+        // orbit colored lights around the form (Spectrum variant)
+        for (const pl of orbitLights) {
+          const a = state.t * 0.6 + pl.userData.phase;
+          const r = 2.4;
+          pl.position.set(
+            Math.cos(a) * r,
+            Math.sin(a * 0.8) * 1.2,
+            Math.sin(a) * r,
+          );
+          pl.intensity = 1.0 + Math.sin(state.t * 1.4 + pl.userData.phase) * 0.4;
+        }
+      }
+
+      return { ...ctx, animate, state };
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Variant configs
+    // ──────────────────────────────────────────────────────────────
+    const VARIANTS = {
+      aurora: buildForm('canvas-aurora', {
+        scene: { distance: 4.5, rotateSpeed: 0.4, exposure: 1.1 },
+        formColor: 0x1a1428,
+        iridescenceThicknessRange: [180, 1100],
+        envMapIntensity: 1.8,
+        edgeColor: 0xddd4ff,
+        edgeOpacity: 0.20,
+        haloColor: 0xFF3D9D,
+        haloOpacity: 0.6,
+        coreColor: 0x4ECDC4,
+        keyColor:  0x4ECDC4, keyIntensity:  1.5,
+        fillColor: 0xC341FF, fillIntensity: 0.7,
+        rimColor:  0xffffff, rimIntensity:  0.4,
+      }),
+
+      solar: buildForm('canvas-solar', {
+        scene: { distance: 4.5, rotateSpeed: 0.4, exposure: 1.15 },
+        formColor: 0x2a1a0a,
+        iridescence: 0.7,
+        iridescenceThicknessRange: [200, 700],
+        envMapIntensity: 1.9,
+        edgeColor: 0xfff1d8,
+        edgeOpacity: 0.22,
+        haloColor: 0xFFB347,
+        haloOpacity: 0.65,
+        coreColor: 0xFFE89C,
+        keyColor:  0xFFF1E0, keyIntensity:  1.6,
+        fillColor: 0xFF7B6B, fillIntensity: 0.6,
+        rimColor:  0xDA8C3B, rimIntensity:  0.5,
+      }),
+
+      spectrum: buildForm('canvas-spectrum', {
+        scene: { distance: 4.5, rotateSpeed: 0.4, exposure: 1.15 },
+        formColor: 0x080812,
+        transmission: 0.7,
+        thickness: 2.2,
+        ior: 1.5,
+        iridescence: 1.0,
+        iridescenceThicknessRange: [80, 1400],
+        envMapIntensity: 2.0,
+        edgeColor: 0xffffff,
+        edgeOpacity: 0.22,
+        haloColor: 0xffffff,
+        haloOpacity: 0.35,
+        coreColor: 0xffffff,
+        keyColor:  0xffffff, keyIntensity:  0.6,
+        fillColor: 0x222244, fillIntensity: 0.2,
+        // Three colored lights orbit the form, pushing iridescence through every hue
+        orbitLights: [
+          [0x4ECDC4, 0],
+          [0xFF3D9D, Math.PI * 2 / 3],
+          [0xFFB347, Math.PI * 4 / 3],
+        ],
+      }),
+    };
+
+    // ──────────────────────────────────────────────────────────────
+    // Run loop
+    // ──────────────────────────────────────────────────────────────
+    const all = Object.values(VARIANTS);
+    let last = performance.now();
+    function tick(now) {
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+      for (const v of all) {
+        v.resize();
+        v.animate(dt);
+        v.controls.update();
+        v.renderer.render(v.scene, v.camera);
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // Pause toggles
+    document.querySelectorAll('[data-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.toggle;
+        const v = VARIANTS[id];
+        v.controls.autoRotate = !v.controls.autoRotate;
+        v.state.paused = !v.controls.autoRotate;
+        btn.textContent = v.controls.autoRotate ? 'Pause' : 'Resume';
+      });
+    });
+
+    // Pick handlers
+    document.querySelectorAll('[data-pick]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.pick;
+        btn.textContent = `✓ ${id} selected`;
+        btn.style.background = 'rgba(78,205,196,0.3)';
+        setTimeout(() => {
+          alert(
+            `You picked ${id.toUpperCase()}.\n\n` +
+            `Tell Cascade "let's go with ${id}" and it'll integrate this palette into the homepage hero.`
+          );
+        }, 100);
+      });
+    });
+
+    window.addEventListener('resize', () => all.forEach(v => v.resize()));
+  </script>
+</body>
+</html>

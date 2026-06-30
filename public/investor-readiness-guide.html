@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Investor Financing Readiness Guide | Business Intuitive</title>
+  <meta name="description" content="A 6-page Investor Financing Readiness Guide — the 5 reasons deals stall, the docs people forget, and how to move faster through underwriting." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page { size: Letter; margin: 0; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      background: #0a0a10;
+      color: #1a1a1a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Page = 8.5 x 11 letter at 96dpi roughly = 816 x 1056 px (we'll use mm for print) */
+    .page {
+      width: 8.5in;
+      height: 11in;
+      background: #fbf8f1;
+      page-break-after: always;
+      position: relative;
+      padding: 0.85in 0.85in 0.7in;
+      overflow: hidden;
+    }
+    .page:last-child { page-break-after: auto; }
+
+    /* Brand bar */
+    .brand-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #b8924a 0%, #d4af37 50%, #b8924a 100%);
+    }
+    .footer-bar {
+      position: absolute;
+      bottom: 0.35in;
+      left: 0.85in;
+      right: 0.85in;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8pt;
+      color: #99876a;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(184, 146, 74, 0.25);
+      padding-top: 8px;
+    }
+    .footer-bar strong { color: #b8924a; font-weight: 600; }
+
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; color: #1a1a1a; }
+    h1 { font-size: 32pt; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; }
+    h2 { font-size: 18pt; font-weight: 600; margin-bottom: 0.4em; letter-spacing: -0.005em; }
+    h3 { font-size: 13pt; font-weight: 600; margin-bottom: 0.3em; color: #2a2a2a; }
+    p  { margin-bottom: 10pt; color: #333; font-size: 10.5pt; line-height: 1.65; }
+    p.big { font-size: 12pt; line-height: 1.65; color: #2a2a2a; }
+    strong { color: #1a1a1a; }
+
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 9pt;
+      color: #b8924a;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 600;
+      margin-bottom: 1.4em;
+    }
+    .num-block {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80pt;
+      line-height: 1;
+      color: rgba(184, 146, 74, 0.18);
+      font-weight: 700;
+      position: absolute;
+      top: 0.7in;
+      right: 0.7in;
+    }
+    hr.div {
+      border: none;
+      border-top: 1px solid rgba(184, 146, 74, 0.4);
+      margin: 1em 0 1.2em;
+      width: 60px;
+    }
+
+    .lead-card {
+      background: rgba(184, 146, 74, 0.06);
+      border-left: 3px solid #b8924a;
+      padding: 14pt 18pt;
+      margin: 0.8em 0 1em;
+      border-radius: 0 4px 4px 0;
+    }
+    .lead-card p { margin: 0; }
+
+    ul.clean { list-style: none; padding: 0; margin: 0.4em 0 0.8em; }
+    ul.clean li {
+      padding: 6pt 0 6pt 22pt;
+      position: relative;
+      color: #333;
+      font-size: 10.5pt;
+      line-height: 1.55;
+    }
+    ul.clean li::before {
+      content: "";
+      position: absolute;
+      left: 6pt;
+      top: 12pt;
+      width: 8pt;
+      height: 1px;
+      background: #b8924a;
+    }
+    ul.clean li strong { color: #1a1a1a; }
+
+    .reason {
+      margin-bottom: 1em;
+      padding-left: 14pt;
+      border-left: 2px solid rgba(184, 146, 74, 0.5);
+    }
+    .reason h3 { margin-bottom: 0.2em; }
+    .reason .tag {
+      font-size: 8.5pt;
+      color: #b8924a;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      margin-bottom: 0.2em;
+      display: block;
+    }
+
+    /* Cover */
+    .cover {
+      background: #0a0a10;
+      color: #f3eede;
+    }
+    .cover .brand-top {
+      font-family: 'Inter', sans-serif;
+      font-size: 9pt;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #d4af37;
+      font-weight: 500;
+      margin-bottom: 4em;
+    }
+    .cover .title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 54pt;
+      line-height: 1.0;
+      color: #f3eede;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4em;
+    }
+    .cover .title em { color: #d4af37; font-style: italic; font-weight: 600; }
+    .cover .sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 14pt;
+      color: rgba(243, 238, 222, 0.7);
+      max-width: 5in;
+      line-height: 1.5;
+      font-weight: 300;
+      margin-bottom: 3em;
+    }
+    .cover .meta {
+      position: absolute;
+      bottom: 0.85in;
+      left: 0.85in;
+      right: 0.85in;
+      display: flex;
+      justify-content: space-between;
+      font-size: 9pt;
+      color: rgba(243, 238, 222, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      border-top: 1px solid rgba(212, 175, 55, 0.25);
+      padding-top: 14pt;
+    }
+    .cover .meta strong { color: #d4af37; font-weight: 600; }
+    .cover .ornament {
+      width: 60px; height: 1px;
+      background: #d4af37;
+      margin: 1.2em 0;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10pt 0;
+      border-bottom: 1px dotted rgba(184, 146, 74, 0.4);
+      font-size: 11pt;
+    }
+    .toc-list li .num { color: #b8924a; font-weight: 600; margin-right: 12pt; font-family: 'JetBrains Mono', monospace; }
+    .toc-list li .pg  { color: #99876a; font-size: 9.5pt; }
+
+    .stat-row {
+      display: flex;
+      gap: 14pt;
+      margin: 0.8em 0 1em;
+    }
+    .stat-card {
+      flex: 1;
+      padding: 12pt;
+      background: rgba(184, 146, 74, 0.06);
+      border-radius: 4px;
+      border-top: 2px solid #b8924a;
+    }
+    .stat-card .n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24pt;
+      color: #b8924a;
+      font-weight: 600;
+      line-height: 1;
+    }
+    .stat-card .l {
+      font-size: 8.5pt;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4pt;
+    }
+
+    .cta-card {
+      background: #0a0a10;
+      color: #f3eede;
+      padding: 28pt;
+      border-radius: 6px;
+      text-align: center;
+      margin-top: 0.6em;
+    }
+    .cta-card h2 { color: #f3eede; }
+    .cta-card p { color: rgba(243, 238, 222, 0.75); margin-bottom: 14pt; }
+    .cta-card .accent { color: #d4af37; font-weight: 600; }
+    .cta-card a {
+      display: inline-block;
+      padding: 10pt 22pt;
+      background: #d4af37;
+      color: #0a0a10;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 10pt;
+      letter-spacing: 0.04em;
+    }
+
+    .checklist {
+      margin: 0.5em 0;
+    }
+    .checklist .item {
+      display: flex;
+      align-items: flex-start;
+      padding: 5pt 0;
+      gap: 10pt;
+    }
+    .checklist .box {
+      width: 11pt;
+      height: 11pt;
+      border: 1px solid #b8924a;
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-top: 3pt;
+    }
+    .checklist .item p { margin: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Page 1: Cover -->
+  <section class="page cover">
+    <div class="brand-bar"></div>
+    <div class="brand-top">Business Intuitive &nbsp;&middot;&nbsp; Investor Financing</div>
+    <h1 class="title">Investor Financing<br><em>Readiness Guide</em></h1>
+    <div class="ornament"></div>
+    <p class="sub">A short, tactical playbook for active real estate investors who want speed, structure, and a faster path through underwriting &mdash; without spinning their wheels.</p>
+    <div class="meta">
+      <span><strong>6 pages</strong> &nbsp;&middot;&nbsp; built for working investors</span>
+      <span>businessintuitive.tech</span>
+    </div>
+  </section>
+
+  <!-- Page 2: Why this exists / TOC -->
+  <section class="page">
+    <div class="brand-bar"></div>
+    <span class="num-block">01</span>
+    <p class="eyebrow">Why this guide exists</p>
+    <h2>Most investor deals don't fail.<br>They stall.</h2>
+    <hr class="div">
+
+    <p class="big">The income is fine. The property is fine. The borrower is fine.</p>
+    <p>What kills timelines is everything in between &mdash; missing reserves documentation, mismatched entity paperwork, an unclear DSCR position, a comp that won't appraise, or a lender whose product you didn't fully understand before you applied.</p>
+    <p>This guide is short on purpose. The point is not to make you an expert. The point is to give you the operational picture &mdash; the five things that stall investor deals and the moves that keep yours on rails.</p>
+
+    <div class="lead-card">
+      <p><strong>Use it like a checklist.</strong> Skim it once before you make an offer. Re-skim it before you submit your loan application. That alone will move you faster than 80% of the investors a typical lender sees.</p>
+    </div>
+
+    <h3 style="margin-top: 1.5em;">Inside</h3>
+    <ul class="toc-list">
+      <li><span><span class="num">01</span> Why timelines actually break</span><span class="pg">page 3</span></li>
+      <li><span><span class="num">02</span> The 5 reasons investor deals stall</span><span class="pg">page 4</span></li>
+      <li><span><span class="num">03</span> Docs investors forget</span><span class="pg">page 5</span></li>
+      <li><span><span class="num">04</span> DSCR misconceptions &amp; the move-faster checklist</span><span class="pg">page 6</span></li>
+    </ul>
+
+    <div class="footer-bar">
+      <span><strong>Business Intuitive</strong> &middot; Investor Financing Readiness Guide</span>
+      <span>02 / 06</span>
+    </div>
+  </section>
+
+  <!-- Page 3: Why timelines break -->
+  <section class="page">
+    <div class="brand-bar"></div>
+    <span class="num-block">02</span>
+    <p class="eyebrow">Section One</p>
+    <h2>Why timelines actually break</h2>
+    <hr class="div">
+
+    <p>Most investors blame "the lender" or "underwriting" when a closing slips. That's almost never the real cause. The real cause is structural: information that was needed on day 3 didn't show up until day 18.</p>
+    <p>Lenders are working a queue. Every time something is missing, your file goes to the back of the line. A 30-day close becomes a 45-day close. A 45-day close becomes "we lost the seller."</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="n">3&times;</div>
+        <div class="l">Slower close when reserves docs are late</div>
+      </div>
+      <div class="stat-card">
+        <div class="n">62%</div>
+        <div class="l">Of stalls trace back to entity / signer issues</div>
+      </div>
+      <div class="stat-card">
+        <div class="n">7&ndash;14d</div>
+        <div class="l">Typical extension cost when comps fall short</div>
+      </div>
+    </div>
+
+    <h3>The pattern almost every time</h3>
+    <ul class="clean">
+      <li><strong>Day 1&ndash;3.</strong> File submitted, application looks clean.</li>
+      <li><strong>Day 4&ndash;7.</strong> Underwriter requests reserve statements, entity docs, lease comps.</li>
+      <li><strong>Day 8&ndash;14.</strong> Borrower scrambles for docs they didn't pre-stage. File pauses.</li>
+      <li><strong>Day 15+.</strong> Appraisal comes back, sometimes light. Now you negotiate, restructure, or extend.</li>
+    </ul>
+
+    <p>You can't control the appraisal. You <em>can</em> control everything before day 8. That alone wins you back the timeline.</p>
+
+    <div class="footer-bar">
+      <span><strong>Business Intuitive</strong> &middot; Investor Financing Readiness Guide</span>
+      <span>03 / 06</span>
+    </div>
+  </section>
+
+  <!-- Page 4: 5 reasons deals stall -->
+  <section class="page">
+    <div class="brand-bar"></div>
+    <span class="num-block">03</span>
+    <p class="eyebrow">Section Two</p>
+    <h2>The 5 reasons investor deals stall</h2>
+    <hr class="div">
+
+    <div class="reason">
+      <span class="tag">01 &middot; Reserves</span>
+      <h3>Reserves under-documented.</h3>
+      <p>Most investor-property loans require 6&ndash;12 months of PITIA in liquid reserves. The number isn't the issue &mdash; the <em>documentation</em> is. Two months of statements, sourced and seasoned, end of story. Get them ready before the lender asks.</p>
+    </div>
+
+    <div class="reason">
+      <span class="tag">02 &middot; Entity</span>
+      <h3>Entity structure mismatched.</h3>
+      <p>If the property goes into an LLC, the LLC needs operating agreement, EIN letter, articles, and consistent signers. A common stall: borrower uses one LLC for title, another for the loan, and a third on the bank statements. Pick one. Document it once.</p>
+    </div>
+
+    <div class="reason">
+      <span class="tag">03 &middot; DSCR position</span>
+      <h3>DSCR sits at the edge.</h3>
+      <p>1.00&ndash;1.20 is workable but tight. If rents are slightly soft or PITIA is slightly heavy, the file gets passed around. Run the numbers <em>before</em> you offer. If it's borderline, plan the move &mdash; bigger down, lower price, stronger comp letter.</p>
+    </div>
+
+    <div class="reason">
+      <span class="tag">04 &middot; Comps / appraisal risk</span>
+      <h3>Rent comps don't support the rent assumption.</h3>
+      <p>Lenders use the lower of actual rent or appraiser-supported market rent. If your assumption is more aggressive than recent leases in the area, the appraiser will pull it down and your DSCR collapses. Pull comps on the front end.</p>
+    </div>
+
+    <div class="reason">
+      <span class="tag">05 &middot; Speed vs preparation</span>
+      <h3>Trying to move fast without being ready.</h3>
+      <p>Speed is a function of preparation, not pressure. The investors who close in 21&ndash;28 days aren't lucky &mdash; they had everything staged before they made the offer. The investors stuck at 60+ days were applying as they went.</p>
+    </div>
+
+    <div class="footer-bar">
+      <span><strong>Business Intuitive</strong> &middot; Investor Financing Readiness Guide</span>
+      <span>04 / 06</span>
+    </div>
+  </section>
+
+  <!-- Page 5: Docs investors forget -->
+  <section class="page">
+    <div class="brand-bar"></div>
+    <span class="num-block">04</span>
+    <p class="eyebrow">Section Three</p>
+    <h2>Docs investors forget</h2>
+    <hr class="div">
+
+    <p>Most investors hand over W-2s, tax returns, and a credit report and assume that's the file. It isn't. Here's the rest of the list, the part that actually slows down the closing.</p>
+
+    <div class="checklist" style="margin-top: 1em;">
+      <div class="item"><div class="box"></div><p><strong>2 most recent statements</strong> for every account holding reserves &mdash; all pages, even blank ones.</p></div>
+      <div class="item"><div class="box"></div><p><strong>Source &amp; seasoning</strong> letter for any large deposit in the last 60 days. Lenders will ask. Have it ready.</p></div>
+      <div class="item"><div class="box"></div><p><strong>Operating agreement</strong> for the LLC taking title &mdash; signed, current, with member %s.</p></div>
+      <div class="item"><div class="box"></div><p><strong>EIN confirmation letter</strong> (the IRS letter, not just the number).</p></div>
+      <div class="item"><div class="box"></div><p><strong>Schedule of real estate owned (REO)</strong> with addresses, balances, payments, rents, and lender names. Even if the lender doesn't ask &mdash; have it.</p></div>
+      <div class="item"><div class="box"></div><p><strong>Lease agreements</strong> for the subject property and existing portfolio properties.</p></div>
+      <div class="item"><div class="box"></div><p><strong>Insurance quote</strong> for the subject property already pulled, agent contact attached.</p></div>
+      <div class="item"><div class="box"></div><p><strong>HOA information</strong> if applicable &mdash; dues, contact, master policy declarations.</p></div>
+      <div class="item"><div class="box"></div><p><strong>Cosmetic / repair budget</strong> if the property needs work and you want it considered in valuation.</p></div>
+      <div class="item"><div class="box"></div><p><strong>Driver's license + voided check</strong> &mdash; sounds basic. Gets forgotten 30% of the time.</p></div>
+    </div>
+
+    <p style="margin-top: 0.6em; color: #666; font-size: 9.5pt;"><em>Pro move:</em> drop all of this into a single shared folder labeled with the property address. Send the link with your application. Lenders remember investors who do this.</p>
+
+    <div class="footer-bar">
+      <span><strong>Business Intuitive</strong> &middot; Investor Financing Readiness Guide</span>
+      <span>05 / 06</span>
+    </div>
+  </section>
+
+  <!-- Page 6: DSCR misconceptions + close -->
+  <section class="page">
+    <div class="brand-bar"></div>
+    <span class="num-block">05</span>
+    <p class="eyebrow">Section Four</p>
+    <h2>DSCR myths &amp; the move-faster checklist</h2>
+    <hr class="div">
+
+    <div class="reason">
+      <span class="tag">Myth</span>
+      <h3>"My personal income matters most."</h3>
+      <p>For most DSCR products, it doesn't. The property's income covers the property's debt &mdash; that's the whole point. Personal DTI and W-2 income often don't enter the qualification math at all.</p>
+    </div>
+
+    <div class="reason">
+      <span class="tag">Myth</span>
+      <h3>"DSCR has to be 1.25 or I'm out."</h3>
+      <p>Common, but not universal. Many lenders flex into the 1.00&ndash;1.24 band with stronger reserves, larger down payment, or higher credit. Some go below 1.00 with adjustments. The number is a guideline, not a wall.</p>
+    </div>
+
+    <div class="reason">
+      <span class="tag">Myth</span>
+      <h3>"All DSCR lenders price the same."</h3>
+      <p>They don't. Pricing varies by FICO band, LTV, prepay structure, and product class. A 0.25% rate difference on a $350k loan over 30 years is meaningful money. Compare 2&ndash;3 quotes, but don't shop forever &mdash; lenders see seasoned shopping and slow down.</p>
+    </div>
+
+    <h3 style="margin-top: 1.4em;">Move-faster checklist</h3>
+    <ul class="clean">
+      <li><strong>Run DSCR before you offer.</strong> Use the Quick Check on our site or do it by hand.</li>
+      <li><strong>Stage the docs first.</strong> Folder &gt; application.</li>
+      <li><strong>Pre-pull comps.</strong> Don't let the appraisal be your first look at market rent.</li>
+      <li><strong>Pick one entity.</strong> Use it consistently across title, loan, and banking.</li>
+      <li><strong>Confirm reserves.</strong> 6&ndash;12 months PITIA, statemented, sourced, seasoned.</li>
+      <li><strong>Keep one lender as primary.</strong> Shop on the front end, then commit. Switching mid-stream resets the clock.</li>
+    </ul>
+
+    <div class="cta-card" style="margin-top: 1.2em;">
+      <h2>Want a second set of eyes on a deal?</h2>
+      <p>Send the address, the rent assumption, and your PITIA &mdash; we'll tell you in plain English where it lands and what the path looks like. <span class="accent">No commitment, no spam.</span></p>
+      <a href="mailto:hi@businessintuitive.tech?subject=Investor%20deal%20review">hi@businessintuitive.tech</a>
+    </div>
+
+    <div class="footer-bar">
+      <span><strong>Business Intuitive</strong> &middot; Investor Financing Readiness Guide</span>
+      <span>06 / 06</span>
+    </div>
+  </section>
+
+</body>
+</html>

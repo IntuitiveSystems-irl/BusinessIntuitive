@@ -1,0 +1,335 @@
+/* =============================================================
+   BUSINESS INTUITIVE — BRAND SYSTEM
+   The Intelligence Layer for Founders.
+   Single source of truth for color, type, space, motion.
+   Non-destructive: provides CSS variables + .bi-* components.
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+:root {
+  /* ---- CORE PALETTE ---- */
+  --bi-ocean-teal: #0F6F78;   /* intuition, depth   */
+  --bi-charcoal:   #1A1A1C;   /* clarity, precision */
+  --bi-soft-lime:  #C8FF5A;   /* signal, activation */
+  --bi-dusty-pink: #F2C4D4;   /* humanity, warmth   */
+
+  /* ---- SECONDARY PALETTE ---- */
+  --bi-mist-grey:  #A7B4B8;
+  --bi-deep-navy:  #0A1A2A;
+  --bi-soft-sand:  #E9E1D3;
+
+  /* ---- TEAL SCALE ---- */
+  --bi-teal:        #0F6F78;
+  --bi-teal-bright: #16A2AE;  /* links / glow on dark */
+  --bi-teal-dim:    #0B4E54;
+  --bi-teal-deep:   #073339;
+  --bi-teal-glow:   rgba(22, 162, 174, 0.45);
+
+  /* ---- BLUE SCALE (social brand — electric / cobalt) ---- */
+  --bi-blue:        #2563EB;  /* primary brand blue — matches social */
+  --bi-blue-bright: #3B82F6;  /* highlight / link glow on dark */
+  --bi-blue-deep:   #1D4ED8;
+  --bi-blue-glow:   rgba(59, 130, 246, 0.45);
+  --bi-line-blue:   rgba(59, 130, 246, 0.40);
+
+  /* ---- LIME + PINK SCALE ---- */
+  --bi-lime:        #C8FF5A;
+  --bi-lime-dim:    #A6D93C;
+  --bi-pink:        #F2C4D4;
+  --bi-pink-dim:    #D89BB0;
+
+  /* ---- SURFACES (dark, oceanic) ---- */
+  --bi-bg:        #0B0C0E;   /* page base — "ocean at 6am" */
+  --bi-surface-1: #141518;
+  --bi-surface-2: #1A1A1C;   /* charcoal */
+  --bi-surface-3: #202126;
+  --bi-navy:      #0A1A2A;
+
+  /* ---- LIGHT SURFACES (warm editorial sections) ---- */
+  --bi-paper:     #F6F3EC;
+  --bi-paper-2:   #EFE9DD;
+
+  /* ---- TEXT ---- */
+  --bi-text:      #ECEFF1;
+  --bi-text-soft: #A7B4B8;   /* mist grey */
+  --bi-text-mute: #6E777B;
+  --bi-text-ink:  #1A1A1C;   /* on light surfaces */
+
+  /* ---- LINES / BORDERS ---- */
+  --bi-line:        rgba(255, 255, 255, 0.08);
+  --bi-line-strong: rgba(255, 255, 255, 0.16);
+  --bi-line-teal:   rgba(22, 162, 174, 0.40);
+  --bi-line-ink:    rgba(26, 26, 28, 0.12);
+
+  /* ---- TYPE ---- */
+  --bi-font-display: 'Fraunces', 'Playfair Display', Georgia, serif;
+  --bi-font-sans:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --bi-font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* fluid type scale */
+  --bi-fs-display: clamp(3rem, 7vw, 6rem);
+  --bi-fs-h1:      clamp(2.5rem, 5vw, 4rem);
+  --bi-fs-h2:      clamp(2rem, 4vw, 3rem);
+  --bi-fs-h3:      clamp(1.5rem, 2.5vw, 2rem);
+  --bi-fs-h4:      1.25rem;
+  --bi-fs-lead:    clamp(1.125rem, 1.6vw, 1.375rem);
+  --bi-fs-body:    1rem;
+  --bi-fs-sm:      0.875rem;
+  --bi-fs-xs:      0.75rem;
+
+  /* tracking */
+  --bi-track-tight: -0.03em;
+  --bi-track-snug:  -0.015em;
+  --bi-track-wide:  0.08em;
+  --bi-track-mono:  0.14em;
+
+  /* ---- SPACE ---- */
+  --bi-space-2xs: 0.25rem;
+  --bi-space-xs:  0.5rem;
+  --bi-space-sm:  1rem;
+  --bi-space-md:  1.5rem;
+  --bi-space-lg:  2.5rem;
+  --bi-space-xl:  4rem;
+  --bi-space-2xl: 6.5rem;
+  --bi-space-3xl: 10rem;
+
+  /* ---- RADII ---- */
+  --bi-r-sm:   8px;
+  --bi-r:      14px;
+  --bi-r-lg:   22px;
+  --bi-r-pill: 999px;
+
+  /* ---- MOTION ---- */
+  --bi-ease:      cubic-bezier(0.16, 1, 0.3, 1);
+  --bi-ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+  --bi-dur:       0.45s;
+
+  /* ---- ELEVATION / GLOW ---- */
+  --bi-glow-teal: 0 0 0 1px rgba(22,162,174,0.25), 0 0 40px rgba(22,162,174,0.22);
+  --bi-glow-blue: 0 0 0 1px rgba(37,99,235,0.30), 0 0 40px rgba(59,130,246,0.28);
+  --bi-glow-lime: 0 0 28px rgba(200,255,90,0.28);
+  --bi-shadow:    0 24px 70px rgba(0,0,0,0.55);
+
+  /* ---- LAYOUT ---- */
+  --bi-maxw: 1200px;
+}
+
+/* =============================================================
+   TYPOGRAPHY COMPONENTS
+   ============================================================= */
+.bi-eyebrow {
+  font-family: var(--bi-font-mono);
+  font-size: var(--bi-fs-xs);
+  font-weight: 400;
+  letter-spacing: var(--bi-track-mono);
+  text-transform: uppercase;
+  color: var(--bi-teal-bright);
+}
+
+.bi-display {
+  font-family: var(--bi-font-display);
+  font-size: var(--bi-fs-display);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: var(--bi-track-tight);
+  font-optical-sizing: auto;
+}
+
+.bi-h1 { font-family: var(--bi-font-display); font-size: var(--bi-fs-h1); font-weight: 500; line-height: 1.06; letter-spacing: var(--bi-track-tight); }
+.bi-h2 { font-family: var(--bi-font-display); font-size: var(--bi-fs-h2); font-weight: 500; line-height: 1.12; letter-spacing: var(--bi-track-snug); }
+.bi-h3 { font-family: var(--bi-font-display); font-size: var(--bi-fs-h3); font-weight: 500; line-height: 1.2;  letter-spacing: var(--bi-track-snug); }
+.bi-h4 { font-family: var(--bi-font-sans);    font-size: var(--bi-fs-h4); font-weight: 600; line-height: 1.3; }
+
+.bi-lead {
+  font-family: var(--bi-font-sans);
+  font-size: var(--bi-fs-lead);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--bi-text-soft);
+}
+
+.bi-body { font-family: var(--bi-font-sans); font-size: var(--bi-fs-body); line-height: 1.7; color: var(--bi-text-soft); font-weight: 400; }
+.bi-mono { font-family: var(--bi-font-mono); font-size: var(--bi-fs-sm); letter-spacing: var(--bi-track-wide); color: var(--bi-text-soft); }
+
+.bi-quote {
+  font-family: var(--bi-font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: var(--bi-track-snug);
+  color: var(--bi-text);
+  padding-left: var(--bi-space-md);
+  border-left: 2px solid var(--bi-teal-bright);
+}
+.bi-quote cite {
+  display: block;
+  margin-top: var(--bi-space-sm);
+  font-family: var(--bi-font-mono);
+  font-size: var(--bi-fs-xs);
+  letter-spacing: var(--bi-track-mono);
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--bi-text-mute);
+}
+
+.bi-link {
+  color: var(--bi-teal-bright);
+  text-decoration: none;
+  background-image: linear-gradient(var(--bi-teal-bright), var(--bi-teal-bright));
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size var(--bi-dur) var(--bi-ease);
+}
+.bi-link:hover { background-size: 100% 1px; }
+
+/* =============================================================
+   BUTTONS
+   ============================================================= */
+.bi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.95rem 2rem;
+  font-family: var(--bi-font-sans);
+  font-size: var(--bi-fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: var(--bi-r-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--bi-dur) var(--bi-ease), box-shadow var(--bi-dur) var(--bi-ease), background var(--bi-dur) var(--bi-ease), color var(--bi-dur) var(--bi-ease);
+}
+.bi-btn:hover { transform: translateY(-2px); }
+
+.bi-btn--primary { background: var(--bi-blue); color: #fff; box-shadow: var(--bi-glow-blue); }
+.bi-btn--primary:hover { background: var(--bi-blue-bright); }
+
+.bi-btn--teal { background: var(--bi-teal); color: #fff; box-shadow: var(--bi-glow-teal); }
+.bi-btn--teal:hover { background: var(--bi-teal-bright); }
+
+.bi-btn--signal { background: var(--bi-lime); color: var(--bi-charcoal); font-weight: 600; }
+.bi-btn--signal:hover { box-shadow: var(--bi-glow-lime); }
+
+.bi-btn--ghost { background: transparent; color: var(--bi-text); border-color: var(--bi-line-strong); }
+.bi-btn--ghost:hover { border-color: var(--bi-teal-bright); color: var(--bi-teal-bright); }
+
+.bi-btn--pink { background: var(--bi-pink); color: var(--bi-charcoal); font-weight: 600; }
+
+/* =============================================================
+   TAGS / PILLS
+   ============================================================= */
+.bi-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--bi-r-pill);
+  border: 1px solid var(--bi-line-teal);
+  font-family: var(--bi-font-mono);
+  font-size: var(--bi-fs-xs);
+  letter-spacing: var(--bi-track-wide);
+  text-transform: uppercase;
+  color: var(--bi-teal-bright);
+  background: rgba(22,162,174,0.06);
+}
+.bi-pill::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--bi-lime);
+  box-shadow: var(--bi-glow-lime);
+}
+
+/* =============================================================
+   CARDS — surface + corner accent + optional glow
+   ============================================================= */
+.bi-card {
+  position: relative;
+  padding: var(--bi-space-lg);
+  background: var(--bi-surface-1);
+  border: 1px solid var(--bi-line);
+  border-radius: var(--bi-r);
+  transition: border-color var(--bi-dur) var(--bi-ease), transform var(--bi-dur) var(--bi-ease), box-shadow var(--bi-dur) var(--bi-ease);
+}
+.bi-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 38px; height: 38px;
+  border-top: 1px solid var(--bi-line-teal);
+  border-right: 1px solid var(--bi-line-teal);
+  border-top-right-radius: var(--bi-r);
+  opacity: 0.6;
+  transition: opacity var(--bi-dur) var(--bi-ease);
+}
+.bi-card:hover { border-color: var(--bi-line-teal); transform: translateY(-3px); }
+.bi-card:hover::after { opacity: 1; }
+.bi-card--glow:hover { box-shadow: var(--bi-glow-teal); }
+
+/* =============================================================
+   DETAILS — grid overlay, glow, divider, data-loading
+   ============================================================= */
+.bi-grid-overlay {
+  background-image:
+    linear-gradient(var(--bi-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bi-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.bi-glow { box-shadow: var(--bi-glow-teal); }
+
+.bi-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bi-line-teal), transparent);
+  border: none;
+}
+
+/* "data loading" shimmer for skeletons / loading states */
+.bi-loading {
+  background: linear-gradient(100deg, var(--bi-surface-2) 30%, var(--bi-surface-3) 50%, var(--bi-surface-2) 70%);
+  background-size: 200% 100%;
+  animation: bi-shimmer 1.4s linear infinite;
+  border-radius: var(--bi-r-sm);
+}
+
+/* animated data bars (the "math is running" micro-detail) */
+.bi-data-line {
+  height: 2px;
+  background: var(--bi-teal-dim);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.bi-data-line::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, var(--bi-teal-bright), transparent);
+  animation: bi-scan 2.2s var(--bi-ease) infinite;
+}
+
+/* =============================================================
+   LAYOUT HELPERS
+   ============================================================= */
+.bi-container { max-width: var(--bi-maxw); margin: 0 auto; padding-left: var(--bi-space-lg); padding-right: var(--bi-space-lg); }
+.bi-section   { padding-top: var(--bi-space-3xl); padding-bottom: var(--bi-space-3xl); }
+
+/* =============================================================
+   KEYFRAMES
+   ============================================================= */
+@keyframes bi-shimmer { to { background-position: -200% 0; } }
+@keyframes bi-scan    { 0% { transform: translateX(-120%); } 100% { transform: translateX(320%); } }
+@keyframes bi-rise    { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bi-pulse   { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+@keyframes bi-glow-breathe {
+  0%,100% { box-shadow: 0 0 0 1px rgba(22,162,174,0.20), 0 0 24px rgba(22,162,174,0.14); }
+  50%     { box-shadow: 0 0 0 1px rgba(22,162,174,0.35), 0 0 48px rgba(22,162,174,0.30); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bi-loading, .bi-data-line::before { animation: none; }
+}

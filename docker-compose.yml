@@ -1,0 +1,18 @@
+services:
+  geometric-landing:
+    build: .
+    container_name: geometric-landing
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - visitor-logs:/var/www/html/logs
+      - newsletter-data:/var/www/html/data
+    environment:
+      - TZ=America/Los_Angeles
+
+volumes:
+  visitor-logs:
+    driver: local
+  newsletter-data:
+    driver: local

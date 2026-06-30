@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Lending — Business Intuitive</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, Helvetica, sans-serif; background: #f4f4f4; color: #1a1a1a; min-height: 100vh; }
+        .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+        .card { background: #ffffff; border-radius: 8px; padding: 36px 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .banner { width: 100%; border-radius: 8px 8px 0 0; margin: -36px -32px 24px -32px; width: calc(100% + 64px); display: block; }
+        h1 { font-size: 24px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+        .subtitle { color: #555; font-size: 15px; margin-bottom: 32px; line-height: 1.5; }
+        .choice-section { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+        .choice-btn { display: block; width: 100%; padding: 22px 20px; border: 2px solid #e8e8e8; background: #fff; border-radius: 8px; cursor: pointer; text-align: left; transition: all 0.2s; }
+        .choice-btn:hover { border-color: #1a365d; background: #f8fafc; }
+        .choice-btn h3 { font-size: 16px; color: #1a1a1a; margin-bottom: 4px; font-weight: 700; }
+        .choice-btn p { font-size: 13px; color: #777; line-height: 1.4; }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+        .form-group { margin-bottom: 18px; }
+        label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        input, select, textarea { width: 100%; padding: 13px 14px; background: #fff; border: 1px solid #ddd; border-radius: 6px; color: #1a1a1a; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+        input:focus, select:focus, textarea:focus { border-color: #1a365d; }
+        input::placeholder, textarea::placeholder { color: #aaa; }
+        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23777' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+        textarea { resize: vertical; min-height: 80px; }
+        .submit-btn { width: 100%; padding: 15px; background: #1a365d; color: #fff; font-size: 15px; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+        .submit-btn:hover { background: #234681; }
+        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .success { display: none; text-align: center; padding: 60px 20px; }
+        .success h2 { font-size: 22px; color: #1a365d; margin-bottom: 12px; font-weight: 700; }
+        .success p { color: #555; font-size: 15px; line-height: 1.6; }
+        .phone-cta { margin-top: 32px; padding: 20px; background: #f9f9f9; border: 1px solid #e8e8e8; border-radius: 8px; text-align: center; }
+        .phone-cta p { color: #777; font-size: 14px; margin-bottom: 6px; }
+        .phone-cta a.phone-link { color: #1a365d; font-size: 20px; font-weight: 700; text-decoration: none; display: block; margin-bottom: 10px; }
+        .phone-cta a.phone-link:hover { color: #234681; }
+        .phone-cta .office-link { color: #999; font-size: 13px; text-decoration: underline; }
+        .phone-cta .office-link:hover { color: #1a365d; }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: #777; font-size: 14px; cursor: pointer; text-decoration: none; }
+        .back-btn:hover { color: #1a365d; }
+        .row { display: flex; gap: 14px; }
+        .row .form-group { flex: 1; }
+        @media (max-width: 480px) { .row { flex-direction: column; gap: 0; } .card { padding: 24px 18px; } .banner { margin: -24px -18px 20px -18px; width: calc(100% + 36px); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+      <div class="card">
+        <img class="banner" src="https://www.image2url.com/r2/default/images/1778624434141-e3439182-19ce-4f2c-9895-6c2f3efa8cd5.jpg" alt="Investor Lending — Fund Your Next Deal. Build Your Future." />
+        <h1>Investor Lending</h1>
+        <p class="subtitle">Tell us what you need — we'll get back to you with real numbers.</p>
+
+        <!-- Step 1: Choose path -->
+        <div id="choices" class="choice-section">
+            <button class="choice-btn" onclick="showForm('refi')">
+                <h3>I need to refinance</h3>
+                <p>I bought a property and my current rate is too high. I want to see what's available now.</p>
+            </button>
+            <button class="choice-btn" onclick="showForm('investment')">
+                <h3>I'm setting up an investment property</h3>
+                <p>I need DSCR or investor financing for a rental, Airbnb, or acquisition.</p>
+            </button>
+        </div>
+
+        <!-- Refi Form -->
+        <div id="refi-form" class="form-section">
+            <a class="back-btn" onclick="showChoices()">&larr; Back</a>
+            <h2 style="font-size:20px;color:#fff;margin-bottom:24px;">Refinance Details</h2>
+            <form onsubmit="submitForm(event, 'refi')">
+                <div class="row">
+                    <div class="form-group">
+                        <label>When did you buy?</label>
+                        <input type="month" name="purchase_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Purchase price</label>
+                        <input type="text" name="purchase_price" placeholder="$250,000" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Current interest rate</label>
+                        <input type="text" name="current_rate" placeholder="8.5%" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Current lender</label>
+                        <input type="text" name="lender" placeholder="e.g. Wells Fargo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Property location</label>
+                    <input type="text" name="location" placeholder="Address or city, state" required>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Your name</label>
+                        <input type="text" name="name" placeholder="Full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" name="phone" placeholder="(555) 123-4567" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="you@email.com" required>
+                </div>
+                <button type="submit" class="submit-btn">Get My Rate Options</button>
+            </form>
+            <div class="phone-cta">
+                <p>Prefer to talk? Call me directly:</p>
+                <a class="phone-link" href="tel:+17602100977">(760) 210-0977</a>
+                <a class="office-link" href="https://www.focuslendinginc.com" target="_blank">Visit our mortgage office &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Investment Form -->
+        <div id="investment-form" class="form-section">
+            <a class="back-btn" onclick="showChoices()">&larr; Back</a>
+            <h2 style="font-size:20px;color:#fff;margin-bottom:24px;">Investment Property Details</h2>
+            <form onsubmit="submitForm(event, 'investment')">
+                <div class="form-group">
+                    <label>Property address</label>
+                    <input type="text" name="property_address" placeholder="123 Main St, Columbus, OH" required>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Planned use</label>
+                        <select name="planned_use" required>
+                            <option value="">Select...</option>
+                            <option value="Long-term Rental">Long-term Rental</option>
+                            <option value="Airbnb / Short-term">Airbnb / Short-term Rental</option>
+                            <option value="BRRRR">BRRRR Strategy</option>
+                            <option value="Fix and Flip">Fix and Flip</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Expected monthly income</label>
+                        <input type="text" name="expected_income" placeholder="$2,500/mo">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Purchase price</label>
+                        <input type="text" name="price" placeholder="$300,000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Expected rate (if known)</label>
+                        <input type="text" name="expected_rate" placeholder="7%">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>Your name</label>
+                        <input type="text" name="name" placeholder="Full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" name="phone" placeholder="(555) 123-4567" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="you@email.com" required>
+                </div>
+                <button type="submit" class="submit-btn">Submit — Get My Options</button>
+            </form>
+            <div class="phone-cta">
+                <p>Prefer to talk? Call me directly:</p>
+                <a class="phone-link" href="tel:+17602100977">(760) 210-0977</a>
+                <a class="office-link" href="https://www.focuslendinginc.com" target="_blank">Visit our mortgage office &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Success message -->
+        <div id="success" class="success">
+            <h2>Got it!</h2>
+            <p>I'll review your details and get back to you within 24 hours with real numbers — no fluff, no pressure.</p>
+            <div class="phone-cta" style="margin-top:30px;">
+                <p>Want to talk now?</p>
+                <a href="tel:+17602100977">(760) 210-0977</a>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        function showForm(type) {
+            document.getElementById('choices').style.display = 'none';
+            document.getElementById('refi-form').classList.remove('active');
+            document.getElementById('investment-form').classList.remove('active');
+            document.getElementById(type + '-form').classList.add('active');
+        }
+
+        function showChoices() {
+            document.getElementById('choices').style.display = 'flex';
+            document.getElementById('refi-form').classList.remove('active');
+            document.getElementById('investment-form').classList.remove('active');
+        }
+
+        async function submitForm(e, type) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            const data = Object.fromEntries(new FormData(form));
+            data.form_type = type;
+            data.submitted_at = new Date().toISOString();
+
+            try {
+                const resp = await fetch('/api/rate-check-lead.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+                if (resp.ok) {
+                    document.getElementById(type + '-form').style.display = 'none';
+                    document.getElementById('success').style.display = 'block';
+                } else {
+                    btn.textContent = 'Error — try again';
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                btn.textContent = 'Error — try again';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

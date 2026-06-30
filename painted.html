@@ -1,0 +1,3031 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BI · The Painted Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Warm cream world */
+      --canvas:      #f5efe2;
+      --canvas-deep: #ede4d0;
+      --canvas-aged: #e6dac0;
+      --warm-dark:   #1f1612;
+
+      /* Painted palette */
+      --pink:    #E84B7E;
+      --magenta: #C9326A;
+      --sage:    #7FA88B;
+      --sage-deep:#5D8170;
+      --honey:   #E8B454;
+      --navy:    #1F4264;
+      --coral:   #F08A6F;
+      --peach:   #F9C9A8;
+      --teal:    #4ECDC4;
+
+      --ink:      #2a1f1a;
+      --ink-soft: rgba(42,31,26,0.62);
+      --ink-mute: rgba(42,31,26,0.42);
+
+      --sidebar-w: 56px;
+    }
+
+    html, body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      color: var(--ink);
+    }
+    body {
+      background: var(--canvas);
+      padding-left: var(--sidebar-w);
+    }
+    @media (max-width: 700px) { :root { --sidebar-w: 44px; } }
+
+    /* ─────────── canvas paper texture (under everything) ─────────── */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: multiply;
+      opacity: 0.32;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.16  0 0 0 0 0.12  0 0 0 0 0.10  0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ─────────── Sidebar (warm dark) ─────────── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--warm-dark);
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 0;
+    }
+    .sidebar::after {
+      content: "";
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.3 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity: 0.5;
+    }
+    .sidebar > * { position: relative; z-index: 2; }
+
+    .sidebar-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--canvas);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      letter-spacing: 0.04em;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+      text-decoration: none;
+    }
+    .sidebar-mark:hover { opacity: 1; }
+
+    .sidebar-toggle {
+      background: transparent;
+      border: 0;
+      width: 36px; height: 36px;
+      cursor: pointer;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 5px; padding: 0;
+    }
+    .sidebar-toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--canvas);
+      transition: transform 0.35s ease, opacity 0.2s ease;
+    }
+    .sidebar-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .sidebar-toggle.open span:nth-child(2) { opacity: 0; }
+    .sidebar-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .sidebar-bottom {
+      display: flex; flex-direction: column; gap: 14px; align-items: center;
+    }
+    .sidebar-bottom a {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(245,239,226,0.25);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(245,239,226,0.65);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      transition: all 0.2s ease;
+    }
+    .sidebar-bottom a:hover { border-color: var(--honey); color: var(--honey); }
+
+    /* ─────────── Top floating chrome ─────────── */
+    .page-logo {
+      position: fixed;
+      top: 28px;
+      left: calc(var(--sidebar-w) + 32px);
+      z-index: 50;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      letter-spacing: -0.005em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .page-logo em { font-style: italic; }
+
+    .page-cta {
+      position: fixed;
+      top: 24px; right: 28px;
+      z-index: 50;
+      padding: 12px 22px 12px 24px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--canvas);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+    .page-cta:hover { background: var(--magenta); transform: translateY(-1px); }
+    .page-cta-arrow {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--canvas);
+      color: var(--ink);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px;
+    }
+
+    @media (max-width: 700px) {
+      .page-logo { font-size: 18px; left: calc(var(--sidebar-w) + 16px); top: 22px; }
+      .page-cta { padding: 10px 16px 10px 18px; font-size: 9px; right: 14px; top: 18px; gap: 10px; }
+      .page-cta-arrow { width: 18px; height: 18px; font-size: 10px; }
+    }
+
+    /* ─────────── Sections ─────────── */
+    .section {
+      position: relative;
+      width: 100%;
+      padding: 140px 56px 120px;
+      overflow: hidden;
+      z-index: 2;
+    }
+    @media (max-width: 700px) { .section { padding: 100px 28px 80px; } }
+
+    .section.canvas-deep { background: var(--canvas-deep); }
+    .section.canvas-aged { background: var(--canvas-aged); }
+
+    .container {
+      position: relative;
+      z-index: 3;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* ─────────── Typography ─────────── */
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 22px;
+    }
+
+    h1, h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      line-height: 1.02;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+    }
+    h1 {
+      font-size: clamp(40px, 5.5vw, 80px);
+      margin-bottom: 24px;
+      max-width: 14ch;
+    }
+    h2 {
+      font-size: clamp(36px, 4.5vw, 60px);
+      margin-bottom: 24px;
+      max-width: 16ch;
+    }
+    h1 em, h2 em { font-style: italic; color: rgba(42,31,26,0.7); }
+
+    .script {
+      font-family: 'Caveat', cursive;
+      font-weight: 600;
+      font-style: normal;
+      letter-spacing: 0;
+    }
+
+    .accent-pink   { color: var(--pink) !important; }
+    .accent-sage   { color: var(--sage-deep) !important; }
+    .accent-honey  { color: var(--honey) !important; }
+    .accent-navy   { color: var(--navy) !important; }
+    .accent-coral  { color: var(--coral) !important; }
+    .accent-magenta{ color: var(--magenta) !important; }
+
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 19px;
+      line-height: 1.55;
+      max-width: 540px;
+      color: var(--ink-soft);
+    }
+
+    /* ─────────── Hero ─────────── */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      min-height: 78vh;
+    }
+    @media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+    .hero-text { max-width: 540px; }
+
+    .brush-stage {
+      width: 100%;
+      max-width: 560px;
+      aspect-ratio: 1 / 1;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--canvas-deep);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.5) inset,
+        0 24px 60px -20px rgba(42,31,26,0.18),
+        0 4px 20px -8px rgba(42,31,26,0.1);
+    }
+    .brush-stage svg.bg-paint {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      opacity: 0.45;
+      z-index: 1;
+      mix-blend-mode: multiply;
+    }
+
+    /* Research artifacts layer */
+    .studio-annotations {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .annotation {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+    }
+    .annotation.in { opacity: 1; }
+
+    .annotation.sparkline {
+      top: 32px; right: 32px;
+      width: 110px; height: 32px;
+    }
+    .annotation.sparkline svg { width: 100%; height: 100%; }
+
+    .annotation.note {
+      top: 36px; left: 36px;
+      font-family: 'Caveat', cursive;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--magenta);
+      transform: rotate(-2.5deg);
+      max-width: 200px;
+      letter-spacing: 0.005em;
+    }
+
+    .annotation.quote {
+      bottom: 56px; right: 32px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink-soft);
+      max-width: 220px;
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    /* Code typing layer */
+    .studio-code {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      padding: 70px 36px 56px;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+    }
+    .studio-code-stage {
+      width: 100%;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(11px, 1.05vw, 13px);
+      line-height: 1.7;
+      color: var(--ink);
+      transition: opacity 0.7s ease;
+    }
+    .code-line {
+      white-space: pre-wrap;
+      min-height: 1em;
+    }
+    .code-line.cmd { color: var(--magenta); font-weight: 500; }
+    .code-line.cmd::before { content: '$ '; color: var(--ink-mute); font-weight: 400; }
+    .code-line.comment {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.32em;
+      color: var(--ink-mute);
+      margin: 4px 0;
+      line-height: 1.4;
+    }
+    .code-line.check { color: var(--sage-deep); }
+    .code-line.check::before { content: '✓ '; color: var(--sage); font-weight: 600; }
+    .code-line.result {
+      color: var(--magenta);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .code-line.result::before { content: '→ '; color: var(--ink-soft); font-weight: 400; }
+
+    .code-cursor {
+      display: inline-block;
+      width: 0.5em;
+      height: 1.05em;
+      background: var(--magenta);
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      animation: codeCursor 0.85s steps(2, jump-none) infinite;
+      filter: url(#paintBlobTexture);
+    }
+    @keyframes codeCursor { 50% { opacity: 0; } }
+
+    .brush-caption {
+      position: absolute;
+      bottom: 18px; left: 22px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(42,31,26,0.55);
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      z-index: 4;
+      transition: color 0.5s ease;
+    }
+
+    @media (max-width: 640px) {
+      .annotation.sparkline { width: 80px; height: 24px; top: 22px; right: 22px; }
+      .annotation.note { font-size: 18px; top: 24px; left: 24px; max-width: 140px; }
+      .annotation.quote { font-size: 12px; bottom: 42px; right: 22px; max-width: 160px; }
+      .studio-code { padding: 60px 22px 48px; }
+      .studio-code-stage { font-size: 10.5px; line-height: 1.6; }
+      .code-line.comment { font-size: 1.18em; }
+    }
+
+    /* ─────────── Service cards ─────────── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+    @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+
+    .card {
+      padding: 36px 32px;
+      background: rgba(255, 250, 240, 0.65);
+      backdrop-filter: blur(2px);
+      border-radius: 14px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 8px;
+      background: var(--accent, var(--pink));
+      filter: url(#paintTextureSoft);
+    }
+    .card:hover { transform: translateY(-4px); }
+
+    .card[data-accent="sage"]  { --accent: var(--sage); }
+    .card[data-accent="pink"]  { --accent: var(--pink); }
+    .card[data-accent="honey"] { --accent: var(--honey); }
+    .card[data-accent="navy"]  { --accent: var(--navy); }
+    .card[data-accent="coral"] { --accent: var(--coral); }
+
+    .card-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--ink-mute);
+      margin-bottom: 28px;
+      display: block;
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .card-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+
+    /* ─────────── Case grid (case = painted card with watercolor wash) ─────────── */
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 60px;
+    }
+    @media (max-width: 900px) { .case-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .case-grid { grid-template-columns: 1fr; } }
+
+    .case {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: var(--canvas-deep);
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+    .case:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px -16px rgba(31, 22, 18, 0.18);
+    }
+    .case-ext {
+      position: absolute;
+      top: 18px; right: 18px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 250, 240, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--ink);
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+    .case:hover .case-ext {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    .case .wash {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 30% 25%, var(--c1), transparent 55%),
+        radial-gradient(circle at 75% 70%, var(--c2), transparent 60%),
+        radial-gradient(circle at 50% 50%, var(--c3), transparent 70%);
+      filter: blur(1px) url(#watercolor);
+      mix-blend-mode: multiply;
+      opacity: 0.85;
+    }
+    .case.featured { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+    @media (max-width: 900px) { .case.featured { grid-column: span 2; grid-row: span 1; aspect-ratio: 4 / 3; } }
+    @media (max-width: 600px) { .case.featured { grid-column: span 1; } }
+
+    .case-label {
+      position: absolute; top: 18px; left: 18px;
+      background: rgba(255, 250, 240, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 9px 13px;
+      border-radius: 8px;
+      z-index: 4;
+      max-width: calc(100% - 36px);
+    }
+    .case-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .case-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-top: 4px;
+    }
+
+    /* ─────────── Pricing tiers ─────────── */
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 56px;
+    }
+    @media (max-width: 900px) { .tiers { grid-template-columns: 1fr; } }
+
+    .tier {
+      padding: 36px 32px;
+      background: rgba(255, 250, 240, 0.6);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .tier::before {
+      content: ""; position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 8px;
+      background: var(--accent, var(--pink));
+      filter: url(#paintTextureSoft);
+    }
+    .tier[data-accent="sage"]  { --accent: var(--sage); }
+    .tier[data-accent="pink"]  { --accent: var(--pink); }
+    .tier[data-accent="honey"] { --accent: var(--honey); }
+
+    .tier-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      filter: brightness(0.7);
+    }
+    .tier-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+    .tier-price small {
+      font-size: 16px;
+      font-style: italic;
+      color: var(--ink-mute);
+      font-weight: 400;
+    }
+    .tier-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin: 18px 0 24px;
+    }
+
+    /* ─────────── Buttons ─────────── */
+    .btn {
+      padding: 16px 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 999px;
+      cursor: pointer;
+      border: 1px solid var(--ink);
+      background: transparent;
+      color: var(--ink);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover { background: var(--ink); color: var(--canvas); }
+    .btn.solid { background: var(--ink); color: var(--canvas); }
+    .btn.solid:hover { background: var(--magenta); border-color: var(--magenta); }
+    .btn.painted {
+      background: var(--magenta);
+      border-color: var(--magenta);
+      color: var(--canvas);
+    }
+    .btn.painted:hover { background: var(--pink); border-color: var(--pink); }
+
+    /* ─────────── Watercolor floating blobs ─────────── */
+    .blob-svg {
+      position: absolute;
+      pointer-events: none;
+      will-change: transform;
+      z-index: 1;
+      filter: url(#watercolor);
+    }
+
+    /* ─────────── Bouncy paint blob ─────────── */
+    .paint-blob {
+      position: fixed;
+      top: 0;
+      right: 36px;
+      width: 50px;
+      height: 50px;
+      pointer-events: none;
+      z-index: 40;
+      will-change: transform;
+    }
+    .paint-blob svg {
+      width: 100%; height: 100%;
+    }
+    @media (max-width: 700px) {
+      .paint-blob { right: 18px; width: 38px; height: 38px; }
+    }
+
+    /* ─────────── Reveal animations ─────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .reveal-stagger.in > *:nth-child(1) { transition-delay: 0.05s; }
+    .reveal-stagger.in > *:nth-child(2) { transition-delay: 0.18s; }
+    .reveal-stagger.in > *:nth-child(3) { transition-delay: 0.31s; }
+    .reveal-stagger.in > *:nth-child(4) { transition-delay: 0.44s; }
+    .reveal-stagger.in > *:nth-child(5) { transition-delay: 0.57s; }
+    .reveal-stagger.in > *:nth-child(6) { transition-delay: 0.70s; }
+    .reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
+
+    /* ─────────── Menu overlay ─────────── */
+    .menu-overlay {
+      position: fixed;
+      top: 0; left: var(--sidebar-w);
+      right: 0; bottom: 0;
+      background: var(--canvas);
+      z-index: 70;
+      transform: translateX(-100%);
+      transition: transform 0.55s cubic-bezier(0.7, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px;
+    }
+    .menu-overlay.open { transform: translateX(0); }
+
+    .menu-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 30px;
+    }
+
+    .menu-items { display: flex; flex-direction: column; gap: 4px; }
+    .menu-items a {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5.5vw, 72px);
+      line-height: 1.05;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(42,31,26,0.08);
+      transition: padding-left 0.35s ease, color 0.25s ease;
+    }
+    .menu-items a:hover { padding-left: 26px; color: var(--magenta); }
+    .menu-items a em { font-style: italic; color: var(--ink-mute); }
+    .menu-items a .ext {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      vertical-align: middle;
+      margin-left: 12px;
+      color: var(--ink-mute);
+    }
+    .menu-divider { margin: 36px 0 24px; border: 0; border-top: 1px solid rgba(42,31,26,0.1); max-width: 60%; }
+
+    .menu-footer {
+      position: absolute;
+      bottom: 28px; left: 64px; right: 64px;
+      display: flex; justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .menu-footer a { color: var(--ink-mute); text-decoration: none; }
+    .menu-footer a:hover { color: var(--ink); }
+
+    @media (max-width: 700px) { .menu-overlay { padding: 60px 28px; } .menu-footer { left: 28px; right: 28px; } }
+
+    /* ─────────── Chatbot launcher + panel ─────────── */
+    .chat-launcher {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 80;
+      padding: 16px 24px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--canvas);
+      border: 0;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 28px rgba(42,31,26,0.28), 0 2px 8px rgba(42,31,26,0.12);
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.25s ease;
+    }
+    .chat-launcher::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      border: 2px solid var(--magenta);
+      opacity: 0;
+      pointer-events: none;
+      animation: chatPulse 2.6s ease infinite;
+    }
+    @keyframes chatPulse {
+      0%   { opacity: 0; transform: scale(1); }
+      18%  { opacity: 0.55; }
+      100% { opacity: 0; transform: scale(1.18); }
+    }
+    .chat-launcher:hover { transform: translateY(-2px); background: var(--magenta); }
+    .chat-launcher.hidden { opacity: 0; transform: scale(0.7); pointer-events: none; }
+    .chat-launcher-arrow {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--canvas);
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .chat-panel {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 380px;
+      height: min(640px, calc(100vh - 48px));
+      background: var(--canvas);
+      border-radius: 18px;
+      z-index: 81;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 60px -10px rgba(42,31,26,0.3), 0 6px 20px rgba(42,31,26,0.12);
+      transform: translateY(20px) scale(0.96);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+      overflow: hidden;
+    }
+    .chat-panel.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    @media (max-width: 480px) {
+      .chat-panel {
+        bottom: 0; right: 0; left: 0;
+        width: 100%;
+        height: 92vh;
+        border-radius: 18px 18px 0 0;
+      }
+      .chat-launcher { bottom: 18px; right: 18px; padding: 14px 20px; font-size: 10px; }
+      .chat-launcher-arrow { width: 20px; height: 20px; font-size: 11px; }
+    }
+
+    .chat-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(42,31,26,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .chat-title { display: flex; align-items: center; gap: 12px; }
+    .chat-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--magenta), var(--coral));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--canvas);
+      font-family: 'Caveat', cursive;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 1;
+    }
+    .chat-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+    .chat-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chat-status .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      box-shadow: 0 0 0 0 rgba(127, 168, 139, 0.5);
+      animation: chatDot 2s ease infinite;
+    }
+    @keyframes chatDot {
+      0%   { box-shadow: 0 0 0 0 rgba(127, 168, 139, 0.5); }
+      70%  { box-shadow: 0 0 0 8px rgba(127, 168, 139, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(127, 168, 139, 0); }
+    }
+    .chat-close {
+      background: transparent;
+      border: 0;
+      font-size: 24px;
+      color: var(--ink-mute);
+      cursor: pointer;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s;
+      line-height: 1;
+    }
+    .chat-close:hover { background: rgba(42,31,26,0.06); color: var(--ink); }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      scroll-behavior: smooth;
+    }
+    .chat-msg {
+      max-width: 86%;
+      font-size: 14px;
+      line-height: 1.5;
+      font-family: 'Inter', sans-serif;
+      animation: chatMsgIn 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    @keyframes chatMsgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .chat-msg.bot {
+      align-self: flex-start;
+      background: rgba(255, 250, 240, 0.85);
+      color: var(--ink);
+      padding: 11px 15px;
+      border-radius: 14px 14px 14px 4px;
+      border: 1px solid rgba(42,31,26,0.06);
+    }
+    .chat-msg.user {
+      align-self: flex-end;
+      background: var(--magenta);
+      color: var(--canvas);
+      padding: 11px 15px;
+      border-radius: 14px 14px 4px 14px;
+    }
+    .chat-msg.summary {
+      align-self: stretch;
+      max-width: 100%;
+      background: var(--canvas-aged);
+      border: 1px solid rgba(42,31,26,0.1);
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      white-space: pre-wrap;
+    }
+
+    .chat-typing {
+      align-self: flex-start;
+      display: flex;
+      gap: 4px;
+      padding: 14px 16px;
+      background: rgba(255, 250, 240, 0.85);
+      border-radius: 14px 14px 14px 4px;
+      border: 1px solid rgba(42,31,26,0.06);
+    }
+    .chat-typing span {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--ink-mute);
+      animation: typingDot 1.2s ease infinite;
+    }
+    .chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes typingDot {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-3px); opacity: 1; }
+    }
+
+    .chat-input-area {
+      padding: 14px 18px;
+      border-top: 1px solid rgba(42,31,26,0.08);
+      background: var(--canvas);
+      flex-shrink: 0;
+      max-height: 55%;
+      overflow-y: auto;
+    }
+    .chat-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chat-option {
+      padding: 9px 14px;
+      background: var(--canvas-deep);
+      border: 1px solid rgba(42,31,26,0.1);
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chat-option:hover {
+      border-color: var(--magenta);
+      background: rgba(232, 75, 126, 0.08);
+      color: var(--magenta);
+    }
+    .chat-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid rgba(42,31,26,0.15);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      background: rgba(255, 250, 240, 0.7);
+      font-weight: 300;
+      box-sizing: border-box;
+    }
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--magenta);
+      background: white;
+    }
+    textarea.chat-input { min-height: 70px; max-height: 140px; resize: vertical; }
+
+    .chat-submit-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .chat-submit {
+      padding: 10px 18px;
+      background: var(--magenta);
+      color: var(--canvas);
+      border: 0;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chat-submit:hover { background: var(--pink); transform: translateY(-1px); }
+
+    .chat-picker {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .chat-picker-group {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin: 4px 0 2px;
+    }
+    .chat-pick {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 11px 13px;
+      background: var(--canvas-deep);
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      text-align: left;
+      font-family: inherit;
+      width: 100%;
+    }
+    .chat-pick:hover { border-color: rgba(232, 75, 126, 0.3); transform: translateX(2px); }
+    .chat-pick-info { flex: 1; min-width: 0; }
+    .chat-pick-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .chat-pick-rec {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.18em;
+      background: var(--honey);
+      color: var(--ink);
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .chat-pick-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 12px;
+      color: var(--ink-mute);
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+    .chat-pick-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: var(--ink);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .chat-pick-price small {
+      font-style: italic;
+      font-size: 11px;
+      color: var(--ink-mute);
+      font-weight: 400;
+    }
+
+    /* Editorial recommendation card (chatbot final reveal) */
+    .chat-recommendation {
+      align-self: stretch;
+      max-width: 100%;
+      background: rgba(255, 250, 240, 0.95);
+      border: 1px solid rgba(42,31,26,0.12);
+      padding: 18px;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      animation: chatMsgIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .chat-rec-section { display: flex; flex-direction: column; gap: 8px; }
+    .chat-rec-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--magenta);
+    }
+    .chat-rec-label.sage { color: var(--sage-deep); }
+    .chat-rec-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .chat-rec-list li {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink);
+      padding-left: 18px;
+      position: relative;
+    }
+    .chat-rec-list li::before {
+      content: "";
+      position: absolute;
+      left: 4px; top: 8px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--magenta);
+    }
+    .chat-rec-list.sage li::before { background: var(--sage-deep); }
+    .chat-rec-divider {
+      border: 0;
+      border-top: 1px solid rgba(42,31,26,0.08);
+      margin: 0;
+    }
+    .chat-rec-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .chat-rec-meta strong {
+      color: var(--ink);
+      font-weight: 500;
+      margin-left: 8px;
+    }
+
+    /* Studio floor file ticker (under cases) */
+    .studio-floor {
+      margin-top: 60px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(42,31,26,0.08);
+    }
+    .studio-floor-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 16px;
+    }
+    .studio-floor-files {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+    }
+    .file-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink-soft);
+      transition: color 0.5s ease, opacity 0.5s ease, transform 0.4s ease;
+      opacity: 0.55;
+    }
+    .file-tag.active {
+      color: var(--ink);
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+    .file-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      opacity: 0.4;
+      transition: opacity 0.5s ease, transform 0.4s ease;
+    }
+    .file-tag[data-type="js"]  .file-dot { background: var(--honey); }
+    .file-tag[data-type="ts"]  .file-dot { background: var(--navy); }
+    .file-tag[data-type="php"] .file-dot { background: var(--purple); }
+    .file-tag[data-type="py"]  .file-dot { background: var(--sage-deep); }
+    .file-tag[data-type="md"]  .file-dot { background: var(--magenta); }
+    .file-tag.active .file-dot {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+
+    /* ─────────── Featured project (case study) ─────────── */
+    .featured-project {
+      margin: 56px 0 64px;
+      padding: 56px 56px 48px;
+      background: #F1E9D8;
+      border-radius: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-project::before {
+      content: "";
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232, 75, 126, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .featured-project::after {
+      content: "";
+      position: absolute;
+      bottom: -50px; left: 40%;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(127, 168, 139, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .featured-left {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .featured-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .featured-eyebrow .featured-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--magenta);
+    }
+    .featured-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 4px 0;
+    }
+    .featured-mark { width: 54px; height: 54px; flex-shrink: 0; }
+    .featured-brand-text { line-height: 1.05; }
+    .featured-brand-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+    .featured-brand-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      color: var(--ink-soft);
+      margin-top: 4px;
+    }
+    .featured-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 5vw, 56px);
+      line-height: 1.0;
+      margin: 4px 0 -2px;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      font-weight: 500;
+    }
+    .featured-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-style: italic;
+      color: var(--magenta);
+      line-height: 1.2;
+      margin: 0;
+    }
+    .featured-divider {
+      height: 2px;
+      background: linear-gradient(90deg, var(--magenta) 0%, var(--coral) 30%, var(--honey) 60%, transparent 100%);
+      margin: 10px 0 6px;
+      width: 60%;
+      border-radius: 2px;
+    }
+    .featured-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      margin: 0;
+    }
+    .featured-features {
+      list-style: none;
+      padding: 0;
+      margin: 4px 0 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .featured-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      color: var(--ink);
+    }
+    .featured-features .check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--sage);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+    .featured-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      padding: 13px 22px;
+      border: 1px solid rgba(42,31,26,0.25);
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+      background: rgba(255,255,255,0.5);
+    }
+    .featured-cta:hover {
+      background: var(--ink);
+      color: var(--canvas);
+      border-color: var(--ink);
+    }
+    .featured-cta .arrow { transition: transform 0.3s ease; }
+    .featured-cta:hover .arrow { transform: translateX(4px); }
+
+    .featured-right {
+      position: relative;
+    }
+    .featured-devices {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .featured-devices-placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: rgba(255,255,255,0.5);
+      border: 2px dashed rgba(42,31,26,0.2);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--ink-mute);
+      text-align: center;
+      padding: 24px;
+    }
+    .featured-devices-placeholder strong { color: var(--ink); font-weight: 500; }
+    .featured-blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .featured-blob.coral {
+      width: 22px; height: 22px;
+      background: var(--magenta);
+      bottom: 15%; left: -14px;
+    }
+    .featured-blob.sage {
+      width: 16px; height: 16px;
+      background: var(--sage);
+      top: -8px; left: 8%;
+    }
+    .featured-blob.honey {
+      width: 18px; height: 18px;
+      background: var(--honey);
+      top: 30%; right: -8px;
+    }
+
+    /* Browser frames (real screenshots, Mac-window styling) */
+    .featured-shots {
+      position: relative;
+      width: 100%;
+      padding-bottom: 64px; /* space for the offset secondary frame */
+    }
+    .browser-frame {
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow:
+        0 30px 60px -20px rgba(31, 22, 18, 0.28),
+        0 12px 24px -8px rgba(31, 22, 18, 0.12),
+        0 0 0 1px rgba(31, 22, 18, 0.06);
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .browser-bar {
+      background: linear-gradient(180deg, #f5f5f5, #e9e9e9);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dots span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #FF5F57;
+      box-shadow: inset 0 0 0 0.5px rgba(0,0,0,0.06);
+    }
+    .browser-dots span:nth-child(2) { background: #FEBC2E; }
+    .browser-dots span:nth-child(3) { background: #28C840; }
+    .browser-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--ink-mute);
+      letter-spacing: 0.04em;
+      flex: 1;
+      text-align: center;
+      padding: 2px 10px;
+      background: rgba(255,255,255,0.65);
+      border-radius: 999px;
+      max-width: 240px;
+      margin: 0 auto;
+    }
+    .browser-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    /* Placeholder shown when screenshot missing */
+    .shot-placeholder {
+      aspect-ratio: 1024 / 588;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(42,31,26,0.04),
+        rgba(42,31,26,0.04) 12px,
+        rgba(42,31,26,0.07) 12px,
+        rgba(42,31,26,0.07) 24px
+      );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--ink-mute);
+      text-align: center;
+      padding: 24px;
+    }
+    .shot-placeholder strong { color: var(--ink); font-weight: 500; }
+
+    .shot-primary {
+      position: relative;
+      z-index: 2;
+      transform: rotate(-1.2deg);
+    }
+    .shot-secondary {
+      position: absolute;
+      bottom: 0;
+      right: -4%;
+      width: 62%;
+      z-index: 3;
+      transform: rotate(2.5deg);
+    }
+    .featured-right:hover .shot-primary { transform: rotate(-0.4deg) translateY(-3px); }
+    .featured-right:hover .shot-secondary { transform: rotate(1.4deg) translateY(-3px); }
+
+    /* Mockup-only variant (single composed image as the entire case) */
+    .featured-project.mockup-only {
+      background: transparent;
+      padding: 0;
+      margin: 32px 0 56px;
+      overflow: visible;
+    }
+    .featured-project.mockup-only::before,
+    .featured-project.mockup-only::after { display: none; }
+    .featured-mockup-link {
+      display: block;
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      text-decoration: none;
+    }
+    .featured-mockup-link:hover { transform: translateY(-5px); }
+    .featured-mockup-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 22px;
+      box-shadow:
+        0 40px 90px -30px rgba(31, 22, 18, 0.22),
+        0 14px 40px -12px rgba(31, 22, 18, 0.10);
+      transition: box-shadow 0.5s ease;
+    }
+    .featured-mockup-link:hover .featured-mockup-img {
+      box-shadow:
+        0 50px 110px -30px rgba(31, 22, 18, 0.28),
+        0 20px 50px -10px rgba(31, 22, 18, 0.14);
+    }
+    .featured-mockup-tag {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink);
+      box-shadow: 0 4px 16px rgba(31,22,18,0.08);
+    }
+    .featured-mockup-tag .arrow {
+      transition: transform 0.3s ease;
+      font-size: 11px;
+    }
+    .featured-mockup-link:hover .featured-mockup-tag .arrow {
+      transform: translateX(3px);
+    }
+
+    /* Outcome strip */
+    .featured-outcomes {
+      margin-top: 48px;
+      padding: 32px 32px;
+      background: rgba(255,255,255,0.55);
+      border-radius: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 36px;
+      position: relative;
+      z-index: 1;
+    }
+    .outcome-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .outcome-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+    }
+    .outcome-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .outcome-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .outcome-card p {
+      font-family: 'Inter', sans-serif;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--ink-mute);
+      margin: 0;
+    }
+
+    /* More work divider */
+    .more-work-divider {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 48px 0 28px;
+    }
+    .more-work-divider::before,
+    .more-work-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(42,31,26,0.12);
+    }
+    .more-work-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+
+    @media (max-width: 900px) {
+      .featured-project { padding: 36px 28px; border-radius: 20px; }
+      .featured-grid { grid-template-columns: 1fr; gap: 36px; }
+      .featured-outcomes { grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 24px; }
+      .featured-divider { width: 80%; }
+      .featured-shots { padding-bottom: 0; display: flex; flex-direction: column; gap: 18px; }
+      .shot-primary, .shot-secondary { transform: none; position: relative; width: 100%; right: auto; bottom: auto; }
+      .featured-mockup-tag { top: 14px; right: 14px; padding: 6px 10px; font-size: 8px; letter-spacing: 0.18em; }
+      .featured-mockup-img { border-radius: 14px; }
+      .featured-project.mockup-only { margin: 24px 0 40px; }
+    }
+    @media (max-width: 560px) {
+      .featured-outcomes { grid-template-columns: 1fr; }
+      .featured-title { font-size: 36px; }
+      .featured-project { padding: 28px 20px; }
+      .featured-brand-name { font-size: 17px; }
+      .featured-subtitle { font-size: 20px; }
+      .featured-body { font-size: 13px; }
+      .featured-cta { padding: 11px 18px; font-size: 10px; }
+      .browser-bar { padding: 7px 10px; }
+      .browser-url { font-size: 9px; max-width: 160px; }
+      .featured-mockup-tag .arrow { display: none; }
+    }
+
+    /* ─────────── Preview badge ─────────── */
+    .preview-badge {
+      position: fixed;
+      bottom: 18px;
+      left: calc(var(--sidebar-w) + 18px);
+      z-index: 45;
+      padding: 8px 14px;
+      background: var(--ink);
+      color: var(--canvas);
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase;
+      display: flex; gap: 12px; align-items: center;
+    }
+    .preview-badge span { color: var(--honey); }
+    .preview-badge a { color: rgba(245,239,226,0.6); text-decoration: none; }
+    .preview-badge a:hover { color: var(--canvas); }
+
+    /* Section tag */
+    .section-tag {
+      position: absolute; top: 28px; left: 56px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+      z-index: 3; opacity: 0.4;
+      color: var(--ink);
+    }
+    @media (max-width: 700px) {
+      .section-tag { left: calc(var(--sidebar-w) + 16px); top: 22px; font-size: 9px; letter-spacing: 0.24em; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ────────── Global SVG defs (paint texture filters) ────────── -->
+  <svg width="0" height="0" style="position:absolute;">
+    <defs>
+      <filter id="paintTexture" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="2"/>
+        <feDisplacementMap in="SourceGraphic" scale="6"/>
+      </filter>
+      <filter id="paintTextureSoft" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="5"/>
+        <feDisplacementMap in="SourceGraphic" scale="3"/>
+      </filter>
+      <filter id="watercolor" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="3"/>
+        <feColorMatrix type="matrix" values="
+          1 0 0 0 0
+          0 1 0 0 0
+          0 0 1 0 0
+          0 0 0 12 -4"/>
+        <feComposite in="SourceGraphic" operator="in"/>
+      </filter>
+      <filter id="paintBlobTexture" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="1.0" numOctaves="2" seed="7"/>
+        <feDisplacementMap in="SourceGraphic" scale="3"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ────────── Sidebar ────────── -->
+  <aside class="sidebar">
+    <a href="#hero" class="sidebar-mark">Business Intuitive</a>
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="sidebar-bottom">
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+      <a href="mailto:hi@businessintuitive.tech" aria-label="Email">@</a>
+    </div>
+  </aside>
+
+  <a href="#hero" class="page-logo">Business <em>Intuitive</em></a>
+
+  <a href="#" class="page-cta" data-chat-open>
+    Book Now
+    <span class="page-cta-arrow">↗</span>
+  </a>
+
+  <!-- ────────── Menu overlay ────────── -->
+  <nav class="menu-overlay" id="menuOverlay">
+    <div class="menu-eyebrow">Where to next</div>
+    <div class="menu-items">
+      <a href="#hero" data-close>Home</a>
+      <a href="#what" data-close>What we ship</a>
+      <a href="#cases" data-close>Selected work</a>
+      <a href="#pricing" data-close>Hosting <em>&amp;</em> care plans</a>
+      <a href="#" data-close data-chat-open>Apply</a>
+      <hr class="menu-divider" />
+      <a href="https://custom.businessintuitive.tech" target="_blank" rel="noopener">Custom Web Services <span class="ext">↗</span></a>
+      <a href="https://intelligence.businessintuitive.tech" target="_blank" rel="noopener">Intelligence <span class="ext">↗</span></a>
+      <a href="/investor-financing">Investor Financing <span class="ext">↗</span></a>
+      <a href="/vibe">Vibe Consulting <span class="ext">↗</span></a>
+    </div>
+    <div class="menu-footer">
+      <span>© Business Intuitive Inc.</span>
+      <a href="https://www.bizapedia.com/wa/business-intuitive-inc.html" target="_blank" rel="noopener">Verify ↗</a>
+    </div>
+  </nav>
+
+  <!-- ────────── Bouncy paint blob ────────── -->
+  <div class="paint-blob" id="paintBlob">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      <circle id="blobPath" cx="50" cy="50" r="42" fill="#E84B7E" />
+    </svg>
+  </div>
+
+  <main id="main">
+
+    <!-- ────────── 01 · HERO ────────── -->
+    <section class="section" id="hero" data-blob-color="pink">
+      <span class="section-tag">01 · Studio</span>
+
+      <!-- Decorative watercolor blobs -->
+      <svg class="blob-svg" data-parallax="0.18"
+        style="top:160px; right:0%; width:140px; height:140px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="40" ry="38" fill="#7FA88B" opacity="0.55"/>
+      </svg>
+      <svg class="blob-svg" data-parallax="0.12"
+        style="bottom:80px; left:35%; width:90px; height:90px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="36" ry="34" fill="#E8B454" opacity="0.6"/>
+      </svg>
+
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-text">
+            <div class="eyebrow reveal">Custom Websites &amp; Web Systems</div>
+            <h1 class="reveal">
+              Custom websites and <em class="accent-magenta">web systems</em><br>
+              built with <span class="script accent-sage">intent.</span>
+            </h1>
+            <p class="tagline reveal">Websites, booking systems, client portals, and operational tools — designed around how your business <span class="script" style="color:var(--magenta);font-size:22px;">actually runs.</span></p>
+          </div>
+
+          <div class="brush-stage reveal">
+            <!-- Background painted strokes (subtle, continuous warmth) -->
+            <svg id="brushCanvas" class="bg-paint" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice"></svg>
+
+            <!-- Research artifacts (corner annotations) -->
+            <div class="studio-annotations">
+              <div class="annotation sparkline">
+                <svg viewBox="0 0 120 36" preserveAspectRatio="xMidYMid meet">
+                  <polyline points="0,28 18,22 36,26 54,12 72,18 90,8 108,14 118,4"
+                    fill="none" stroke="#7FA88B" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    filter="url(#paintTexture)" />
+                  <circle cx="118" cy="4" r="3.5" fill="#7FA88B" />
+                </svg>
+              </div>
+              <div class="annotation note" id="studioNote">research first.</div>
+              <div class="annotation quote" id="studioQuote">&ldquo;actually figure out the problem&rdquo;</div>
+            </div>
+
+            <!-- Code typing layer -->
+            <div class="studio-code">
+              <div class="studio-code-stage" id="codeStage"></div>
+            </div>
+
+            <span class="brush-caption" id="brushCaption">Studio · in session</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────── 02 · What we ship ────────── -->
+    <section class="section canvas-deep" id="what" data-blob-color="sage">
+      <span class="section-tag">02 · Studio floor</span>
+
+      <svg class="blob-svg" data-parallax="0.20"
+        style="top:120px; left:5%; width:130px; height:130px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="38" ry="42" fill="#E84B7E" opacity="0.55"/>
+      </svg>
+      <svg class="blob-svg" data-parallax="0.30"
+        style="top:55%; right:8%; width:100px; height:100px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="36" ry="34" fill="#4ECDC4" opacity="0.5"/>
+      </svg>
+      <svg class="blob-svg" data-parallax="0.14"
+        style="bottom:60px; left:48%; width:80px; height:80px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="32" ry="36" fill="#F08A6F" opacity="0.55"/>
+      </svg>
+
+      <div class="container">
+        <div class="eyebrow reveal">What we ship</div>
+        <h2 class="reveal">
+          Three things we do <em class="script accent-pink">extremely well.</em>
+        </h2>
+        <p class="tagline reveal">Every engagement starts with a custom proposal. No templates. No guesswork.</p>
+
+        <div class="cards reveal-stagger">
+          <div class="card" data-accent="sage">
+            <span class="card-num">01</span>
+            <h3 class="card-title">Custom <span class="script accent-sage">Websites</span></h3>
+            <p class="card-desc">Marketing sites, landing pages, full rebuilds. Built for performance, SEO, and conversion.</p>
+          </div>
+          <div class="card" data-accent="pink">
+            <span class="card-num">02</span>
+            <h3 class="card-title">Web Apps &amp; <span class="script accent-pink">Tools</span></h3>
+            <p class="card-desc">Dashboards, client portals, custom platforms. The system your business actually needs.</p>
+          </div>
+          <div class="card" data-accent="honey">
+            <span class="card-num">03</span>
+            <h3 class="card-title">Hosting &amp; <span class="script accent-honey">Care</span></h3>
+            <p class="card-desc">Hosting, edits, security, on-call support. We keep the lights on after launch.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────── 03 · Selected work ────────── -->
+    <section class="section canvas-aged" id="cases" data-blob-color="navy">
+      <span class="section-tag">03 · Selected work</span>
+
+      <svg class="blob-svg" data-parallax="0.24"
+        style="top:160px; right:8%; width:120px; height:120px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="38" ry="38" fill="#1F4264" opacity="0.4"/>
+      </svg>
+
+      <div class="container">
+        <div class="eyebrow reveal">Selected work</div>
+        <h2 class="reveal">Real builds. <em class="script accent-coral">Real clients.</em></h2>
+        <p class="tagline reveal">A sample of what we've shipped — local trades, salons, and original SaaS products.</p>
+
+        <!-- ════════════ FEATURED PROJECT — Veritas Building Group ════════════ -->
+        <div class="featured-project reveal">
+          <div class="featured-grid">
+            <!-- LEFT: brand + context + features + CTA -->
+            <div class="featured-left">
+              <div class="featured-eyebrow">
+                <span class="featured-dot"></span>
+                FEATURED PROJECT
+              </div>
+
+              <div class="featured-brand">
+                <svg class="featured-mark" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="vGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#1F4264"/>
+                      <stop offset="50%" stop-color="#E84B7E"/>
+                      <stop offset="100%" stop-color="#F2A24D"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M8 14 L30 50 L52 14" stroke="#1F4264" stroke-width="3.5" stroke-linecap="round"/>
+                  <path d="M18 14 L30 38 L42 14" stroke="url(#vGrad)" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <div class="featured-brand-text">
+                  <div class="featured-brand-name">Veritas</div>
+                  <div class="featured-brand-meta">BUILDING GROUP</div>
+                </div>
+              </div>
+
+              <h3 class="featured-title">Veritas Building Group</h3>
+              <p class="featured-subtitle">Custom Website + Contractor Portal</p>
+              <div class="featured-divider"></div>
+
+              <p class="featured-body">
+                We designed and developed a premium website and a custom contractor portal for Veritas Building Group to streamline operations, elevate their brand, and simplify communication across every project.
+              </p>
+
+              <ul class="featured-features">
+                <li><span class="check">✓</span>Custom Website Design</li>
+                <li><span class="check">✓</span>Contractor Portal Development</li>
+                <li><span class="check">✓</span>Document &amp; Project Management System</li>
+              </ul>
+
+              <a href="https://veribuilds.com" target="_blank" rel="noopener" class="featured-cta">
+                veribuilds.com
+                <span class="arrow">→</span>
+              </a>
+            </div>
+
+            <!-- RIGHT: real screenshots in browser frames -->
+            <div class="featured-right">
+              <span class="featured-blob sage"></span>
+              <span class="featured-blob coral"></span>
+              <span class="featured-blob honey"></span>
+
+              <div class="featured-shots">
+                <!-- Primary: marketing site -->
+                <figure class="browser-frame shot-primary">
+                  <div class="browser-bar">
+                    <div class="browser-dots"><span></span><span></span><span></span></div>
+                    <div class="browser-url">veribuilds.com</div>
+                  </div>
+                  <img
+                    src="cases/veritas-marketing.jpg"
+                    alt="Veritas Building Group marketing site — Vancouver, WA residential construction & remodeling"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="shot-placeholder" style="display:none;">
+                    <strong>Save screenshot 2 here</strong>
+                    <div>cases/veritas-marketing.jpg</div>
+                  </div>
+                </figure>
+
+                <!-- Secondary: contractor portal -->
+                <figure class="browser-frame shot-secondary">
+                  <div class="browser-bar">
+                    <div class="browser-dots"><span></span><span></span><span></span></div>
+                    <div class="browser-url">portal · client view</div>
+                  </div>
+                  <img
+                    src="cases/veritas-portal.jpg"
+                    alt="Veritas Building Group contractor portal — construction management dashboard with job sites, contracts, estimates"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="shot-placeholder" style="display:none;">
+                    <strong>Save screenshot 1 here</strong>
+                    <div>cases/veritas-portal.jpg</div>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom outcomes strip -->
+          <div class="featured-outcomes">
+            <div class="outcome-card">
+              <div class="outcome-icon">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1.5"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="9" y1="20" x2="15" y2="20" stroke-width="2"/></svg>
+              </div>
+              <div class="outcome-label">Strategic Design</div>
+              <p>Built to showcase trust, craftsmanship, and drive high-quality leads.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <div class="outcome-label">Custom Portal</div>
+              <p>Streamlines project management and reduces manual admin work.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2 L20 6 V12 C20 16.5 16.5 20.5 12 22 C7.5 20.5 4 16.5 4 12 V6 Z"/><path d="M9 12 L11 14 L15 10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="outcome-label">Secure &amp; Scalable</div>
+              <p>Built with security and scalability to support ongoing growth.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">
+                <svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 7 21 7 21 14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="outcome-label">Real Results</div>
+              <p>Stronger brand presence, better organization, and more time to build.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════ FEATURED PROJECT 02 — Hair by Cailey ════════════ -->
+        <div class="featured-project mockup-only reveal">
+          <a href="https://hairbycailey.com" target="_blank" rel="noopener" class="featured-mockup-link" aria-label="Visit Hair by Cailey">
+            <span class="featured-mockup-tag">
+              hairbycailey.com
+              <span class="arrow">→</span>
+            </span>
+            <img
+              src="cases/hbc-mockup.jpg"
+              alt="Hair by Cailey — luxury hair extensions website case study"
+              class="featured-mockup-img"
+              loading="lazy"
+            />
+          </a>
+        </div>
+
+        <!-- Divider into the smaller case grid -->
+        <div class="more-work-divider reveal">
+          <span class="more-work-label">More from the studio</span>
+        </div>
+
+        <div class="case-grid reveal-stagger">
+          <a class="case" href="https://thewanderingblondesalon.com" target="_blank" rel="noopener" style="--c1:#7FA88B80; --c2:#E8B45480; --c3:#F9C9A860;">
+            <div class="wash"></div>
+            <div class="case-label">
+              <div class="case-name">The Wandering Blonde</div>
+              <div class="case-meta">USA · Salon Platform</div>
+            </div>
+            <span class="case-ext" aria-hidden="true">↗</span>
+          </a>
+          <a class="case" href="https://hugosplash.com" target="_blank" rel="noopener" style="--c1:#1F426480; --c2:#4ECDC480; --c3:#7FA88B60;">
+            <div class="wash"></div>
+            <div class="case-label">
+              <div class="case-name">Hugo Splash</div>
+              <div class="case-meta">Global · Lightning SaaS</div>
+            </div>
+            <span class="case-ext" aria-hidden="true">↗</span>
+          </a>
+          <a class="case" href="https://arellanoframing.com" target="_blank" rel="noopener" style="--c1:#C9326A80; --c2:#1F426480; --c3:#F08A6F60;">
+            <div class="wash"></div>
+            <div class="case-label">
+              <div class="case-name">Arellano Framing</div>
+              <div class="case-meta">WA · Editorial Site</div>
+            </div>
+            <span class="case-ext" aria-hidden="true">↗</span>
+          </a>
+          <a class="case" href="https://promediaplayer.com" target="_blank" rel="noopener" style="--c1:#E8B45480; --c2:#E84B7E80; --c3:#4ECDC460;">
+            <div class="wash"></div>
+            <div class="case-label">
+              <div class="case-name">Pro Media Player</div>
+              <div class="case-meta">Global · Streaming Platform</div>
+            </div>
+            <span class="case-ext" aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="studio-floor reveal">
+          <div class="studio-floor-label">// On the studio floor</div>
+          <div class="studio-floor-files">
+            <span class="file-tag" data-type="js"><span class="file-dot"></span>contractor_portal.js</span>
+            <span class="file-tag" data-type="ts"><span class="file-dot"></span>booking-flow.ts</span>
+            <span class="file-tag" data-type="php"><span class="file-dot"></span>lead_capture.php</span>
+            <span class="file-tag" data-type="py"><span class="file-dot"></span>invoice_automation.py</span>
+            <span class="file-tag" data-type="md"><span class="file-dot"></span>veritas/transcript.md</span>
+            <span class="file-tag" data-type="php"><span class="file-dot"></span>roofing-client/estimate-form.php</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────── 04 · Pricing ────────── -->
+    <section class="section" id="pricing" data-blob-color="honey">
+      <span class="section-tag">04 · Pricing</span>
+
+      <svg class="blob-svg" data-parallax="0.18"
+        style="top:120px; left:8%; width:120px; height:120px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="38" ry="36" fill="#7FA88B" opacity="0.55"/>
+      </svg>
+      <svg class="blob-svg" data-parallax="0.26"
+        style="bottom:80px; right:6%; width:140px; height:140px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="40" ry="42" fill="#E84B7E" opacity="0.45"/>
+      </svg>
+
+      <div class="container">
+        <div class="eyebrow reveal">Pick a build</div>
+        <h2 class="reveal">Pricing is <em class="script accent-honey">straightforward.</em></h2>
+        <p class="tagline reveal">Three setup tiers, plus optional ongoing care. Pick what fits and adjust the details with Lindsay over text.</p>
+
+        <div class="tiers reveal-stagger">
+          <div class="tier" data-accent="sage">
+            <div class="tier-name">Startup Foundation</div>
+            <div class="tier-price">$1,250</div>
+            <p class="tier-desc">Professional 5-page site (Home, About, Services, FAQ, Contact). License integration, mobile, basic SEO, hosting + maintenance. Everything to launch a legitimate presence.</p>
+            <button class="btn" data-chat-open>Book setup →</button>
+          </div>
+          <div class="tier" data-accent="pink">
+            <div class="tier-name">Growth Builder · Recommended</div>
+            <div class="tier-price">$1,950</div>
+            <p class="tier-desc">Foundation + dedicated service pages, conversion-focused forms, local SEO, Google Business + Yelp setup, trust-building sections. For contractors actively growing.</p>
+            <button class="btn painted" data-chat-open>Book setup →</button>
+          </div>
+          <div class="tier" data-accent="honey">
+            <div class="tier-name">Authority Builder</div>
+            <div class="tier-price">$3,000</div>
+            <p class="tier-desc">Growth + service-area SEO pages, before/after gallery, ongoing SEO, monthly content, blog, advanced lead-gen, analytics. Built to dominate local search.</p>
+            <button class="btn" data-chat-open>Book setup →</button>
+          </div>
+        </div>
+
+        <p class="reveal" style="text-align: center; margin-top: 44px; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); font-size: 17px; line-height: 1.6;">
+          Just want to <strong style="font-style: normal; font-weight: 500; color: var(--magenta);">launch fast</strong>? Startup Lite from <strong style="font-style: normal; font-weight: 500; color: var(--ink);">$350</strong>.<br>
+          Care plans (hosting · security · edits · SEO) from <strong style="font-style: normal; font-weight: 500; color: var(--sage-deep);">$99/mo</strong>. Configure inside the chat.
+        </p>
+      </div>
+    </section>
+
+    <!-- ────────── 05 · CTA ────────── -->
+    <section class="section canvas-deep" id="contact" data-blob-color="coral">
+      <span class="section-tag">05 · Closing</span>
+
+      <svg class="blob-svg" data-parallax="0.20"
+        style="top:30%; left:10%; width:120px; height:120px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="40" ry="38" fill="#F08A6F" opacity="0.5"/>
+      </svg>
+      <svg class="blob-svg" data-parallax="0.26"
+        style="bottom:18%; right:14%; width:140px; height:140px;" viewBox="0 0 100 100">
+        <ellipse cx="50" cy="50" rx="40" ry="42" fill="#7FA88B" opacity="0.5"/>
+      </svg>
+
+      <div class="container" style="text-align: center; padding: 60px 0;">
+        <div class="eyebrow reveal" style="display: block; margin-bottom: 24px;">Ready when you are</div>
+        <h2 class="reveal" style="margin: 0 auto 32px; max-width: 18ch; font-size: clamp(40px, 5.5vw, 72px);">
+          Ship something <em class="script accent-magenta">real.</em>
+        </h2>
+        <button class="btn solid reveal" style="font-size: 12px; padding: 18px 36px;" data-chat-open>Book Now →</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ────────── Chatbot launcher + panel ────────── -->
+  <button class="chat-launcher" id="chatLauncher" aria-label="Book a custom build">
+    Book Now
+    <span class="chat-launcher-arrow">↗</span>
+  </button>
+
+  <div class="chat-panel" id="chatPanel" aria-hidden="true">
+    <div class="chat-header">
+      <div class="chat-title">
+        <div class="chat-avatar">L</div>
+        <div>
+          <div class="chat-name">Lindsay's Studio</div>
+          <div class="chat-status"><span class="dot"></span> usually replies in &lt;24h</div>
+        </div>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-area" id="chatInputArea"></div>
+  </div>
+
+  <div class="preview-badge">
+    <span>painted · v5</span>
+    <a href="/chunks-sidebar.html">v4</a>
+    <a href="/chunks-color.html">v3</a>
+  </div>
+
+  <script>
+    /* ════════════════════════════════════════════════════════════════
+        STUDIO HERO — typed code + research annotations
+       ════════════════════════════════════════════════════════════════ */
+    {
+      const codeStage = document.getElementById('codeStage');
+      const caption   = document.getElementById('brushCaption');
+      const noteEl    = document.getElementById('studioNote');
+      const quoteEl   = document.getElementById('studioQuote');
+      const sparkEl   = document.querySelector('.annotation.sparkline');
+
+      const SCRIPTS = [
+        {
+          tag: 'veritas building',
+          note: 'research first.',
+          quote: '“actually figure out the problem”',
+          lines: [
+            ['comment', '// Veritas Building — research → ship'],
+            ['cmd',     'read("clients/veritas/transcript.md")'],
+            ['check',   'pain points captured (12)'],
+            ['check',   'goals indexed (4)'],
+            ['',        ''],
+            ['',        'function build() {'],
+            ['',        '  const research = synthesize(notes)'],
+            ['',        '  const intent   = distill(research)'],
+            ['',        '  const system   = compose(intent)'],
+            ['',        '  return ship(system)'],
+            ['',        '}'],
+            ['',        ''],
+            ['result',  'shipping veritasbuilding.tech'],
+          ],
+        },
+        {
+          tag: 'wandering blonde',
+          note: 'human first.',
+          quote: '“warmer copy converts better”',
+          lines: [
+            ['comment', '// Wandering Blonde — booking flow'],
+            ['cmd',     'diagnose("booking-dropoff")'],
+            ['check',   'analytics indexed (90 days)'],
+            ['check',   'funnel mapped (5 → 2 steps)'],
+            ['',        ''],
+            ['',        'const flow = optimize({'],
+            ['',        '  steps: condense(current),'],
+            ['',        '  copy:  warm(current.copy),'],
+            ['',        '  trust: testimonials(real),'],
+            ['',        '})'],
+            ['',        ''],
+            ['result',  'conversions +34%'],
+          ],
+        },
+        {
+          tag: 'hugo splash',
+          note: 'speed = trust.',
+          quote: '“<120ms or it didn’t happen”',
+          lines: [
+            ['comment', '// Hugo Splash — streaming engine'],
+            ['cmd',     'build("media-engine")'],
+            ['check',   'p99 latency <120ms'],
+            ['check',   'edge cache: hit-rate 94%'],
+            ['',        ''],
+            ['',        'const player = compose(['],
+            ['',        '  encoder, edge, fallback,'],
+            ['',        '  analytics, retention,'],
+            ['',        '])'],
+            ['',        ''],
+            ['result',  'shipped · 14k users'],
+          ],
+        },
+        {
+          tag: 'arellano framing',
+          note: 'editorial.',
+          quote: '“let the work speak”',
+          lines: [
+            ['comment', '// Arellano Framing — editorial site'],
+            ['cmd',     'distill("portfolio + crews")'],
+            ['check',   'projects categorized (28)'],
+            ['check',   'voice: confident, plainspoken'],
+            ['',        ''],
+            ['',        'const site = layer({'],
+            ['',        '  hero:  editorial(work),'],
+            ['',        '  story: founder(plain),'],
+            ['',        '  ask:   simple(call),'],
+            ['',        '})'],
+            ['',        ''],
+            ['result',  'live · arellanoframing.com'],
+          ],
+        },
+      ];
+
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      const makeCursor = () => {
+        const c = document.createElement('span');
+        c.className = 'code-cursor';
+        return c;
+      };
+      const makeLine = (cls) => {
+        const el = document.createElement('div');
+        el.className = 'code-line';
+        if (cls) el.classList.add(cls);
+        return el;
+      };
+
+      async function typeChars(textNode, text) {
+        for (const ch of text) {
+          textNode.textContent += ch;
+          let delay = 18 + Math.random() * 32;
+          if (',.;:({['.includes(ch)) delay += 50;
+          if (ch === ' ') delay -= 6;
+          await sleep(delay);
+        }
+      }
+
+      function showAnnotations(script) {
+        sparkEl.classList.remove('in');
+        noteEl.classList.remove('in');
+        quoteEl.classList.remove('in');
+        noteEl.textContent = script.note;
+        quoteEl.textContent = script.quote;
+        setTimeout(() => noteEl.classList.add('in'),   400);
+        setTimeout(() => sparkEl.classList.add('in'), 1500);
+        setTimeout(() => quoteEl.classList.add('in'), 2400);
+      }
+
+      async function fadeAnnotations() {
+        sparkEl.classList.remove('in');
+        noteEl.classList.remove('in');
+        quoteEl.classList.remove('in');
+        await sleep(800);
+      }
+
+      async function runScript(script) {
+        caption.textContent = `Studio · ${script.tag}`;
+        codeStage.innerHTML = '';
+        codeStage.style.opacity = '1';
+        showAnnotations(script);
+
+        const cursor = makeCursor();
+        for (const [cls, text] of script.lines) {
+          const line = makeLine(cls);
+          line.appendChild(cursor);
+          codeStage.appendChild(line);
+          if (text === '') {
+            await sleep(140);
+          } else {
+            const textNode = document.createTextNode('');
+            line.insertBefore(textNode, cursor);
+            await typeChars(textNode, text);
+            await sleep(120);
+          }
+        }
+
+        await sleep(2900);
+        await fadeAnnotations();
+        codeStage.style.opacity = '0';
+        await sleep(700);
+      }
+
+      (async () => {
+        await sleep(700);
+        let i = 0;
+        while (true) {
+          await runScript(SCRIPTS[i % SCRIPTS.length]);
+          i++;
+        }
+      })();
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+        BACKGROUND BRUSH — quieter, behind the code
+       ════════════════════════════════════════════════════════════════ */
+    {
+      const canvas = document.getElementById('brushCanvas');
+      const ns = 'http://www.w3.org/2000/svg';
+
+      const STROKE_POOL = [
+        { d: "M40,160 C140,80 260,220 360,140 S540,200 580,120", w: 26 },
+        { d: "M40,300 Q200,420 380,320 T580,380", w: 32 },
+        { d: "M120,500 C200,400 340,540 460,440 S580,480 580,420", w: 22 },
+        { d: "M40,200 Q160,80 320,200 Q480,320 580,180", w: 28 },
+        { d: "M40,400 C200,500 320,360 440,460 S560,500 580,440", w: 28 },
+        { d: "M60,80 Q180,160 320,80 T580,140", w: 22 },
+        { d: "M40,520 C140,580 280,460 400,560 S540,580 580,540", w: 26 },
+        { d: "M100,260 Q240,340 360,260 T580,300", w: 20 },
+        { d: "M40,440 C140,360 280,500 380,400 S560,460 580,400", w: 26 },
+        { d: "M60,180 C180,260 320,140 460,220 S580,240 580,180", w: 22 },
+        { d: "M80,80 Q300,200 480,300 T580,500", w: 24 },
+        { d: "M520,80 Q400,250 240,400 T40,500", w: 22 },
+      ];
+      const PALETTE = ['#E84B7E','#7FA88B','#E8B454','#1F4264','#F08A6F','#4ECDC4','#C9326A','#F9C9A8','#5D8170'];
+
+      const live = [];
+      let cIdx = Math.floor(Math.random() * PALETTE.length);
+      let sIdx = Math.floor(Math.random() * STROKE_POOL.length);
+      const MAX_LIVE = 8;
+      const LIFESPAN = 14000;
+
+      function spawnStroke() {
+        sIdx = (sIdx + 1 + Math.floor(Math.random() * 2)) % STROKE_POOL.length;
+        cIdx = (cIdx + 1) % PALETTE.length;
+        const def = STROKE_POOL[sIdx];
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', def.d);
+        path.setAttribute('stroke', PALETTE[cIdx]);
+        path.setAttribute('stroke-width', def.w);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('filter', 'url(#paintTexture)');
+        path.style.opacity = '0';
+        canvas.appendChild(path);
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = len;
+        path.style.strokeDashoffset = len;
+        path.style.transition = 'stroke-dashoffset 3s cubic-bezier(0.45, 0, 0.4, 1), opacity 0.6s ease';
+        requestAnimationFrame(() => {
+          path.style.opacity = '0.55';
+          path.style.strokeDashoffset = '0';
+        });
+        live.push({ el: path, born: performance.now() });
+        while (live.length > MAX_LIVE) fadeOut(live.shift());
+      }
+      function fadeOut(s) {
+        s.el.style.transition = 'opacity 1.8s ease';
+        s.el.style.opacity = '0';
+        setTimeout(() => s.el.remove(), 1900);
+      }
+      function ageOld() {
+        const now = performance.now();
+        while (live.length && now - live[0].born > LIFESPAN) fadeOut(live.shift());
+      }
+      let n = 0;
+      const init = setInterval(() => { spawnStroke(); if (++n >= 4) clearInterval(init); }, 700);
+      setInterval(spawnStroke, 2200);
+      setInterval(ageOld, 700);
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+        BOUNCY PAINT BLOB — spring physics + organic shape morph
+       ════════════════════════════════════════════════════════════════ */
+    {
+      const wrapper = document.getElementById('paintBlob');
+      const blobPath = document.getElementById('blobPath');
+      const sections = [...document.querySelectorAll('[data-blob-color]')];
+
+      const COLORS = {
+        pink:  '#E84B7E',
+        sage:  '#7FA88B',
+        honey: '#E8B454',
+        navy:  '#1F4264',
+        coral: '#F08A6F',
+        magenta: '#C9326A',
+      };
+
+      let scrollY = 0, targetY = 0, blobY = 0, blobV = 0;
+
+      function updateScroll() {
+        scrollY = window.scrollY;
+        const max = Math.max(1, document.body.scrollHeight - window.innerHeight);
+        const progress = Math.min(1, Math.max(0, scrollY / max));
+        const margin = 110;
+        targetY = margin + progress * (window.innerHeight - margin * 2);
+      }
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      window.addEventListener('resize', updateScroll);
+      updateScroll();
+      blobY = targetY;
+
+      let currentColor = null;
+      function updateBlobColor() {
+        const absY = scrollY + blobY;
+        let active = sections[0];
+        for (const s of sections) {
+          const rect = s.getBoundingClientRect();
+          const top = rect.top + scrollY;
+          const bottom = top + rect.height;
+          if (absY >= top && absY < bottom) { active = s; break; }
+        }
+        const colorKey = active?.dataset.blobColor || 'pink';
+        if (colorKey !== currentColor) {
+          blobPath.setAttribute('fill', COLORS[colorKey] || COLORS.pink);
+          currentColor = colorKey;
+        }
+      }
+
+      function tickBlob() {
+        const stiffness = 0.085;
+        const damping = 0.8;
+        const force = (targetY - blobY) * stiffness;
+        blobV = (blobV + force) * damping;
+        blobY += blobV;
+
+        const v = Math.min(0.4, Math.abs(blobV) * 0.045);
+        const stretchY = 1 + v;
+        const stretchX = 1 - v * 0.7;
+        wrapper.style.transform = `translateY(${blobY}px) scaleX(${stretchX}) scaleY(${stretchY})`;
+
+        updateBlobColor();
+        requestAnimationFrame(tickBlob);
+      }
+      tickBlob();
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+        PARALLAX BLOBS — drift slower than scroll
+       ════════════════════════════════════════════════════════════════ */
+    {
+      const blobs = [...document.querySelectorAll('.blob-svg[data-parallax]')];
+      blobs.forEach(b => { b.dataset.baseTransform = b.style.transform || ''; });
+      let pending = false;
+      window.addEventListener('scroll', () => {
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => {
+          const sy = window.scrollY;
+          for (const b of blobs) {
+            const speed = parseFloat(b.dataset.parallax) || 0.2;
+            const base = b.dataset.baseTransform || '';
+            b.style.transform = `${base} translateY(${-sy * speed * 0.3}px)`;
+          }
+          pending = false;
+        });
+      }, { passive: true });
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+        REVEAL ANIMATIONS
+       ════════════════════════════════════════════════════════════════ */
+    {
+      const els = [...document.querySelectorAll('.reveal, .reveal-stagger')];
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+      els.forEach(el => io.observe(el));
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+        MENU OVERLAY
+       ════════════════════════════════════════════════════════════════ */
+    {
+      const toggle = document.getElementById('sidebarToggle');
+      const overlay = document.getElementById('menuOverlay');
+      function setOpen(open) {
+        toggle.classList.toggle('open', open);
+        overlay.classList.toggle('open', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      toggle.addEventListener('click', () => setOpen(!overlay.classList.contains('open')));
+      overlay.querySelectorAll('[data-close]').forEach(a => a.addEventListener('click', () => setOpen(false)));
+      window.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) setOpen(false); });
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+        CHATBOT — receptionist that texts Lindsay's phone via SMS deeplink
+       ════════════════════════════════════════════════════════════════ */
+    {
+      const PHONE = '7602100977';
+
+      const SETUP_PACKAGES = [
+        { id: 'lite', name: 'Startup Lite', price: 350,
+          desc: 'Simple landing page, contact form, mobile-ready, domain.',
+          outcome: 'designed to get you online quickly and professionally',
+          includes: [
+            'Polished mobile-friendly landing page',
+            'Inquiry / contact setup',
+            'Clear positioning for your business',
+            'Domain connection',
+            'Launch-ready foundation',
+          ]},
+        { id: 'foundation', name: 'Startup Foundation', price: 1250,
+          desc: '5-page site, license integration, hosting + maintenance.',
+          outcome: 'designed to launch a legitimate, trusted presence',
+          includes: [
+            'Professional 5-page website',
+            'License + credential integration',
+            'Mobile-friendly across all devices',
+            'Domain + professional email',
+            'Hosting + maintenance included',
+          ]},
+        { id: 'growth', name: 'Growth Builder', price: 1950, recommended: true,
+          desc: 'Service pages, local SEO, Google + Yelp, trust sections.',
+          outcome: 'designed to actively grow your business and pull in qualified leads',
+          includes: [
+            'Dedicated service pages',
+            'Conversion-focused contact forms',
+            'Local SEO setup',
+            'Google Business + Yelp integration',
+            'Trust-building sections + sharper copy',
+          ]},
+        { id: 'authority', name: 'Authority Builder', price: 3000,
+          desc: 'Service-area SEO, gallery, monthly content, analytics.',
+          outcome: "built to dominate local search and become your area's go-to",
+          includes: [
+            'Service-area SEO pages',
+            'Before/after gallery framework',
+            'Ongoing SEO + monthly content',
+            'Advanced lead generation setup',
+            'Analytics + monthly reporting',
+          ]},
+      ];
+
+      const CARE_PLANS = [
+        { id: 'startup-care', name: 'Startup Care', price: 99,
+          desc: 'Hosting, security, small content edits, on-call support.',
+          outcome: 'to keep things running smoothly after launch',
+          includes: [
+            'Hosting + security updates',
+            'Small content edits',
+            'On-call support when you need it',
+          ]},
+        { id: 'growth-care', name: 'Growth Care', price: 149, recommended: true,
+          desc: 'Startup Care + SEO/copy refreshes, performance check-ins.',
+          outcome: 'to keep your site fresh and growing',
+          includes: [
+            'Everything in Startup Care',
+            'Regular SEO + copy refreshes',
+            'Light content updates',
+            'Performance check-ins',
+          ]},
+        { id: 'authority-care', name: 'Authority Care', price: 249,
+          desc: 'Growth Care + monthly content piece + advanced analytics.',
+          outcome: 'to keep you ahead of the competition',
+          includes: [
+            'Everything in Growth Care',
+            'Ongoing SEO optimization',
+            'Monthly blog or content piece',
+            'Advanced analytics + reporting',
+            'Lead-gen tuning',
+          ]},
+        { id: 'no-care', name: 'Not at this time', price: 0,
+          desc: 'Skip the monthly plan — you can add later.',
+          outcome: '',
+          includes: []},
+      ];
+
+      const launcher  = document.getElementById('chatLauncher');
+      const panel     = document.getElementById('chatPanel');
+      const closeBtn  = document.getElementById('chatClose');
+      const messages  = document.getElementById('chatMessages');
+      const inputArea = document.getElementById('chatInputArea');
+
+      const state = {
+        intent: null, setup: null, care: null,
+        name: '', business: '', project: '', timeline: '', question: '',
+        started: false,
+      };
+
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      const scrollMsgs = () => { messages.scrollTop = messages.scrollHeight; };
+
+      function showTyping() {
+        const t = document.createElement('div');
+        t.className = 'chat-typing';
+        t.id = 'chatTyping';
+        t.innerHTML = '<span></span><span></span><span></span>';
+        messages.appendChild(t);
+        scrollMsgs();
+      }
+      function hideTyping() { document.getElementById('chatTyping')?.remove(); }
+
+      async function botSay(text, delay = 700) {
+        showTyping();
+        await sleep(delay);
+        hideTyping();
+        const m = document.createElement('div');
+        m.className = 'chat-msg bot';
+        m.textContent = text;
+        messages.appendChild(m);
+        scrollMsgs();
+      }
+      function userSay(text) {
+        const m = document.createElement('div');
+        m.className = 'chat-msg user';
+        m.textContent = text;
+        messages.appendChild(m);
+        scrollMsgs();
+      }
+      const clearInput = () => { inputArea.innerHTML = ''; };
+
+      function showOptions(opts, onPick) {
+        clearInput();
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-options';
+        opts.forEach(o => {
+          const b = document.createElement('button');
+          b.className = 'chat-option';
+          b.textContent = o.label;
+          b.onclick = () => { userSay(o.label); clearInput(); onPick(o); };
+          wrap.appendChild(b);
+        });
+        inputArea.appendChild(wrap);
+      }
+
+      function showInput(placeholder, multiline, onSubmit) {
+        clearInput();
+        const input = multiline ? document.createElement('textarea') : document.createElement('input');
+        input.className = 'chat-input';
+        input.placeholder = placeholder;
+        if (!multiline) input.type = 'text';
+        const row = document.createElement('div');
+        row.className = 'chat-submit-row';
+        const submit = document.createElement('button');
+        submit.className = 'chat-submit';
+        submit.textContent = 'Continue →';
+        submit.onclick = () => {
+          const v = input.value.trim();
+          if (!v) return;
+          userSay(v);
+          clearInput();
+          onSubmit(v);
+        };
+        if (!multiline) {
+          input.onkeypress = e => { if (e.key === 'Enter') submit.click(); };
+        }
+        row.appendChild(submit);
+        inputArea.appendChild(input);
+        inputArea.appendChild(row);
+        setTimeout(() => input.focus(), 100);
+      }
+
+      function showPicker(items, groupLabel, onPick, formatPrice) {
+        clearInput();
+        const picker = document.createElement('div');
+        picker.className = 'chat-picker';
+        const label = document.createElement('div');
+        label.className = 'chat-picker-group';
+        label.textContent = groupLabel;
+        picker.appendChild(label);
+        items.forEach(p => {
+          const b = document.createElement('button');
+          b.className = 'chat-pick';
+          b.innerHTML = `
+            <div class="chat-pick-info">
+              <div class="chat-pick-name">${p.name}${p.recommended ? '<span class="chat-pick-rec">Rec</span>' : ''}</div>
+              <div class="chat-pick-desc">${p.desc}</div>
+            </div>
+            <div class="chat-pick-price">${formatPrice(p)}</div>
+          `;
+          b.onclick = () => {
+            const lbl = `${p.name}${p.price > 0 ? ' — ' + formatPrice(p).replace(/<[^>]+>/g, '') : ''}`;
+            userSay(lbl);
+            clearInput();
+            onPick(p);
+          };
+          picker.appendChild(b);
+        });
+        inputArea.appendChild(picker);
+      }
+
+      function showSetupPicker(onPick) {
+        showPicker(SETUP_PACKAGES, 'Setup package', onPick,
+          p => `$${p.price.toLocaleString()}`);
+      }
+      function showCarePicker(onPick) {
+        showPicker(CARE_PLANS, 'Ongoing care plan', onPick,
+          p => p.price > 0 ? `$${p.price}<small>/mo</small>` : 'Skip');
+      }
+
+      function showTotalSummary() {
+        const setup = SETUP_PACKAGES.find(p => p.id === state.setup);
+        const care = CARE_PLANS.find(p => p.id === state.care);
+        const setupPrice = setup ? setup.price : 0;
+        const carePrice = care ? care.price : 0;
+        const m = document.createElement('div');
+        m.className = 'chat-msg summary';
+        let txt = '';
+        if (setup) txt += `${setup.name}: $${setupPrice.toLocaleString()}\n`;
+        if (care && care.price > 0) txt += `${care.name}: $${care.price}/mo\n`;
+        if (care && care.price === 0) txt += `No monthly plan\n`;
+        txt += `\nTotal today: $${setupPrice.toLocaleString()}`;
+        if (carePrice > 0) txt += `\nThen: $${carePrice}/mo`;
+        m.textContent = txt;
+        messages.appendChild(m);
+        scrollMsgs();
+      }
+
+      function buildSmsBody() {
+        const lines = [];
+        const greeting = state.intent === 'build' ? 'Custom build request'
+                      : state.intent === 'care'  ? 'Hosting / care request'
+                      : 'Question from your site';
+        lines.push(greeting + (state.name ? ` from ${state.name}` : ''));
+        if (state.business) lines.push(`Project: ${state.business}`);
+
+        if (state.intent === 'build') {
+          const setup = SETUP_PACKAGES.find(p => p.id === state.setup);
+          const care = CARE_PLANS.find(p => p.id === state.care);
+          if (setup) lines.push(`Setup: ${setup.name} ($${setup.price.toLocaleString()})`);
+          if (care)  lines.push(`Care: ${care.name}${care.price > 0 ? ' ($' + care.price + '/mo)' : ' — skip for now'}`);
+        }
+        if (state.intent === 'care') {
+          const care = CARE_PLANS.find(p => p.id === state.care);
+          if (care) lines.push(`Plan: ${care.name}${care.price > 0 ? ' ($' + care.price + '/mo)' : ''}`);
+        }
+
+        if (state.project)  lines.push('', state.project);
+        if (state.question) lines.push('', state.question);
+        if (state.timeline) lines.push('', `Timeline: ${state.timeline}`);
+        lines.push('', '— sent via businessintuitive.tech');
+        return lines.join('\n');
+      }
+
+      function buildRecommendationCard() {
+        const card = document.createElement('div');
+        card.className = 'chat-recommendation';
+        const setup = SETUP_PACKAGES.find(p => p.id === state.setup);
+        const care  = CARE_PLANS.find(p => p.id === state.care);
+
+        if (setup && setup.includes.length) {
+          const sec = document.createElement('div');
+          sec.className = 'chat-rec-section';
+          sec.innerHTML = `
+            <div class="chat-rec-label">What this could include</div>
+            <ul class="chat-rec-list">
+              ${setup.includes.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          `;
+          card.appendChild(sec);
+        }
+
+        if (care && care.includes.length) {
+          if (setup && setup.includes.length) {
+            const div = document.createElement('hr');
+            div.className = 'chat-rec-divider';
+            card.appendChild(div);
+          }
+          const sec = document.createElement('div');
+          sec.className = 'chat-rec-section';
+          sec.innerHTML = `
+            <div class="chat-rec-label sage">Ongoing — ${care.name}</div>
+            <ul class="chat-rec-list sage">
+              ${care.includes.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          `;
+          card.appendChild(sec);
+        }
+
+        if (state.timeline) {
+          const div = document.createElement('hr');
+          div.className = 'chat-rec-divider';
+          card.appendChild(div);
+          const meta = document.createElement('div');
+          meta.className = 'chat-rec-meta';
+          meta.innerHTML = `Timeline <strong>${state.timeline}</strong>`;
+          card.appendChild(meta);
+        }
+
+        return card;
+      }
+
+      async function showSendButton() {
+        clearInput();
+
+        await botSay("Beautiful — I have what I need.", 600);
+
+        let recoLine = '';
+        if (state.intent === 'build') {
+          const pkg = SETUP_PACKAGES.find(p => p.id === state.setup);
+          if (pkg) recoLine = `Based on what you shared, I'd likely recommend a ${pkg.name} build ${pkg.outcome}.`;
+        } else if (state.intent === 'care') {
+          const plan = CARE_PLANS.find(p => p.id === state.care);
+          if (plan && plan.price > 0) recoLine = `Based on what you shared, I'd recommend ${plan.name} ${plan.outcome}.`;
+          else recoLine = "Got it — Lindsay can scope a care plan with you whenever you're ready.";
+        } else {
+          recoLine = "I'll get this in front of Lindsay directly.";
+        }
+        if (recoLine) await botSay(recoLine, 750);
+
+        const setup = SETUP_PACKAGES.find(p => p.id === state.setup);
+        const care  = CARE_PLANS.find(p => p.id === state.care);
+        const showCard = (setup && setup.includes.length) || (care && care.includes.length);
+        if (showCard) {
+          await sleep(300);
+          const card = buildRecommendationCard();
+          messages.appendChild(card);
+          scrollMsgs();
+        }
+
+        await sleep(400);
+        await botSay("Tap below and I'll send this to Lindsay for review.", 500);
+
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-options';
+        const send = document.createElement('button');
+        send.className = 'chat-submit';
+        send.textContent = 'Send Request →';
+        send.onclick = async () => {
+          const body = encodeURIComponent(buildSmsBody());
+          window.location.href = `sms:${PHONE}?&body=${body}`;
+          await sleep(400);
+          await botSay("Sending now — your messages app should open. Just hit send to deliver it.", 300);
+          clearInput();
+          const restart = document.createElement('button');
+          restart.className = 'chat-option';
+          restart.textContent = 'Start over';
+          restart.onclick = reset;
+          inputArea.appendChild(restart);
+        };
+        wrap.appendChild(send);
+        inputArea.appendChild(wrap);
+      }
+
+      /* ──── Conversation flows ──── */
+      async function startConversation() {
+        await botSay("Hey 👋 I'm Lindsay's studio assistant.", 300);
+        await botSay("What brings you in today?");
+        showOptions([
+          { label: 'Custom build',        value: 'build' },
+          { label: 'Just hosting / care', value: 'care' },
+          { label: 'Have a question',     value: 'question' },
+        ], async opt => {
+          state.intent = opt.value;
+          if (opt.value === 'build')      await flowBuild();
+          else if (opt.value === 'care')  await flowCare();
+          else                            await flowQuestion();
+        });
+      }
+
+      async function flowBuild() {
+        await botSay("Cool. Pick the setup that fits — you can adjust this with Lindsay later.");
+        showSetupPicker(async pkg => {
+          state.setup = pkg.id;
+          await botSay("Want ongoing care? She handles hosting, security, content edits, and SEO.");
+          showCarePicker(async plan => {
+            state.care = plan.id;
+            await botSay("Here's where you land:");
+            await sleep(200);
+            showTotalSummary();
+            await sleep(400);
+            await botSay("What's your name?");
+            showInput("Your name", false, async name => {
+              state.name = name;
+              await botSay("What's the business or project called?");
+              showInput("Project / business", false, async biz => {
+                state.business = biz;
+                await botSay("Tell me a bit about what you want to build.");
+                showInput("A few sentences is plenty", true, async proj => {
+                  state.project = proj;
+                  await botSay("When are you hoping to launch?");
+                  showOptions([
+                    { label: 'ASAP',              value: 'asap' },
+                    { label: 'Within 1 month',    value: '1mo' },
+                    { label: '1–3 months',        value: '2-3mo' },
+                    { label: 'Flexible',          value: 'flexible' },
+                  ], async opt => {
+                    state.timeline = opt.label;
+                    await flowSend();
+                  });
+                });
+              });
+            });
+          });
+        });
+      }
+
+      async function flowCare() {
+        await botSay("Got it. Pick a care plan — Lindsay can adjust the details with you over text.");
+        showCarePicker(async plan => {
+          state.care = plan.id;
+          await botSay("What's your name?");
+          showInput("Your name", false, async name => {
+            state.name = name;
+            await botSay("What's your site URL? (or business name if no site yet)");
+            showInput("yoursite.com", false, async biz => {
+              state.business = biz;
+              await flowSend();
+            });
+          });
+        });
+      }
+
+      async function flowQuestion() {
+        await botSay("What's on your mind? I'll text Lindsay your question.");
+        showInput("Your question", true, async q => {
+          state.question = q;
+          await botSay("What's your name?");
+          showInput("Your name", false, async name => {
+            state.name = name;
+            await flowSend();
+          });
+        });
+      }
+
+      async function flowSend() {
+        await showSendButton();
+      }
+
+      function reset() {
+        Object.assign(state, {
+          intent: null, setup: null, care: null,
+          name: '', business: '', project: '', timeline: '', question: '',
+          started: false,
+        });
+        messages.innerHTML = '';
+        inputArea.innerHTML = '';
+        open();
+      }
+
+      function open() {
+        panel.classList.add('open');
+        launcher.classList.add('hidden');
+        panel.setAttribute('aria-hidden', 'false');
+        if (!state.started) {
+          state.started = true;
+          startConversation();
+        }
+      }
+      function close() {
+        panel.classList.remove('open');
+        launcher.classList.remove('hidden');
+        panel.setAttribute('aria-hidden', 'true');
+      }
+
+      launcher.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      document.querySelectorAll('[data-chat-open]').forEach(el => {
+        el.addEventListener('click', e => { e.preventDefault(); open(); });
+      });
+      window.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && panel.classList.contains('open')) close();
+      });
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+        STUDIO FLOOR — rotating active file under cases
+       ═════════════════════════════════════════════════════════════ */
+    {
+      const tags = [...document.querySelectorAll('.file-tag')];
+      if (tags.length) {
+        tags[0].classList.add('active');
+        let i = 0;
+        setInterval(() => {
+          tags[i].classList.remove('active');
+          i = (i + 1) % tags.length;
+          tags[i].classList.add('active');
+        }, 2800);
+      }
+    }
+  </script>
+</body>
+</html>

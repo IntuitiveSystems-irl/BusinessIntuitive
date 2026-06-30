@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none" role="img" aria-label="Business Intuitive">
+  <defs>
+    <linearGradient id="biTeal" x1="14" y1="48" x2="50" y2="18" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#16A2AE"/>
+    </linearGradient>
+    <radialGradient id="biGlow" cx="0.66" cy="0.32" r="0.7">
+      <stop offset="0" stop-color="#3B82F6" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="1" y="1" width="62" height="62" rx="16" fill="#1A1A1C" stroke="#1D4ED8" stroke-width="1"/>
+  <rect x="1" y="1" width="62" height="62" rx="16" fill="url(#biGlow)"/>
+
+  <!-- faint grid baseline (mathematical spacing) -->
+  <g stroke="#16A2AE" stroke-opacity="0.16" stroke-width="1">
+    <line x1="12" y1="50" x2="52" y2="50"/>
+    <line x1="22" y1="14" x2="22" y2="50"/>
+    <line x1="32" y1="14" x2="32" y2="50"/>
+    <line x1="42" y1="14" x2="42" y2="50"/>
+  </g>
+
+  <!-- ascending intelligence line: intuition resolving into signal -->
+  <polyline points="14,46 26,38 38,41 50,20" fill="none" stroke="url(#biTeal)"
+            stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="14,46 26,38 38,41 50,20" fill="none" stroke="#3B82F6" stroke-opacity="0.25"
+            stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- the signal: activation point -->
+  <circle cx="50" cy="20" r="5" fill="#C8FF5A"/>
+  <circle cx="50" cy="20" r="9" fill="#C8FF5A" fill-opacity="0.18"/>
+</svg>

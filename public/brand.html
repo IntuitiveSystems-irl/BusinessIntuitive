@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/assets/brand-mark.svg" />
+  <title>Brand System — Business Intuitive</title>
+  <meta name="description" content="The Business Intuitive brand system: the intelligence layer for founders. Color, typography, voice, and architecture." />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="/assets/brand.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bi-bg);
+      color: var(--bi-text);
+      font-family: var(--bi-font-sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(60vw 50vh at 78% -5%, rgba(22,162,174,0.16), transparent 60%),
+        radial-gradient(50vw 40vh at 5% 105%, rgba(15,111,120,0.12), transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+    main { position: relative; z-index: 1; }
+
+    /* nav */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem var(--bi-space-lg);
+      background: rgba(11,12,14,0.72);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--bi-line);
+    }
+    .brandlock { display: flex; align-items: center; gap: 0.75rem; }
+    .brandlock img { width: 34px; height: 34px; }
+    .brandlock b { font-family: var(--bi-font-display); font-weight: 600; font-size: 1.05rem; letter-spacing: var(--bi-track-snug); }
+    .nav__meta { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-text-mute); }
+
+    /* hero */
+    .hero { padding: var(--bi-space-3xl) var(--bi-space-lg) var(--bi-space-2xl); max-width: var(--bi-maxw); margin: 0 auto; }
+    .hero .bi-display { max-width: 16ch; margin: var(--bi-space-md) 0; }
+    .hero .bi-lead { max-width: 52ch; }
+    .sig { margin-top: var(--bi-space-lg); display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+    /* generic section */
+    .sec { max-width: var(--bi-maxw); margin: 0 auto; padding: var(--bi-space-2xl) var(--bi-space-lg); }
+    .sec__head { margin-bottom: var(--bi-space-xl); max-width: 60ch; }
+    .sec__head .bi-h2 { margin-top: 0.6rem; }
+
+    .grid { display: grid; gap: var(--bi-space-md); }
+    .grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .grid--4 { grid-template-columns: repeat(4, 1fr); }
+    .grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+    /* swatches */
+    .swatch { border-radius: var(--bi-r); overflow: hidden; border: 1px solid var(--bi-line); background: var(--bi-surface-1); }
+    .swatch__chip { height: 120px; }
+    .swatch__meta { padding: 0.9rem 1rem; }
+    .swatch__name { font-weight: 600; font-size: var(--bi-fs-sm); }
+    .swatch__role { font-size: var(--bi-fs-xs); color: var(--bi-text-mute); margin: 0.15rem 0 0.5rem; }
+    .swatch__hex { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-wide); color: var(--bi-teal-bright); text-transform: uppercase; }
+
+    /* type specimens */
+    .spec { padding: var(--bi-space-md) 0; border-bottom: 1px solid var(--bi-line); display: grid; grid-template-columns: 160px 1fr; gap: var(--bi-space-md); align-items: baseline; }
+    .spec__label { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-text-mute); }
+
+    /* architecture tiers */
+    .tier { padding: var(--bi-space-lg); }
+    .tier__role { font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: var(--bi-track-mono); text-transform: uppercase; color: var(--bi-teal-bright); margin-bottom: 0.75rem; }
+    .tier ul { list-style: none; margin-top: var(--bi-space-sm); }
+    .tier li { font-size: var(--bi-fs-sm); color: var(--bi-text-soft); padding: 0.3rem 0; border-bottom: 1px dashed var(--bi-line); }
+    .tier__tone { margin-top: var(--bi-space-sm); font-family: var(--bi-font-mono); font-size: var(--bi-fs-xs); letter-spacing: 0.06em; color: var(--bi-text-mute); }
+
+    .row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+
+    /* detail demo tiles */
+    .demo { height: 150px; border-radius: var(--bi-r); border: 1px solid var(--bi-line); display: flex; align-items: center; justify-content: center; padding: 1.25rem; text-align: center; }
+    .demo .bi-mono { font-size: var(--bi-fs-xs); }
+    .loadstack { width: 100%; display: grid; gap: 10px; }
+
+    footer { border-top: 1px solid var(--bi-line); padding: var(--bi-space-xl) var(--bi-space-lg); text-align: center; color: var(--bi-text-mute); font-size: var(--bi-fs-sm); }
+
+    @media (max-width: 900px) {
+      .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); }
+      .grid--2 { grid-template-columns: 1fr; }
+      .spec { grid-template-columns: 1fr; gap: 0.5rem; }
+    }
+    @media (max-width: 560px) {
+      .grid--3, .grid--4 { grid-template-columns: 1fr; }
+      .nav__meta { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="brandlock">
+      <img src="/assets/brand-mark.svg" alt="Business Intuitive mark" />
+      <b>Business Intuitive</b>
+    </div>
+    <span class="nav__meta">Brand System / v1</span>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <header class="hero">
+      <p class="bi-eyebrow">The Intelligence Layer for Founders</p>
+      <h1 class="bi-display">Clarity is a system.</h1>
+      <p class="bi-lead">This is the complete identity for Business Intuitive — built around clarity, intelligence, and editorial precision. Color, type, voice, and architecture, in one source of truth.</p>
+      <div class="sig">
+        <span class="bi-pill">Run the number</span>
+        <span class="bi-pill">Founders deserve intelligence</span>
+        <span class="bi-pill">High-signal, no fluff</span>
+      </div>
+    </header>
+
+    <!-- ESSENCE -->
+    <section class="sec" id="essence">
+      <div class="sec__head">
+        <p class="bi-eyebrow">01 — Essence</p>
+        <h2 class="bi-h2">The Sage-Architect.</h2>
+      </div>
+      <div class="grid grid--3">
+        <div class="bi-card">
+          <h3 class="bi-h4">Brand Promise</h3>
+          <p class="bi-body" style="margin-top:.6rem;">“Where founders go when they want the numbers to finally make sense.”</p>
+        </div>
+        <div class="bi-card">
+          <h3 class="bi-h4">Archetype</h3>
+          <p class="bi-body" style="margin-top:.6rem;">Intuitive, analytical, structured, visionary. We turn instinct into infrastructure.</p>
+        </div>
+        <div class="bi-card">
+          <h3 class="bi-h4">Energies</h3>
+          <p class="bi-body" style="margin-top:.6rem;">Editorial · Mathematical · Oceanic · Minimalist · High-signal · Founder-grade.</p>
+        </div>
+      </div>
+      <blockquote class="bi-quote" style="margin-top:var(--bi-space-xl);">
+        Intuition is data you haven’t articulated yet.
+        <cite>Business Intuitive — Brand Voice</cite>
+      </blockquote>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="sec" id="architecture">
+      <div class="sec__head">
+        <p class="bi-eyebrow">02 — Architecture</p>
+        <h2 class="bi-h2">Three tiers. One world.</h2>
+      </div>
+      <div class="grid grid--3">
+        <div class="bi-card tier">
+          <p class="tier__role">Parent Brand</p>
+          <h3 class="bi-h3">Business Intuitive</h3>
+          <ul>
+            <li>Systems &amp; automation</li>
+            <li>Dashboards</li>
+            <li>Creator payouts</li>
+            <li>Lightning + Nostr infrastructure</li>
+          </ul>
+          <p class="tier__tone">Tone — decisive, analytical, premium.</p>
+        </div>
+        <div class="bi-card tier">
+          <p class="tier__role">Sub-Brand</p>
+          <h3 class="bi-h3">Intelligence</h3>
+          <ul>
+            <li>Dashboards &amp; reports</li>
+            <li>AI insights</li>
+            <li>Predictive models</li>
+            <li>Founder intelligence</li>
+          </ul>
+          <p class="tier__tone">Tone — sharper, technical, mathematical.</p>
+        </div>
+        <div class="bi-card tier">
+          <p class="tier__role">Personal Brand</p>
+          <h3 class="bi-h3">The Intuitive CEO</h3>
+          <ul>
+            <li>Education &amp; sprints</li>
+            <li>Storytelling</li>
+            <li>Founder psychology</li>
+            <li>Social &amp; creator content</li>
+          </ul>
+          <p class="tier__tone">Tone — warm-editorial, human, direct.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR -->
+    <section class="sec" id="color">
+      <div class="sec__head">
+        <p class="bi-eyebrow">03 — Color</p>
+        <h2 class="bi-h2">A teal glow on black.</h2>
+      </div>
+      <p class="bi-eyebrow" style="color:var(--bi-text-mute); margin-bottom:1rem;">Core</p>
+      <div class="grid grid--4">
+        <div class="swatch"><div class="swatch__chip" style="background:#0F6F78"></div><div class="swatch__meta"><div class="swatch__name">Ocean Teal</div><div class="swatch__role">Intuition, depth</div><div class="swatch__hex">#0F6F78</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#1A1A1C"></div><div class="swatch__meta"><div class="swatch__name">Matte Charcoal</div><div class="swatch__role">Clarity, precision</div><div class="swatch__hex">#1A1A1C</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#C8FF5A"></div><div class="swatch__meta"><div class="swatch__name">Soft Lime</div><div class="swatch__role">Signal, activation</div><div class="swatch__hex">#C8FF5A</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#F2C4D4"></div><div class="swatch__meta"><div class="swatch__name">Dusty Pink</div><div class="swatch__role">Humanity, warmth</div><div class="swatch__hex">#F2C4D4</div></div></div>
+      </div>
+      <p class="bi-eyebrow" style="color:var(--bi-text-mute); margin:2rem 0 1rem;">Secondary</p>
+      <div class="grid grid--3">
+        <div class="swatch"><div class="swatch__chip" style="background:#A7B4B8"></div><div class="swatch__meta"><div class="swatch__name">Mist Grey</div><div class="swatch__role">Muted text, calm</div><div class="swatch__hex">#A7B4B8</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#0A1A2A"></div><div class="swatch__meta"><div class="swatch__name">Deep Navy</div><div class="swatch__role">Depth surface</div><div class="swatch__hex">#0A1A2A</div></div></div>
+        <div class="swatch"><div class="swatch__chip" style="background:#E9E1D3"></div><div class="swatch__meta"><div class="swatch__name">Soft Sand</div><div class="swatch__role">Warm neutral</div><div class="swatch__hex">#E9E1D3</div></div></div>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section class="sec" id="type">
+      <div class="sec__head">
+        <p class="bi-eyebrow">04 — Typography</p>
+        <h2 class="bi-h2">Editorial-tech hybrid.</h2>
+        <p class="bi-body" style="margin-top:.75rem;">Display set in <b>Fraunces</b> (a sharp modern serif, in the Canela / Editorial New family). Body in <b>Inter</b> (geometric sans). Technical accents and numbers in <b>JetBrains Mono</b>.</p>
+      </div>
+      <div class="spec"><span class="spec__label">Display / Fraunces</span><span class="bi-display">Run the number.</span></div>
+      <div class="spec"><span class="spec__label">H1 / Fraunces</span><span class="bi-h1">Founders deserve intelligence</span></div>
+      <div class="spec"><span class="spec__label">H2 / Fraunces</span><span class="bi-h2">The intelligence layer</span></div>
+      <div class="spec"><span class="spec__label">H3 / Fraunces</span><span class="bi-h3">Clarity is a system</span></div>
+      <div class="spec"><span class="spec__label">Lead / Inter 300</span><span class="bi-lead">Where founders go when they want the numbers to finally make sense.</span></div>
+      <div class="spec"><span class="spec__label">Body / Inter 400</span><span class="bi-body">Business Intuitive is the intelligence layer for founders — systems, dashboards, and decisions that compound. We sell clarity, precision, and power.</span></div>
+      <div class="spec"><span class="spec__label">Mono / JetBrains</span><span class="bi-mono">DSCR 1.27 · MRR +18.4% · CHURN 2.1%</span></div>
+    </section>
+
+    <!-- COMPONENTS -->
+    <section class="sec" id="components">
+      <div class="sec__head">
+        <p class="bi-eyebrow">05 — Components</p>
+        <h2 class="bi-h2">Buttons, tags, cards.</h2>
+      </div>
+      <div class="row" style="margin-bottom:var(--bi-space-xl);">
+        <a class="bi-btn bi-btn--primary" href="#">Run the number</a>
+        <a class="bi-btn bi-btn--signal" href="#">Activate</a>
+        <a class="bi-btn bi-btn--ghost" href="#">Read the system</a>
+        <a class="bi-btn bi-btn--pink" href="#">Talk to a human</a>
+      </div>
+      <div class="row" style="margin-bottom:var(--bi-space-xl);">
+        <span class="bi-pill">Live</span>
+        <span class="bi-pill">Predictive</span>
+        <span class="bi-pill">Founder-grade</span>
+      </div>
+      <div class="grid grid--3">
+        <div class="bi-card bi-card--glow"><h3 class="bi-h4">Dashboards</h3><p class="bi-body" style="margin-top:.5rem;">Your numbers, finally legible. Real-time, predictive, decisive.</p></div>
+        <div class="bi-card bi-card--glow"><h3 class="bi-h4">Automation</h3><p class="bi-body" style="margin-top:.5rem;">The system runs the work so you can run the company.</p></div>
+        <div class="bi-card bi-card--glow"><h3 class="bi-h4">Payouts</h3><p class="bi-body" style="margin-top:.5rem;">Lightning + Nostr infrastructure for creator monetization.</p></div>
+      </div>
+    </section>
+
+    <!-- DETAILS -->
+    <section class="sec" id="details">
+      <div class="sec__head">
+        <p class="bi-eyebrow">06 — Micro-Details</p>
+        <h2 class="bi-h2">Where it becomes unmistakable.</h2>
+      </div>
+      <div class="grid grid--3">
+        <div class="demo bi-grid-overlay"><span class="bi-mono">Grid overlay</span></div>
+        <div class="demo bi-glow" style="background:var(--bi-surface-1);"><span class="bi-mono">Teal glow</span></div>
+        <div class="demo" style="background:var(--bi-surface-1);">
+          <div class="loadstack">
+            <div class="bi-loading" style="height:12px;width:80%;"></div>
+            <div class="bi-loading" style="height:12px;width:55%;"></div>
+            <div class="bi-data-line"></div>
+            <span class="bi-mono" style="margin-top:.4rem;">Data loading…</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VOICE -->
+    <section class="sec" id="voice">
+      <div class="sec__head">
+        <p class="bi-eyebrow">07 — Voice</p>
+        <h2 class="bi-h2">Direct. Proof-driven. No fluff.</h2>
+      </div>
+      <div class="grid grid--2">
+        <blockquote class="bi-quote">Run the number.</blockquote>
+        <blockquote class="bi-quote">Clarity is a system.</blockquote>
+        <blockquote class="bi-quote">Intuition is data you haven’t articulated yet.</blockquote>
+        <blockquote class="bi-quote">Founders deserve intelligence.</blockquote>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Business Intuitive — The Intelligence Layer for Founders.</p>
+    <p style="margin-top:.4rem;font-family:var(--bi-font-mono);font-size:var(--bi-fs-xs);letter-spacing:var(--bi-track-mono);text-transform:uppercase;">Brand System v1 · /assets/brand.css</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,28 @@
+# gov.businessintuitive.tech — Federal Capability Statement
+# Public capability statement. Allow crawlers + AI search bots; block sensitive paths.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /data/
+Disallow: /logs/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+Sitemap: https://gov.businessintuitive.tech/sitemap.xml

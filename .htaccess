@@ -1,0 +1,61 @@
+# Business Intuitive - Geometric Landing Page
+# Route requests through PHP entry point while serving static assets directly
+
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Serve static assets from dist/ directly (JS, CSS, images, fonts, SVGs)
+RewriteCond %{REQUEST_URI} ^/dist/
+RewriteRule ^dist/(.*)$ dist/$1 [L]
+
+# Serve assets/ path (Vite build output references /assets/)
+RewriteCond %{REQUEST_URI} ^/assets/
+RewriteRule ^assets/(.*)$ dist/assets/$1 [L]
+
+# Serve public files (favicon, icons)
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# API endpoints — serve PHP directly
+RewriteRule ^api/send-quote\.php$ api/send-quote.php [L]
+RewriteRule ^api/scope-intake\.php$ api/scope-intake.php [L]
+RewriteRule ^api/visitor-tracker\.php$ api/visitor-tracker.php [L]
+
+# Protect logs directory
+RewriteRule ^logs/ - [F,L]
+
+# Everything else goes through index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+
+# Security: block access to sensitive files
+<FilesMatch "\.(json|sh|md|lock)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow public JSON if needed (but not logs)
+<FilesMatch "^(package|package-lock)\.json$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Cache static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Gzip compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>

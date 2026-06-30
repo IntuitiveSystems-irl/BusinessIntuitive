@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google tag (gtag.js) — Google Ads AW-18153637752 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18153637752"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18153637752');
+  </script>
+
+  <title>Get Started | Business Intuitive</title>
+  <meta name="description" content="We engineer websites, web systems, and custom applications that reduce operational friction. Start with a strategy session or reserve your spot." />
+  <meta name="keywords" content="web development, web app, custom web systems, business automation, Business Intuitive" />
+  <meta name="author" content="Business Intuitive" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://businessintuitive.tech/start" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://businessintuitive.tech/start" />
+  <meta property="og:title" content="Get Started | Business Intuitive" />
+  <meta property="og:description" content="We engineer websites, web systems, and custom applications that reduce operational friction." />
+  <meta property="og:site_name" content="Business Intuitive" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Get Started | Business Intuitive" />
+  <meta name="twitter:description" content="We engineer websites, web systems, and custom applications that reduce operational friction." />
+
+  <!-- Fonts: Cormorant Garamond, Libre Baskerville, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      background: #090a0f;
+      color: #ebebef;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+    }
+
+    /* Typography */
+    .bi-display {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .bi-display-italic {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.01em;
+    }
+
+    .bi-body {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-weight: 400;
+    }
+
+    .bi-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+    }
+
+    .bi-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Glass card */
+    .bi-glass {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    /* Corner accents */
+    .bi-corner {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border: 1px solid #4ECDC4;
+    }
+    .bi-corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+    .bi-corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+    /* Fade animation */
+    .bi-fade-up {
+      animation: fadeUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section spacing */
+    section { margin-bottom: 48px; }
+    section:last-child { margin-bottom: 0; }
+
+    /* Headline */
+    .headline {
+      font-size: 42px;
+      color: #fff;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    /* Form styles */
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 8px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      color: #ebebef;
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: 15px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: #4ECDC4;
+      box-shadow: 0 0 0 3px rgba(78,205,196,0.15);
+    }
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* Button styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      background: #4ECDC4;
+      color: #06060a;
+      border: none;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #5ee0d6;
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      color: #ebebef;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* Option cards */
+    .option-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 600px) {
+      .option-cards { grid-template-columns: 1fr; }
+    }
+    .option-card {
+      padding: 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .option-card:hover {
+      border-color: rgba(78,205,196,0.5);
+      background: rgba(78,205,196,0.08);
+    }
+    .option-card.selected {
+      border-color: #4ECDC4;
+      background: rgba(78,205,196,0.12);
+    }
+    .option-card-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .option-card-price {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: #4ECDC4;
+      margin-bottom: 12px;
+    }
+    .option-card-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+    }
+
+    /* Success message */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 60px 24px;
+    }
+    .success-message h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 32px;
+      color: #4ECDC4;
+      margin-bottom: 16px;
+    }
+    .success-message p {
+      color: rgba(255,255,255,0.7);
+      font-size: 16px;
+    }
+
+    /* Error message */
+    .error-message {
+      display: none;
+      background: rgba(220, 38, 38, 0.1);
+      border: 1px solid rgba(220, 38, 38, 0.4);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #fca5a5;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .footer a:hover {
+      color: #4ECDC4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Section 1: Authority Headline -->
+    <section class="bi-fade-up" style="animation-delay: 0.1s;">
+      <div class="bi-eyebrow" style="margin-bottom: 12px;">Business Intuitive</div>
+      <h1 class="bi-display headline">
+        We engineer websites, web systems, and custom applications that reduce operational friction.
+      </h1>
+    </section>
+
+    <!-- Section 2: Quick Qualification -->
+    <section class="bi-glass bi-fade-up" style="padding: 36px; animation-delay: 0.2s;">
+      <span class="bi-corner tl"></span><span class="bi-corner br"></span>
+      <div class="bi-eyebrow" style="margin-bottom: 16px;">A few questions</div>
+      
+      <form id="qual-form">
+        <div class="form-group">
+          <label class="form-label" for="name">Your Name</label>
+          <input type="text" id="name" name="name" class="form-input" required placeholder="John Smith" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input type="email" id="email" name="email" class="form-input" required placeholder="john@company.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" class="form-input" required placeholder="(555) 123-4567" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="businessType">Business Type</label>
+          <select id="businessType" name="businessType" class="form-select" required>
+            <option value="">Select one...</option>
+            <option value="service">Service Business</option>
+            <option value="ecommerce">E-commerce / Retail</option>
+            <option value="saas">SaaS / Software</option>
+            <option value="agency">Agency / Consulting</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="revenueStage">Revenue / Stage</label>
+          <select id="revenueStage" name="revenueStage" class="form-select" required>
+            <option value="">Select one...</option>
+            <option value="pre-revenue">Pre-revenue / Idea Stage</option>
+            <option value="under-100k">Under $100K/year</option>
+            <option value="100k-500k">$100K - $500K/year</option>
+            <option value="500k-1m">$500K - $1M/year</option>
+            <option value="1m-5m">$1M - $5M/year</option>
+            <option value="5m-plus">$5M+/year</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="bottleneck">Biggest Bottleneck</label>
+          <textarea id="bottleneck" name="bottleneck" class="form-textarea" placeholder="What's slowing you down right now? (e.g., manual processes, scattered tools, no visibility into operations...)"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="whatYouWant">What You Want</label>
+          <select id="whatYouWant" name="whatYouWant" class="form-select" required>
+            <option value="">Select one...</option>
+            <option value="website">New Website / Website Redesign</option>
+            <option value="automation">Business Automation</option>
+            <option value="webapp">Custom Web Application</option>
+            <option value="lead-system">Lead Generation System</option>
+            <option value="other-solution">Something Else</option>
+          </select>
+        </div>
+      </form>
+    </section>
+
+    <!-- Section 3: Deposit or Schedule -->
+    <section class="bi-fade-up" style="animation-delay: 0.3s;">
+      <div class="bi-eyebrow" style="margin-bottom: 16px;">Next Step</div>
+      
+      <div class="option-cards">
+        <div class="option-card" id="card-strategy" onclick="selectOption('strategy')">
+          <div class="option-card-title">Paid Strategy Session</div>
+          <div class="option-card-price">$30 – $150</div>
+          <div class="option-card-desc">Credited toward your project. A focused 60-minute call to map your solution.</div>
+        </div>
+        <div class="option-card" id="card-deposit" onclick="selectOption('deposit')">
+          <div class="option-card-title">Reserve Your Spot</div>
+          <div class="option-card-price">$250 – $500</div>
+          <div class="option-card-desc">Applied to project total. For higher-ticket work ($2K–$5K+), deposits qualify better than free calls.</div>
+        </div>
+      </div>
+
+      <div id="error-message" class="error-message"></div>
+
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <button type="button" class="btn" id="submit-btn" onclick="submitForm()" disabled>
+          Continue to Payment
+        </button>
+        <button type="button" class="btn btn-secondary" onclick="scheduleCall()">
+          Schedule Free Call
+        </button>
+      </div>
+    </section>
+
+    <!-- Investor Briefs CTA -->
+    <section class="bi-glass bi-fade-up" style="padding: 28px; animation-delay: 0.4s;">
+      <span class="bi-corner tl"></span><span class="bi-corner br"></span>
+      <div class="bi-eyebrow" style="margin-bottom: 12px;">Also Available</div>
+      <h3 class="bi-display" style="font-size: 22px; color: #fff; margin-bottom: 12px;">Custom Investor Briefs</h3>
+      <p class="bi-body" style="color: rgba(255,255,255,0.7); margin-bottom: 20px; line-height: 1.5;">
+        Deep-dive intelligence on properties, markets, and investment opportunities. Data-driven insights for informed decisions.
+      </p>
+      <a href="https://intelligence.businessintuitive.tech" class="btn btn-secondary" style="display: inline-block; text-decoration: none;">
+        Order Investor Briefs
+      </a>
+    </section>
+
+    <div id="success-message" class="success-message">
+      <h2>Thanks! We'll be in touch.</h2>
+      <p>We've received your information and will reach out within one business day.</p>
+    </div>
+
+    <div class="footer">
+      <a href="https://businessintuitive.tech">← Back to Business Intuitive</a>
+    </div>
+  </div>
+
+  <script>
+    let selectedOption = null;
+
+    function selectOption(option) {
+      selectedOption = option;
+      document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+      document.getElementById('card-' + option).classList.add('selected');
+      document.getElementById('submit-btn').disabled = false;
+    }
+
+    function validateForm() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const businessType = document.getElementById('businessType').value;
+      const revenueStage = document.getElementById('revenueStage').value;
+      const whatYouWant = document.getElementById('whatYouWant').value;
+
+      if (!name || !email || !phone || !businessType || !revenueStage || !whatYouWant) {
+        return { valid: false, message: 'Please fill in all required fields.' };
+      }
+
+      if (!email.includes('@') || !email.includes('.')) {
+        return { valid: false, message: 'Please enter a valid email address.' };
+      }
+
+      return { valid: true };
+    }
+
+    async function submitForm() {
+      const validation = validateForm();
+      if (!validation.valid) {
+        showError(validation.message);
+        return;
+      }
+
+      if (!selectedOption) {
+        showError('Please select an option above.');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      hideError();
+
+      const formData = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        businessType: document.getElementById('businessType').value,
+        revenueStage: document.getElementById('revenueStage').value,
+        bottleneck: document.getElementById('bottleneck').value.trim(),
+        whatYouWant: document.getElementById('whatYouWant').value,
+        selectedOption: selectedOption,
+        page: 'start',
+        referrer: document.referrer || ''
+      };
+
+      try {
+        // First, save the lead data
+        const leadResponse = await fetch('/api/start-lead.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const leadResult = await leadResponse.json();
+
+        if (!leadResult.success) {
+          throw new Error(leadResult.message || 'Lead submission failed');
+        }
+
+        // Then, create Stripe checkout session
+        const amountCents = selectedOption === 'strategy' ? 3000 : 25000; // $30 or $250
+        const checkoutEndpoint = selectedOption === 'strategy' 
+          ? 'https://proposal.businessintuitive.tech/api/checkout/strategy-session'
+          : 'https://proposal.businessintuitive.tech/api/checkout/deposit';
+
+        const checkoutResponse = await fetch(checkoutEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...formData,
+            amountCents: amountCents
+          })
+        });
+
+        const checkoutResult = await checkoutResponse.json();
+
+        if (checkoutResult.url) {
+          window.location.href = checkoutResult.url;
+        } else {
+          throw new Error(checkoutResult.error || 'Checkout failed');
+        }
+      } catch (error) {
+        showError(error.message || 'Something went wrong. Please try again.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Continue to Payment';
+      }
+    }
+
+    function scheduleCall() {
+      const validation = validateForm();
+      if (!validation.valid) {
+        showError(validation.message);
+        return;
+      }
+
+      // Save the form data first, then redirect to Cal.com
+      const formData = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        businessType: document.getElementById('businessType').value,
+        revenueStage: document.getElementById('revenueStage').value,
+        bottleneck: document.getElementById('bottleneck').value.trim(),
+        whatYouWant: document.getElementById('whatYouWant').value,
+        selectedOption: 'free-call',
+        page: 'start',
+        referrer: document.referrer || ''
+      };
+
+      fetch('/api/start-lead.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      }).then(() => {
+        window.location.href = 'https://cal.com/businessintuitive/custom-web-app-creative-session';
+      }).catch(() => {
+        // Even if API fails, still redirect to Cal.com
+        window.location.href = 'https://cal.com/businessintuitive/custom-web-app-creative-session';
+      });
+    }
+
+    function showError(message) {
+      const errorEl = document.getElementById('error-message');
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+    }
+
+    function hideError() {
+      document.getElementById('error-message').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

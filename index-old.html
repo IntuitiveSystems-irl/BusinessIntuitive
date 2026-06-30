@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/brand-mark.svg" />
+    <meta name="theme-color" content="#0B0C0E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Google tag (gtag.js) — Google Ads AW-18153637752 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18153637752"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18153637752');
+    </script>
+
+    <title>Business Intuitive | The Intelligence Layer for Founders</title>
+    <meta name="description" content="We build custom websites and web systems for operators who treat their website as a working asset. Bespoke sites, web apps, internal tools, hosting, and care plans." />
+    <meta name="keywords" content="custom websites, web systems, web app development, internal tools, client portals, dashboards, hosting, care plans, website rebuild, Business Intuitive" />
+    <meta name="author" content="Business Intuitive" />
+    <link rel="canonical" href="https://businessintuitive.tech" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://businessintuitive.tech" />
+    <meta property="og:title" content="Business Intuitive | The Intelligence Layer for Founders" />
+    <meta property="og:description" content="Bespoke websites and web systems for operators who treat their site as a working asset. Custom builds, web apps, internal tools, hosting, and care plans." />
+    <meta property="og:site_name" content="Business Intuitive" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Business Intuitive | The Intelligence Layer for Founders" />
+    <meta name="twitter:description" content="Custom websites and web systems for operators. Bespoke builds, web apps, internal tools, hosting, and care plans." />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://businessintuitive.tech/#organization",
+          "name": "Business Intuitive",
+          "url": "https://businessintuitive.tech",
+          "description": "Business Intuitive designs and builds custom websites, web apps, internal tools, and ongoing care plans for operators who treat their website as a working asset.",
+          "foundingDate": "2024",
+          "knowsAbout": ["custom website development", "web application development", "internal tools", "client portals", "dashboards", "web hosting", "website care plans", "automation systems"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://businessintuitive.tech/#website",
+          "url": "https://businessintuitive.tech",
+          "name": "Business Intuitive",
+          "publisher": { "@id": "https://businessintuitive.tech/#organization" }
+        },
+        {
+          "@type": "ProfessionalService",
+          "name": "Custom Websites & Web Systems",
+          "provider": { "@id": "https://businessintuitive.tech/#organization" },
+          "description": "Custom-built websites, web applications, internal tools, dashboards, and client portals. Includes ongoing hosting and care plans.",
+          "url": "https://businessintuitive.tech",
+          "serviceType": "Web Development",
+          "areaServed": "US",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Web Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom Website",
+                  "description": "Bespoke websites built for performance, SEO, and conversion. No templates."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Web Systems & Apps",
+                  "description": "Custom web apps, internal tools, dashboards, and client portals tailored to your operation."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Hosting & Care Plans",
+                  "description": "Ongoing hosting, maintenance, edits, security, and on-call support."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/brand.css" />
+  </head>
+  <body>
+
+    <div class="cursor" id="cursor">
+      <div class="cursor__dot"></div>
+      <div class="cursor__ring"></div>
+    </div>
+
+    <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">
+      <svg class="sound-icon sound-icon--on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      </svg>
+      <svg class="sound-icon sound-icon--off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+        <line x1="23" y1="9" x2="17" y2="15"/>
+        <line x1="17" y1="9" x2="23" y2="15"/>
+      </svg>
+    </button>
+
+    <nav class="nav" id="nav">
+      <div class="nav__logo">Business Intuitive</div>
+      <div class="nav__links">
+        <a href="#hero" class="nav__link active" data-section="hero">Home</a>
+        <a href="#results" class="nav__link" data-section="results">Results</a>
+        <a href="#about" class="nav__link" data-section="about">About</a>
+        <a href="https://custom.businessintuitive.tech" class="nav__link" data-hover>Web Services</a>
+        <a href="https://intelligence.businessintuitive.tech" class="nav__link" data-hover>Intelligence</a>
+        <a href="/vibe" class="nav__link" data-hover>Vibe Consulting</a>
+        <a href="#contact" class="nav__link" data-section="contact">Apply</a>
+      </div>
+    </nav>
+
+    <!-- HERO: Let's Scope Your Build — guided intake -->
+    <section class="section section--hero" id="hero">
+      <canvas id="heroCanvas"></canvas>
+
+      <div class="scope" id="scope" data-view="intro">
+
+        <!-- INTRO / LAUNCHER -->
+        <div class="scope__view scope__intro is-active" data-view="intro">
+          <p class="scope__eyebrow">Business Intuitive</p>
+          <h1 class="scope__title">Let&rsquo;s Scope Your Build</h1>
+          <p class="scope__lede">Custom web systems start with clarity.<br>Answer a few questions so we can scope your build accurately.</p>
+          <div class="scope__bar scope__bar--intro"><span class="scope__bar-fill" style="width:0%"></span></div>
+          <div class="scope__intro-actions">
+            <button type="button" class="cta-button scope__cta" data-hover data-scope-start>Start the Intake</button>
+            <button type="button" class="scope__textlink" data-hover data-scope-start>Scope my build &rarr;</button>
+          </div>
+          <p class="scope__intro-note">5 quick steps &middot; about 90 seconds</p>
+        </div>
+
+        <!-- FORM (steps 1–5) -->
+        <div class="scope__view scope__form" data-view="form">
+          <div class="scope__head">
+            <div class="scope__progress-meta">
+              <span class="scope__step-count" data-step-count>Step 1 of 5</span>
+              <span class="scope__pct" data-pct>0%</span>
+            </div>
+            <div class="scope__bar"><span class="scope__bar-fill" data-fill style="width:0%"></span></div>
+          </div>
+
+          <div class="scope__body">
+            <!-- STEP 1: Business Profile -->
+            <div class="scope__step is-active" data-step="1">
+              <h2 class="scope__step-title">Your Business Profile</h2>
+              <p class="scope__step-sub">This helps us understand your operational complexity.</p>
+
+              <div class="scope__field">
+                <label class="scope__field-label">Business type</label>
+                <div class="scope__chips" data-chips="businessType">
+                  <button type="button" class="scope__chip" data-value="Contractor">Contractor</button>
+                  <button type="button" class="scope__chip" data-value="SaaS">SaaS</button>
+                  <button type="button" class="scope__chip" data-value="Agency">Agency</button>
+                  <button type="button" class="scope__chip" data-value="Local Service">Local Service</button>
+                  <button type="button" class="scope__chip" data-value="Other">Other</button>
+                </div>
+              </div>
+
+              <div class="scope__grid2">
+                <div class="scope__field">
+                  <label class="scope__field-label" for="sc-revenue">Annual revenue</label>
+                  <select class="scope__select" id="sc-revenue" data-field="revenue">
+                    <option value="">Select range&hellip;</option>
+                    <option>Pre-revenue</option>
+                    <option>Under $250K</option>
+                    <option>$250K &ndash; $1M</option>
+                    <option>$1M &ndash; $5M</option>
+                    <option>$5M &ndash; $20M</option>
+                    <option>$20M+</option>
+                  </select>
+                </div>
+                <div class="scope__field">
+                  <label class="scope__field-label" for="sc-team">Team size</label>
+                  <select class="scope__select" id="sc-team" data-field="teamSize">
+                    <option value="">Select size&hellip;</option>
+                    <option>Just me</option>
+                    <option>2 &ndash; 10</option>
+                    <option>11 &ndash; 50</option>
+                    <option>51 &ndash; 200</option>
+                    <option>200+</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="scope__field">
+                <label class="scope__field-label" for="sc-website">Current website</label>
+                <input class="scope__input" id="sc-website" type="url" inputmode="url" autocomplete="url" placeholder="https://yourcompany.com" data-field="website" />
+              </div>
+
+              <p class="scope__error" data-error></p>
+              <div class="scope__nav">
+                <button type="button" class="scope__btn scope__btn--ghost" data-hover data-scope-prev>Back</button>
+                <button type="button" class="scope__btn scope__btn--primary" data-hover data-scope-next>Continue</button>
+              </div>
+            </div>
+
+            <!-- STEP 2: Operational Bottleneck -->
+            <div class="scope__step" data-step="2">
+              <h2 class="scope__step-title">Your Operational Bottleneck</h2>
+              <p class="scope__step-sub">Choose the issues that slow you down.</p>
+              <div class="scope__checks" data-checks="bottlenecks">
+                <button type="button" class="scope__check" data-value="Website doesn't convert"><span class="scope__check-box"></span><span class="scope__check-label">My website doesn&rsquo;t convert</span></button>
+                <button type="button" class="scope__check" data-value="Systems are fragmented"><span class="scope__check-box"></span><span class="scope__check-label">My systems are fragmented</span></button>
+                <button type="button" class="scope__check" data-value="Need automation"><span class="scope__check-box"></span><span class="scope__check-label">I need automation</span></button>
+                <button type="button" class="scope__check" data-value="Need a portal/dashboard"><span class="scope__check-box"></span><span class="scope__check-label">I need a portal / dashboard</span></button>
+                <button type="button" class="scope__check" data-value="Need a full rebuild"><span class="scope__check-box"></span><span class="scope__check-label">I need a full rebuild</span></button>
+                <button type="button" class="scope__check" data-value="Scaling, need infrastructure"><span class="scope__check-box"></span><span class="scope__check-label">I&rsquo;m scaling and need infrastructure</span></button>
+              </div>
+              <p class="scope__error" data-error></p>
+              <div class="scope__nav">
+                <button type="button" class="scope__btn scope__btn--ghost" data-hover data-scope-prev>Back</button>
+                <button type="button" class="scope__btn scope__btn--primary" data-hover data-scope-next>Continue</button>
+              </div>
+            </div>
+
+            <!-- STEP 3: What You Want Built -->
+            <div class="scope__step" data-step="3">
+              <h2 class="scope__step-title">What You Want Built</h2>
+              <p class="scope__step-sub">This helps us determine scope, timeline, and cost.</p>
+              <div class="scope__checks" data-checks="wants">
+                <button type="button" class="scope__check" data-value="Custom website"><span class="scope__check-box"></span><span class="scope__check-label">Custom website</span></button>
+                <button type="button" class="scope__check" data-value="Web system / portal"><span class="scope__check-box"></span><span class="scope__check-label">Web system / portal</span></button>
+                <button type="button" class="scope__check" data-value="Internal dashboard"><span class="scope__check-box"></span><span class="scope__check-label">Internal dashboard</span></button>
+                <button type="button" class="scope__check" data-value="Automation layer"><span class="scope__check-box"></span><span class="scope__check-label">Automation layer</span></button>
+                <button type="button" class="scope__check" data-value="Full stack rebuild"><span class="scope__check-box"></span><span class="scope__check-label">Full stack rebuild</span></button>
+                <button type="button" class="scope__check" data-value="Not sure — need guidance" data-exclusive="true"><span class="scope__check-box"></span><span class="scope__check-label">Not sure &mdash; need guidance</span></button>
+              </div>
+              <p class="scope__error" data-error></p>
+              <div class="scope__nav">
+                <button type="button" class="scope__btn scope__btn--ghost" data-hover data-scope-prev>Back</button>
+                <button type="button" class="scope__btn scope__btn--primary" data-hover data-scope-next>Continue</button>
+              </div>
+            </div>
+
+            <!-- STEP 4: How You Want to Start -->
+            <div class="scope__step" data-step="4">
+              <h2 class="scope__step-title">How You Want to Start</h2>
+              <p class="scope__step-sub">Choose the path that fits your stage.</p>
+              <div class="scope__paths" data-paths="startPath">
+                <button type="button" class="scope__path" data-value="strategy">
+                  <span class="scope__path-head">
+                    <span class="scope__path-name">Paid Strategy Session</span>
+                    <span class="scope__path-price">$250</span>
+                  </span>
+                  <span class="scope__path-best">Best for operators who want clarity, architecture, and a roadmap.</span>
+                  <ul class="scope__path-list">
+                    <li>45-min strategy call</li>
+                    <li>System architecture map</li>
+                    <li>Build recommendation</li>
+                    <li>Cost + timeline</li>
+                    <li>Recording + notes</li>
+                  </ul>
+                </button>
+                <button type="button" class="scope__path" data-value="fit-call">
+                  <span class="scope__path-head">
+                    <span class="scope__path-name">Free Fit Call</span>
+                    <span class="scope__path-price">15 min</span>
+                  </span>
+                  <span class="scope__path-best">Best for quick alignment, not strategy.</span>
+                  <ul class="scope__path-list">
+                    <li>Quick intro &amp; Q&amp;A</li>
+                    <li>See if we&rsquo;re a fit</li>
+                    <li>No prep required</li>
+                  </ul>
+                </button>
+              </div>
+              <p class="scope__error" data-error></p>
+              <div class="scope__nav">
+                <button type="button" class="scope__btn scope__btn--ghost" data-hover data-scope-prev>Back</button>
+                <button type="button" class="scope__btn scope__btn--primary" data-hover data-scope-next>Continue</button>
+              </div>
+            </div>
+
+            <!-- STEP 5: Your Details -->
+            <div class="scope__step" data-step="5">
+              <h2 class="scope__step-title">Your Details</h2>
+              <p class="scope__step-sub">We collect only what&rsquo;s needed.</p>
+              <div class="scope__field">
+                <label class="scope__field-label" for="sc-name">Name</label>
+                <input class="scope__input" id="sc-name" type="text" autocomplete="name" placeholder="Your name" data-field="name" required />
+              </div>
+              <div class="scope__field">
+                <label class="scope__field-label" for="sc-email">Email</label>
+                <input class="scope__input" id="sc-email" type="email" autocomplete="email" placeholder="you@company.com" data-field="email" required />
+              </div>
+              <div class="scope__field">
+                <label class="scope__field-label" for="sc-company">Company</label>
+                <input class="scope__input" id="sc-company" type="text" autocomplete="organization" placeholder="Your company" data-field="company" />
+              </div>
+              <div class="scope__field">
+                <label class="scope__field-label" for="sc-notes">Anything else we should know? <span class="scope__optional">(optional)</span></label>
+                <textarea class="scope__textarea" id="sc-notes" placeholder="Context, goals, deadlines&hellip;" data-field="notes"></textarea>
+              </div>
+              <p class="scope__error" data-error></p>
+              <div class="scope__nav">
+                <button type="button" class="scope__btn scope__btn--ghost" data-hover data-scope-prev>Back</button>
+                <button type="button" class="scope__btn scope__btn--primary" data-hover data-scope-submit>Submit &amp; Book Your Call</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit overlay -->
+          <div class="scope__spinner" data-spinner>
+            <div class="scope__spinner-ring"></div>
+            <p>Sending your intake&hellip;</p>
+          </div>
+        </div>
+
+        <!-- CONFIRMATION -->
+        <div class="scope__view scope__done" data-view="done">
+          <div class="scope__done-mark">&#10003;</div>
+          <p class="scope__eyebrow">You&rsquo;re In</p>
+          <h2 class="scope__title scope__title--sm">Your intake is complete.</h2>
+          <p class="scope__lede">Here&rsquo;s what happens next.</p>
+
+          <div class="scope__done-cta" data-done-cta></div>
+
+          <div class="scope__cols">
+            <div class="scope__col">
+              <h3 class="scope__col-title">What to prepare</h3>
+              <ul class="scope__col-list" data-prepare-list></ul>
+            </div>
+            <div class="scope__col">
+              <h3 class="scope__col-title">What you&rsquo;ll receive</h3>
+              <ul class="scope__col-list" data-receive-list></ul>
+            </div>
+          </div>
+
+          <div class="scope__done-links">
+            <a href="#results" class="scope__textlink" data-hover data-scope-scroll="results">See case studies &rarr;</a>
+            <a href="https://intelligence.businessintuitive.tech" class="scope__textlink" data-hover>Investor briefs &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="scroll-indicator" id="scrollIndicator">
+        <span>Scroll</span>
+        <div class="scroll-indicator__line"></div>
+      </div>
+    </section>
+
+    <!-- INSTRUMENT: The Strategic Systems Instrument -->
+    <section class="section section--instrument" id="instrument">
+      <canvas id="aboutCanvas"></canvas>
+      <div class="instrument__content">
+        <p class="instrument__label">Custom Web Systems</p>
+        <h2 class="instrument__headline">We build websites and<br>web systems that<br><span class="accent">earn their keep.</span></h2>
+        <div class="instrument__divider"></div>
+        <p class="instrument__sub">Not templates. Not WordPress patchwork.<br>Bespoke builds for operators who treat their site as a working asset.</p>
+        <a href="#hero" class="cta-button" data-hover data-scope-start>Request a Proposal</a>
+      </div>
+    </section>
+
+    <!-- RESULTS: Case Study -->
+    <section class="section section--results" id="results">
+      <div class="results__content">
+        <h2 class="section__title">What We Ship</h2>
+        <div class="results__divider"></div>
+        <div class="case-study">
+          <h3 class="case-study__title">Contractor Rebuild <span class="accent">&mdash; Website + Client Portal</span></h3>
+          <div class="case-study__grid">
+            <div class="case-study__col">
+              <h4 class="case-study__label">Before</h4>
+              <ul class="case-study__list">
+                <li>Generic template, 6s page load</li>
+                <li>No booking, no client access</li>
+                <li>$1,000/mo in patchwork SaaS</li>
+                <li>Owner doing data entry by hand</li>
+              </ul>
+            </div>
+            <div class="case-study__col case-study__col--after">
+              <h4 class="case-study__label">After</h4>
+              <ul class="case-study__list">
+                <li>Custom site, sub-1s load</li>
+                <li>Integrated booking + client portal</li>
+                <li>$200/mo unified stack</li>
+                <li>Real-time dashboards, zero manual entry</li>
+              </ul>
+            </div>
+          </div>
+          <p class="case-study__disclaimer">Every engagement is scoped on a custom proposal. Outcomes depend on project scope and stack.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT: Founder -->
+    <section class="section section--about" id="about">
+      <div class="about__content">
+        <h2 class="section__title">About the Founder</h2>
+        <div class="about__divider"></div>
+        <h3 class="about__name">Lindsay Bachman</h3>
+        <p class="about__text">
+          Lindsay designs and builds custom web systems that operators actually use.
+          With 13+ years in leadership and formal training across psychology, brain sciences,
+          and clinical informatics, she ships sites, apps, and tools that fit the business
+          they're built for — not the other way around.
+        </p>
+        <div class="about__stats">
+          <div class="stat">
+            <span class="stat__number">13+</span>
+            <span class="stat__label">Years</span>
+          </div>
+          <div class="stat">
+            <span class="stat__number">Custom</span>
+            <span class="stat__label">Every Build</span>
+          </div>
+          <div class="stat">
+            <span class="stat__number">US-Based</span>
+            <span class="stat__label">Designed &amp; Built</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES: What We Build -->
+    <section class="section section--services" id="services">
+      <div class="services__content">
+        <h2 class="section__title">What We Build</h2>
+        <div class="services__divider"></div>
+        <div class="work__grid">
+          <div class="work__item" data-hover>
+            <div class="work__item-inner">
+              <span class="work__item-number">01</span>
+              <h3 class="work__item-title">Custom Websites</h3>
+              <p class="work__item-category">Marketing Sites / Landing Pages / Rebuilds</p>
+            </div>
+          </div>
+          <div class="work__item" data-hover>
+            <div class="work__item-inner">
+              <span class="work__item-number">02</span>
+              <h3 class="work__item-title">Web Systems &amp; Apps</h3>
+              <p class="work__item-category">Internal Tools / Dashboards / Client Portals</p>
+            </div>
+          </div>
+          <div class="work__item" data-hover>
+            <div class="work__item-inner">
+              <span class="work__item-number">03</span>
+              <h3 class="work__item-title">Hosting &amp; Care</h3>
+              <p class="work__item-category">Hosting / Edits / Security / On-Call Support</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / CTA -->
+    <section class="section section--contact" id="contact">
+      <div class="contact__content">
+        <p class="contact__eyebrow">Custom proposals. Real timelines. No template traps.</p>
+        <h2 class="section__title">Ready to ship something real?</h2>
+        <a href="#hero" class="cta-button cta-button--large" data-hover data-scope-start>Request a Proposal</a>
+        <div class="contact__links">
+          <a href="https://custom.businessintuitive.tech" class="contact__link" data-hover>Web Services</a>
+          <span class="dot">·</span>
+          <a href="https://intelligence.businessintuitive.tech" class="contact__link" data-hover>Intelligence</a>
+          <span class="dot">·</span>
+          <a href="https://businessintuitive.tech/vibe" class="contact__link" data-hover>Vibe Consulting</a>
+        </div>
+      </div>
+      <footer class="footer">
+        <span>&copy; 2026 Business Intuitive Inc. All rights reserved.</span>
+        <a href="https://www.bizapedia.com/wa/business-intuitive-inc.html" class="footer__link" data-hover>Verify</a>
+      </footer>
+    </section>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BI · Spectrum v2 — Dark vs Cream</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── Split layout ─── */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+    @media (max-width: 1100px) {
+      .split { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      position: relative;
+      padding: 56px 56px 44px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    @media (max-width: 700px) {
+      .panel { padding: 40px 28px 32px; min-height: auto; }
+    }
+
+    /* ─── Dark panel ─── */
+    .panel-dark {
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(78,205,196,0.06), transparent 55%),
+        radial-gradient(ellipse at 80% 100%, rgba(255,80,160,0.05), transparent 55%),
+        #06060a;
+      color: #ebebef;
+    }
+    .panel-dark .grain {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2' seed='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      opacity: 0.05; mix-blend-mode: overlay; pointer-events: none;
+    }
+
+    /* ─── Light panel (adelt-style cream) ─── */
+    .panel-light {
+      background: #f3eee6;
+      color: #111;
+    }
+    .panel-light .grain {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2' seed='5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+      opacity: 0.04; mix-blend-mode: multiply; pointer-events: none;
+    }
+
+    .panel-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* ─── Typography (shared structure) ─── */
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .panel-dark .eyebrow { color: #4ECDC4; }
+    .panel-light .eyebrow { color: #111; opacity: 0.55; }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(32px, 3.6vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+    }
+    h1 em { font-style: italic; }
+    .panel-dark h1 { color: #fff; }
+    .panel-dark h1 em { color: #cfcfd4; }
+    .panel-light h1 { color: #111; }
+    .panel-light h1 em { color: #444; }
+
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.55;
+      max-width: 480px;
+    }
+    .panel-dark .tagline { color: rgba(255,255,255,0.6); }
+    .panel-light .tagline { color: rgba(0,0,0,0.55); }
+
+    /* ─── Canvas stage ─── */
+    .stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 32px 0 24px;
+      min-height: 0;
+    }
+    .stage-inner {
+      width: 100%;
+      max-width: 540px;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      cursor: grab;
+    }
+    .stage-inner:active { cursor: grabbing; }
+    .stage-inner canvas { display: block; width: 100%; height: 100%; }
+
+    .stage-hint {
+      position: absolute;
+      bottom: -28px; left: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    .panel-dark .stage-hint { color: rgba(255,255,255,0.32); }
+    .panel-light .stage-hint { color: rgba(0,0,0,0.36); }
+
+    /* ─── Footer chrome ─── */
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .panel-dark .footer-row { border-color: rgba(255,255,255,0.08); }
+    .panel-light .footer-row { border-color: rgba(0,0,0,0.10); }
+
+    .swatches {
+      display: flex; gap: 6px;
+    }
+    .sw {
+      width: 22px; height: 22px;
+      border-radius: 2px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .panel-dark .sw { border-color: rgba(255,255,255,0.10); }
+
+    .actions { display: flex; gap: 8px; }
+
+    .btn {
+      padding: 11px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 2px;
+      cursor: pointer;
+      border: 1px solid;
+      transition: background 0.18s ease;
+      background: transparent;
+    }
+    .panel-dark .btn { border-color: #4ECDC4; color: #4ECDC4; background: rgba(78,205,196,0.12); }
+    .panel-dark .btn:hover { background: rgba(78,205,196,0.22); }
+    .panel-dark .btn.secondary { border-color: rgba(255,255,255,0.16); color: #cfcfd4; background: transparent; }
+    .panel-dark .btn.secondary:hover { background: rgba(255,255,255,0.04); }
+
+    .panel-light .btn { border-color: #111; color: #111; background: transparent; }
+    .panel-light .btn:hover { background: rgba(0,0,0,0.05); }
+    .panel-light .btn.solid { background: #111; color: #f3eee6; }
+    .panel-light .btn.solid:hover { background: #222; }
+
+    /* ─── Header strip across both panels ─── */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(6,6,10,0.55);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #cfcfd4;
+    }
+    .topbar a { color: #4ECDC4; text-decoration: none; }
+    .topbar a:hover { color: #fff; }
+
+    /* ─── Card meta strip top of each panel ─── */
+    .panel-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 2px;
+      margin-bottom: 32px;
+      width: fit-content;
+    }
+    .panel-dark .panel-tag {
+      color: #4ECDC4;
+      border: 1px solid rgba(78,205,196,0.4);
+      background: rgba(78,205,196,0.08);
+    }
+    .panel-light .panel-tag {
+      color: #111;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.03);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <span>BI · Spectrum v2 · Dark ↔ Cream</span>
+    <a href="/colors.html">← back to palette lab</a>
+  </div>
+
+  <main class="split">
+
+    <!-- ─────── DARK ─────── -->
+    <section class="panel panel-dark">
+      <div class="grain"></div>
+      <div class="panel-content">
+        <span class="panel-tag">Variant · Dark v2</span>
+
+        <div class="eyebrow">Business Intuitive</div>
+        <h1>Custom websites and <em>web systems</em><br>built with intent.</h1>
+        <p class="tagline">Now with glowing facet edges that shift through the spectrum, plus four orbiting colored lights pushing iridescence through every hue.</p>
+
+        <div class="stage">
+          <div class="stage-inner">
+            <canvas id="canvas-dark"></canvas>
+            <span class="stage-hint">Drag to rotate</span>
+          </div>
+        </div>
+
+        <div class="footer-row">
+          <div class="swatches">
+            <span class="sw" style="background:#06060a"></span>
+            <span class="sw" style="background:#080812"></span>
+            <span class="sw" style="background:#4ECDC4"></span>
+            <span class="sw" style="background:#FF3D9D"></span>
+            <span class="sw" style="background:#FFB347"></span>
+            <span class="sw" style="background:#C341FF"></span>
+          </div>
+          <div class="actions">
+            <button class="btn secondary" data-toggle="dark">Pause</button>
+            <button class="btn" data-pick="dark">Pick dark →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────── LIGHT ─────── -->
+    <section class="panel panel-light">
+      <div class="grain"></div>
+      <div class="panel-content">
+        <span class="panel-tag">Variant · Cream</span>
+
+        <div class="eyebrow">Business Intuitive</div>
+        <h1>Custom websites and <em>web systems</em><br>built with intent.</h1>
+        <p class="tagline">Same evolved object on adelt-style cream. Black type. The 3D form provides every drop of color in the composition.</p>
+
+        <div class="stage">
+          <div class="stage-inner">
+            <canvas id="canvas-light"></canvas>
+            <span class="stage-hint">Drag to rotate</span>
+          </div>
+        </div>
+
+        <div class="footer-row">
+          <div class="swatches">
+            <span class="sw" style="background:#f3eee6"></span>
+            <span class="sw" style="background:#1a1620"></span>
+            <span class="sw" style="background:#4ECDC4"></span>
+            <span class="sw" style="background:#FF3D9D"></span>
+            <span class="sw" style="background:#FFB347"></span>
+            <span class="sw" style="background:#111111"></span>
+          </div>
+          <div class="actions">
+            <button class="btn" data-toggle="light">Pause</button>
+            <button class="btn solid" data-pick="light">Pick cream →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+    import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+    // ─────────────────────────────────────────────────────────
+    //  Scene factory with optional bloom
+    // ─────────────────────────────────────────────────────────
+    function makeScene(canvas, opts = {}) {
+      const renderer = new THREE.WebGLRenderer({
+        canvas, antialias: true, alpha: true, powerPreference: 'high-performance'
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = opts.exposure ?? 1.1;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+      const scene = new THREE.Scene();
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+      camera.position.set(0, 0, opts.distance ?? 4.5);
+
+      const controls = new OrbitControls(camera, canvas);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.06;
+      controls.enablePan = false;
+      controls.enableZoom = false;
+      controls.minDistance = 3;
+      controls.maxDistance = 8;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = opts.rotateSpeed ?? 0.4;
+
+      // Optional bloom postprocessing
+      let composer = null;
+      if (opts.bloom) {
+        composer = new EffectComposer(renderer);
+        composer.addPass(new RenderPass(scene, camera));
+        const bloomPass = new UnrealBloomPass(
+          new THREE.Vector2(canvas.clientWidth, canvas.clientHeight),
+          opts.bloom.strength ?? 0.7,
+          opts.bloom.radius ?? 0.45,
+          opts.bloom.threshold ?? 0.0
+        );
+        composer.addPass(bloomPass);
+        composer.addPass(new OutputPass());
+      }
+
+      function resize() {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        const dpr = renderer.getPixelRatio();
+        if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+          renderer.setSize(w, h, false);
+          if (composer) composer.setSize(w, h);
+          camera.aspect = w / Math.max(h, 1);
+          camera.updateProjectionMatrix();
+        }
+      }
+
+      function render() {
+        if (composer) composer.render();
+        else renderer.render(scene, camera);
+      }
+
+      return { renderer, scene, camera, controls, resize, render, composer };
+    }
+
+    // ─────────────────────────────────────────────────────────
+    //  Spectrum v2 — shared form builder with config
+    //
+    //  Adds: cycling colored edge lines, optional bloom,
+    //  4 orbiting colored point lights.
+    // ─────────────────────────────────────────────────────────
+    function buildSpectrumV2(canvasId, config) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = makeScene(canvas, {
+        distance: 4.4,
+        rotateSpeed: 0.42,
+        exposure: config.exposure ?? 1.15,
+        bloom: config.bloom ?? null,
+      });
+      const { scene } = ctx;
+
+      // ─── Form material (smoke glass with rich iridescence)
+      const formMat = new THREE.MeshPhysicalMaterial({
+        color: config.formColor,
+        metalness: 0.0,
+        roughness: 0.18,
+        transmission: config.transmission ?? 0.7,
+        thickness: config.thickness ?? 2.2,
+        ior: config.ior ?? 1.5,
+        iridescence: 1.0,
+        iridescenceIOR: 1.32,
+        iridescenceThicknessRange: config.iridescenceThicknessRange ?? [80, 1400],
+        envMapIntensity: config.envMapIntensity ?? 2.0,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.08,
+      });
+
+      const formGeo = new THREE.IcosahedronGeometry(1.18, 1);
+      const original = formGeo.attributes.position.array.slice();
+      const form = new THREE.Mesh(formGeo, formMat);
+      scene.add(form);
+
+      // ─── OUTER edge lines (the "shining angles")
+      //      Color cycles through HSL — bloom turns these into glowing rainbow ribbons.
+      const edgeGeo = new THREE.EdgesGeometry(formGeo, 1);
+      const edgeMatA = new THREE.LineBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: config.edgeOpacity ?? 0.95,
+      });
+      const edgesA = new THREE.LineSegments(edgeGeo, edgeMatA);
+      form.add(edgesA);
+
+      // ─── Second offset edge layer for chromatic-aberration "neon" look
+      const edgeMatB = new THREE.LineBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: config.edgeOpacity2 ?? 0.6,
+      });
+      const edgesB = new THREE.LineSegments(edgeGeo, edgeMatB);
+      edgesB.scale.setScalar(1.012);
+      form.add(edgesB);
+
+      // ─── Inner edge layer — creates depth, reads as "lines within"
+      const edgeGeoInner = new THREE.EdgesGeometry(
+        new THREE.IcosahedronGeometry(0.78, 1), 1
+      );
+      const edgeMatInner = new THREE.LineBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: config.edgeOpacityInner ?? 0.55,
+      });
+      const edgesInner = new THREE.LineSegments(edgeGeoInner, edgeMatInner);
+      form.add(edgesInner);
+
+      // ─── Central core (multi-layered)
+      const coreGlow = new THREE.Mesh(
+        new THREE.SphereGeometry(0.4, 32, 32),
+        new THREE.MeshBasicMaterial({
+          color: config.haloColor ?? 0xffffff,
+          transparent: true,
+          opacity: 0.35,
+        })
+      );
+      form.add(coreGlow);
+
+      const coreInner = new THREE.Mesh(
+        new THREE.SphereGeometry(0.18, 24, 24),
+        new THREE.MeshBasicMaterial({ color: 0xffffff })
+      );
+      form.add(coreInner);
+
+      // ─── Ambient + directional + orbit lights
+      const ambient = new THREE.AmbientLight(
+        config.ambientColor ?? 0xffffff,
+        config.ambientIntensity ?? 0.3
+      );
+      scene.add(ambient);
+
+      const dirKey = new THREE.DirectionalLight(
+        config.keyColor ?? 0xffffff,
+        config.keyIntensity ?? 0.6
+      );
+      dirKey.position.set(2, 3, 2);
+      scene.add(dirKey);
+
+      // Four orbiting colored lights — provide most of the iridescence color
+      const orbitPhases = [0, Math.PI / 2, Math.PI, Math.PI * 1.5];
+      const orbitColors = config.orbitColors ?? [0x4ECDC4, 0xFF3D9D, 0xFFB347, 0xC341FF];
+      const orbitLights = orbitPhases.map((phase, i) => {
+        const pl = new THREE.PointLight(orbitColors[i], config.orbitIntensity ?? 1.4, 7, 1.4);
+        pl.userData.phase = phase;
+        scene.add(pl);
+        return pl;
+      });
+
+      const state = { t: 0, paused: false };
+      const tmpColor = new THREE.Color();
+
+      function animate(dt) {
+        if (state.paused) return;
+        state.t += dt;
+        form.rotation.y += dt * 0.18;
+        form.rotation.x = Math.sin(state.t * 0.4) * 0.18;
+
+        // ─── Breathing vertices
+        const pos = formGeo.attributes.position;
+        const breath = 1 + Math.sin(state.t * 0.55) * 0.045;
+        const wobble = 0.022;
+        for (let i = 0; i < pos.count; i++) {
+          const ox = original[i*3], oy = original[i*3+1], oz = original[i*3+2];
+          const local = 1 + Math.sin(state.t * 0.8 + i * 0.55) * wobble;
+          pos.array[i*3]   = ox * breath * local;
+          pos.array[i*3+1] = oy * breath * local;
+          pos.array[i*3+2] = oz * breath * local;
+        }
+        pos.needsUpdate = true;
+        formGeo.computeVertexNormals();
+
+        // ─── Edge color cycling (the "shining lines")
+        // Cycle through hues over ~12s. Two offset layers at different hue offsets
+        // produce a chromatic-aberration neon effect when bloomed.
+        const hueA = (state.t * 0.08) % 1.0;
+        const hueB = (state.t * 0.08 + 0.12) % 1.0;
+        const hueInner = (state.t * 0.08 + 0.5) % 1.0;
+        edgeMatA.color.setHSL(hueA, config.edgeSat ?? 0.8, config.edgeLight ?? 0.65);
+        edgeMatB.color.setHSL(hueB, config.edgeSat ?? 0.8, config.edgeLight ?? 0.65);
+        edgeMatInner.color.setHSL(hueInner, (config.edgeSat ?? 0.8) * 0.9, (config.edgeLight ?? 0.65) * 0.9);
+
+        // Inner geometry counter-rotates for visual depth
+        edgesInner.rotation.x -= dt * 0.3;
+        edgesInner.rotation.y -= dt * 0.4;
+
+        // ─── Core pulse
+        coreInner.scale.setScalar(1 + Math.sin(state.t * 1.6) * 0.18);
+        coreGlow.scale.setScalar(1 + Math.sin(state.t * 0.9) * 0.1);
+
+        // ─── Orbit lights
+        orbitLights.forEach(pl => {
+          const a = state.t * 0.6 + pl.userData.phase;
+          const r = 2.5;
+          pl.position.set(
+            Math.cos(a) * r,
+            Math.sin(a * 0.8) * 1.3,
+            Math.sin(a) * r,
+          );
+          pl.intensity = (config.orbitIntensity ?? 1.4) * (1 + Math.sin(state.t * 1.4 + pl.userData.phase) * 0.3);
+        });
+      }
+
+      return { ...ctx, animate, state };
+    }
+
+    // ─────────────────────────────────────────────────────────
+    //  Two variants: Dark (with bloom) + Light (no bloom)
+    // ─────────────────────────────────────────────────────────
+    const VARIANTS = {
+      dark: buildSpectrumV2('canvas-dark', {
+        formColor: 0x080812,
+        transmission: 0.7,
+        thickness: 2.2,
+        envMapIntensity: 2.0,
+        edgeSat: 0.85,
+        edgeLight: 0.62,
+        edgeOpacity: 0.95,
+        edgeOpacity2: 0.7,
+        edgeOpacityInner: 0.55,
+        ambientIntensity: 0.2,
+        keyIntensity: 0.5,
+        orbitIntensity: 1.4,
+        haloColor: 0xffffff,
+        bloom: { strength: 0.85, radius: 0.5, threshold: 0.05 },
+      }),
+
+      light: buildSpectrumV2('canvas-light', {
+        // Slightly lighter, more saturated form so it pops on cream
+        formColor: 0x1a1620,
+        transmission: 0.45,        // less transparent — solid silhouette on cream
+        thickness: 1.8,
+        envMapIntensity: 1.6,
+        edgeSat: 0.95,             // more saturated edges to read on bright bg
+        edgeLight: 0.5,
+        edgeOpacity: 1.0,
+        edgeOpacity2: 0.8,
+        edgeOpacityInner: 0.7,
+        ambientColor: 0xfff5e8,
+        ambientIntensity: 0.5,
+        keyColor: 0xfff5e8,
+        keyIntensity: 0.9,
+        orbitIntensity: 1.8,
+        haloColor: 0xff66bb,
+        // No bloom on light bg — bright bg already glows; bloom would muddy it
+        bloom: null,
+      }),
+    };
+
+    // ─────────────────────────────────────────────────────────
+    //  Run loop
+    // ─────────────────────────────────────────────────────────
+    const all = Object.values(VARIANTS);
+    let last = performance.now();
+    function tick(now) {
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+      for (const v of all) {
+        v.resize();
+        v.animate(dt);
+        v.controls.update();
+        v.render();
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // Pause toggles
+    document.querySelectorAll('[data-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.toggle;
+        const v = VARIANTS[id];
+        v.controls.autoRotate = !v.controls.autoRotate;
+        v.state.paused = !v.controls.autoRotate;
+        btn.textContent = v.controls.autoRotate ? 'Pause' : 'Resume';
+      });
+    });
+
+    // Pick handlers
+    document.querySelectorAll('[data-pick]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.pick;
+        const original = btn.textContent;
+        btn.textContent = `✓ ${id} selected`;
+        setTimeout(() => {
+          alert(
+            `You picked ${id.toUpperCase()}.\n\n` +
+            `Tell Cascade "let's go with ${id}" and I'll integrate this into the homepage hero.`
+          );
+          btn.textContent = original;
+        }, 100);
+      });
+    });
+
+    window.addEventListener('resize', () => all.forEach(v => v.resize()));
+  </script>
+</body>
+</html>

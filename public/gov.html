@@ -1,0 +1,1096 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Federal Capability Statement | Business Intuitive — Secure Systems & Application Development</title>
+  <meta name="description" content="Business Intuitive federal capability statement: systems architecture, secure application development, cloud infrastructure, workflow automation, and IT support for government missions. NAICS 541512, 541330, 513210, 518210. PSC R425, 7E20, DA10." />
+  <meta name="keywords" content="federal capability statement, government contractor, systems architecture, secure application development, SaaS, cloud infrastructure, workflow automation, IT support, NAICS 541512, NAICS 541330, PSC R425, healthcare informatics, small business, WOSB" />
+  <meta name="author" content="Business Intuitive" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="https://gov.businessintuitive.tech/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/brand-mark.svg" />
+  <meta name="theme-color" content="#f8f9fa" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gov.businessintuitive.tech/" />
+  <meta property="og:title" content="Business Intuitive — Federal Capability Statement" />
+  <meta property="og:description" content="Secure systems architecture, application development, cloud infrastructure, and workflow engineering for federal and public-sector missions." />
+  <meta property="og:site_name" content="Business Intuitive — Federal" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- ============== STRUCTURED DATA ============== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://businessintuitive.tech/#organization",
+        "name": "Business Intuitive",
+        "url": "https://businessintuitive.tech",
+        "email": "hi@businessintuitive.tech",
+        "sameAs": [
+          "https://gov.businessintuitive.tech",
+          "https://intelligence.businessintuitive.tech",
+          "https://www.instagram.com/shebusinessintuitive"
+        ],
+        "description": "Business Intuitive provides technical systems architecture, secure application development, cloud infrastructure, workflow automation, and engineering support services for organizations requiring scalable, operationally efficient digital systems.",
+        "knowsAbout": [
+          "Systems Architecture",
+          "Secure Application Development",
+          "Software as a Service",
+          "Cloud Infrastructure",
+          "Workflow Automation",
+          "Healthcare Informatics",
+          "IT End User Support"
+        ],
+        "naics": ["541512", "541330", "513210", "518210"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://gov.businessintuitive.tech/#website",
+        "url": "https://gov.businessintuitive.tech/",
+        "name": "Business Intuitive — Federal Capability Statement",
+        "publisher": { "@id": "https://businessintuitive.tech/#organization" }
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://gov.businessintuitive.tech/#service",
+        "name": "Business Intuitive — Federal Technical Services",
+        "description": "Systems architecture, secure application development, cloud infrastructure and hosting, IT and end-user support, and healthcare workflow informatics for government and public-sector missions.",
+        "provider": { "@id": "https://businessintuitive.tech/#organization" },
+        "areaServed": { "@type": "Country", "name": "United States" },
+        "serviceType": "Computer Systems Design, Engineering, and Software Services",
+        "url": "https://gov.businessintuitive.tech/",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Core Competencies",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Systems Architecture & Technical Engineering" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Application & Software Development" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cloud Infrastructure & Hosting" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT & End User Technical Support" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Healthcare & Workflow Informatics" } }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #f8f9fa;
+      --fed-blue: #1a3e8c;
+      --fed-sky: #2563eb;
+      --fed-cyan: #0ea5e9;
+      --fed-gold: #b45309;
+      --fed-green: #047857;
+      --ink: #1f2937;
+      --muted: #4b5563;
+      --faint: #9ca3af;
+      --line: #e5e7eb;
+      --panel: #ffffff;
+      --panel-alt: #f3f4f6;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { color: var(--fed-sky); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    /* Brand display serif for headings — type consistency with main brand */
+    h1, section.block h2, .final-cta h2, .modal h3 { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; letter-spacing: -0.02em; }
+
+    /* Background: subtle federal grid */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(26,62,140,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,62,140,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none; z-index: 0;
+    }
+
+    .wrap { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── Secure status bar ── */
+    .secure-bar {
+      position: relative; z-index: 5;
+      background: #1e3a5f;
+      border-bottom: 1px solid #2563eb;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.06em;
+      color: #e0e7ff;
+    }
+    .secure-bar .inner {
+      max-width: 1120px; margin: 0 auto; padding: 0.5rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .secure-bar .lock { color: var(--fed-green); display: inline-flex; align-items: center; gap: 0.4rem; }
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--fed-green); box-shadow: 0 0 0 0 rgba(52,211,153,0.6);
+      animation: pulse 2.2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(52,211,153,0.55); }
+      70% { box-shadow: 0 0 0 7px rgba(52,211,153,0); }
+      100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+    }
+    .secure-bar .right { color: #93c5fd; }
+    @media (max-width: 720px) { .secure-bar .right { display: none; } }
+
+    /* ── Topbar ── */
+    .topbar {
+      position: relative; z-index: 10;
+      max-width: 1120px; margin: 0 auto;
+      padding: 1.1rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .brand-lockup { display: flex; align-items: center; gap: 0.65rem; }
+    .brand-lockup:hover { text-decoration: none; }
+    .brand-logo { height: 30px; width: auto; display: block; filter: drop-shadow(0 0 14px rgba(79,140,255,0.4)); }
+    .brand-name { color: var(--fed-blue); font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; font-size: 0.8rem; }
+    .brand-name .accent { color: var(--fed-sky); }
+    .nav-links a { color: var(--muted); margin-left: 1.5rem; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; }
+    .nav-links a:hover { color: var(--fed-blue); text-decoration: none; }
+    .nav-links a.req { color: var(--fed-blue); font-weight: 600; }
+    @media (max-width: 760px) { .nav-links a:not(.req) { display: none; } .nav-links a.req { margin-left: 0; } }
+
+    /* ── Hero ── */
+    .hero { max-width: 980px; margin: 0 auto; padding: 3.5rem 1.5rem 1.5rem; text-align: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: rgba(79,140,255,0.08);
+      border: 1px solid rgba(79,140,255,0.28);
+      border-radius: 100px;
+      color: var(--fed-sky);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 5.2vw, 3.7rem);
+      font-weight: 700; color: var(--fed-blue);
+      letter-spacing: -0.03em; line-height: 1.08;
+      margin-bottom: 1.1rem;
+    }
+    h1 .grad {
+      background: linear-gradient(100deg, var(--fed-blue), var(--fed-cyan));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    .tagline {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--fed-sky); font-size: clamp(0.78rem, 2vw, 0.95rem);
+      letter-spacing: 0.05em; margin-bottom: 1.35rem;
+    }
+    .lede { font-size: 1.12rem; color: var(--muted); max-width: 760px; margin: 0 auto 2.2rem; }
+    .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.95rem 1.7rem; border-radius: 7px;
+      font-weight: 600; font-size: 0.95rem; letter-spacing: 0.01em;
+      cursor: pointer; border: none; font-family: inherit;
+      transition: transform 0.15s ease, opacity 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+    .btn-primary {
+      background: var(--fed-blue);
+      color: #fff; box-shadow: 0 4px 14px rgba(26,62,140,0.25);
+    }
+    .btn-primary:hover { transform: translateY(-1px); opacity: 0.94; text-decoration: none; }
+    .btn-ghost { background: transparent; color: var(--fed-blue); border: 1px solid var(--fed-blue); }
+    .btn-ghost:hover { background: var(--fed-blue); color: #fff; text-decoration: none; }
+
+    /* ── Registration / quick-facts strip ── */
+    .facts { max-width: 1120px; margin: 2.5rem auto 0; padding: 0 1.5rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; }
+    .fact {
+      padding: 1rem 1.1rem; background: var(--panel);
+      border: 1px solid var(--line); border-radius: 10px; text-align: left;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .fact .k { font-size: 0.62rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0.12em; }
+    .fact .v { font-family: 'JetBrains Mono', monospace; color: var(--fed-blue); font-size: 0.98rem; font-weight: 600; margin-top: 0.3rem; }
+    .fact .v.pending { color: var(--fed-gold); }
+    .fact .v.ok { color: var(--fed-green); }
+
+    /* ── Section base ── */
+    section.block { max-width: 1120px; margin: 4rem auto; padding: 0 1.5rem; }
+    .section-label {
+      display: inline-block; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--fed-cyan); margin-bottom: 0.6rem;
+    }
+    section.block h2 { font-size: 1.8rem; color: var(--fed-blue); letter-spacing: -0.02em; font-weight: 600; margin-bottom: 0.5rem; }
+    section.block .lead-line { color: var(--muted); font-size: 1.04rem; max-width: 760px; margin-bottom: 2rem; }
+
+    /* ── Core competencies grid ── */
+    .comp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .comp-card {
+      padding: 1.5rem; background: var(--panel);
+      border: 1px solid var(--line); border-radius: 12px;
+      transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .comp-card:hover { border-color: var(--fed-blue); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,62,140,0.1); }
+    .comp-card .icon {
+      width: 38px; height: 38px; border-radius: 9px;
+      background: rgba(26,62,140,0.08); border: 1px solid rgba(26,62,140,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--fed-blue); margin-bottom: 0.9rem;
+    }
+    .comp-card .icon svg { width: 19px; height: 19px; }
+    .comp-card h3 { color: var(--ink); font-size: 1.04rem; font-weight: 600; margin-bottom: 0.7rem; }
+    .comp-card ul { list-style: none; }
+    .comp-card li {
+      font-size: 0.86rem; color: var(--muted); padding: 0.28rem 0 0.28rem 1.15rem; position: relative; line-height: 1.5;
+    }
+    .comp-card li::before { content: '▸'; position: absolute; left: 0; color: var(--fed-cyan); font-size: 0.72rem; top: 0.4rem; }
+
+    /* ── Differentiators ── */
+    .diff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .diff-card { padding: 1.3rem; background: var(--panel); border: 1px solid var(--line); border-radius: 11px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .diff-card .num { font-family: 'JetBrains Mono', monospace; color: var(--fed-cyan); font-size: 0.7rem; letter-spacing: 0.1em; }
+    .diff-card h4 { color: var(--ink); font-size: 0.98rem; font-weight: 600; margin: 0.35rem 0 0.4rem; }
+    .diff-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin: 0; }
+
+    /* ── Codes (NAICS / PSC) ── */
+    .codes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    @media (max-width: 720px) { .codes-grid { grid-template-columns: 1fr; } }
+    .codes-panel { padding: 1.5rem; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .codes-panel h3 { color: var(--ink); font-size: 1.05rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .codes-panel h3 .badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--fed-cyan);
+      border: 1px solid rgba(56,189,248,0.3); border-radius: 100px; padding: 0.1rem 0.55rem; letter-spacing: 0.08em;
+    }
+    .code-row {
+      display: flex; align-items: center; gap: 0.85rem; padding: 0.7rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .code-row:last-child { border-bottom: 0; }
+    .code-row .code {
+      font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--fed-blue);
+      font-size: 0.95rem; background: rgba(26,62,140,0.08); border: 1px solid rgba(26,62,140,0.2);
+      border-radius: 6px; padding: 0.3rem 0.6rem; min-width: 64px; text-align: center; flex-shrink: 0;
+    }
+    .code-row .desc { color: var(--muted); font-size: 0.85rem; line-height: 1.45; }
+    .copy-btn {
+      margin-left: auto; flex-shrink: 0; background: transparent; border: 1px solid var(--line);
+      color: var(--faint); border-radius: 6px; width: 30px; height: 30px; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; transition: all 0.15s;
+    }
+    .copy-btn:hover { color: var(--fed-blue); border-color: rgba(26,62,140,0.4); }
+    .copy-btn svg { width: 14px; height: 14px; }
+    .copy-btn.copied { color: var(--fed-green); border-color: rgba(52,211,153,0.4); }
+
+    /* ── Past performance ── */
+    .perf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .perf-card {
+      padding: 1.5rem; border-radius: 12px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .perf-card h4 { color: var(--ink); font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .perf-card p { color: var(--muted); font-size: 0.86rem; line-height: 1.6; margin: 0; }
+
+    /* ── Federal posture strip ── */
+    .posture {
+      margin-top: 1.5rem; padding: 1.6rem 1.8rem;
+      background: rgba(216,180,90,0.04); border: 1px solid rgba(216,180,90,0.22);
+      border-radius: 13px; display: grid; grid-template-columns: auto 1fr; gap: 1.3rem; align-items: start;
+    }
+    @media (max-width: 600px) { .posture { grid-template-columns: 1fr; } }
+    .posture-icon {
+      width: 42px; height: 42px; border-radius: 9px;
+      background: rgba(216,180,90,0.1); border: 1px solid rgba(216,180,90,0.32);
+      display: flex; align-items: center; justify-content: center; color: var(--fed-gold);
+    }
+    .posture-icon svg { width: 21px; height: 21px; }
+    .posture h3 { color: var(--ink); font-size: 1.05rem; font-weight: 600; margin-bottom: 0.7rem; }
+    .posture .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .posture .chip {
+      font-size: 0.8rem; color: #e7ddc4; padding: 0.35rem 0.8rem;
+      border-radius: 100px; background: rgba(216,180,90,0.08); border: 1px solid rgba(216,180,90,0.22);
+    }
+
+    /* ── Certifications roadmap ── */
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem; margin-top: 1.5rem; }
+    .cert-card { padding: 1.2rem; background: var(--panel); border: 1px dashed rgba(124,178,255,0.22); border-radius: 11px; }
+    .cert-card .status { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--fed-gold); letter-spacing: 0.1em; text-transform: uppercase; }
+    .cert-card h4 { color: var(--ink); font-size: 0.92rem; font-weight: 600; margin-top: 0.35rem; }
+
+    /* ── Company info / contact split ── */
+    .info-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    @media (max-width: 760px) { .info-split { grid-template-columns: 1fr; } }
+    .info-panel { padding: 1.6rem; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+    .info-panel h3 { color: var(--ink); font-size: 1.05rem; font-weight: 600; margin-bottom: 1rem; }
+    .info-row { display: flex; gap: 0.85rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); align-items: center; }
+    .info-row:last-child { border-bottom: 0; }
+    .info-row .label { color: var(--faint); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.07em; min-width: 96px; }
+    .info-row .data { color: var(--ink); font-size: 0.9rem; }
+    .info-row .data a { color: var(--fed-sky); }
+
+    /* ── Final CTA ── */
+    .final-cta {
+      max-width: 1120px; margin: 4rem auto; padding: 2.6rem 2rem;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(79,140,255,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(56,189,248,0.1) 0%, transparent 50%),
+        var(--panel);
+      border: 1px solid rgba(79,140,255,0.28); border-radius: 16px; text-align: center;
+    }
+    .final-cta h2 { font-size: 1.7rem; color: var(--fed-blue); letter-spacing: -0.02em; font-weight: 600; margin-bottom: 0.5rem; }
+    .final-cta p { color: var(--muted); font-size: 0.98rem; max-width: 620px; margin: 0 auto 1.8rem; }
+
+    /* ── Footer ── */
+    .footer-strip {
+      max-width: 1120px; margin: 3rem auto 1.5rem; padding: 2rem 1.5rem;
+      border-top: 1px solid var(--line); text-align: center; color: var(--faint); font-size: 0.78rem;
+    }
+    .footer-strip a { color: var(--muted); }
+    .footer-strip p { margin-bottom: 0.4rem; }
+
+    /* ── Reveal on scroll ── */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .dot { animation: none; } }
+
+    /* ── Modal ── */
+    .modal {
+      position: fixed; inset: 0; background: rgba(4,7,14,0.86);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      display: none; align-items: flex-start; justify-content: center;
+      z-index: 9999; overflow-y: auto; padding: 2rem 1rem;
+    }
+    .modal.open { display: flex; }
+    .modal-card {
+      background: #ffffff; border: 1px solid var(--line);
+      border-radius: 15px; width: 100%; max-width: 580px; padding: 2rem; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15); animation: pop 0.18s ease-out;
+    }
+    @keyframes pop { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .modal-secure {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; color: var(--fed-green);
+      letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;
+    }
+    .modal-close {
+      position: absolute; top: 0.85rem; right: 1rem; background: transparent; border: none;
+      color: var(--muted); font-size: 1.5rem; cursor: pointer; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center; border-radius: 5px; transition: all 0.15s;
+    }
+    .modal-close:hover { color: var(--ink); background: rgba(0,0,0,0.05); }
+    .modal h3 { color: var(--fed-blue); font-size: 1.3rem; margin-bottom: 0.4rem; letter-spacing: -0.02em; padding-right: 1.5rem; }
+    .modal .sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.4rem; }
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 0.7rem 0.85rem; background: #ffffff;
+      border: 1px solid var(--line); border-radius: 7px; color: var(--ink);
+      font-size: 0.95rem; font-family: inherit; transition: border-color 0.15s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--fed-blue); }
+    .field textarea { resize: vertical; min-height: 84px; }
+    .field .hint { font-size: 0.72rem; color: var(--faint); margin-top: 0.3rem; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
+    /* honeypot */
+    .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .modal-actions { display: flex; gap: 0.75rem; margin-top: 1.4rem; }
+    .modal-actions .btn { flex: 1; justify-content: center; }
+    .form-status { margin-top: 1rem; padding: 0.7rem 0.85rem; border-radius: 7px; font-size: 0.85rem; display: none; }
+    .form-status.show { display: block; }
+    .form-status.success { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: var(--fed-green); }
+    .form-status.error { background: rgba(232,93,93,0.1); border: 1px solid rgba(232,93,93,0.3); color: #f08a8a; }
+
+    /* ── Print: clean capability statement document ── */
+    @media print {
+      @page { margin: 1.4cm; }
+      body { background: #fff !important; color: #111 !important; }
+      body::before, .secure-bar, .nav-links, .modal, .btn, .copy-btn, .reveal-toggle { display: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      a { color: #1a3e8c !important; }
+      .topbar { padding: 0 0 0.5rem; border-bottom: 2px solid #1a3e8c; }
+      .brand-name { color: #111 !important; }
+      .brand-logo { filter: none !important; }
+      .hero { padding: 0.8rem 0; text-align: left; }
+      h1 { color: #0c2350 !important; font-size: 1.8rem; }
+      h1 .grad { -webkit-text-fill-color: #1a3e8c !important; color: #1a3e8c !important; }
+      .tagline { color: #1a3e8c !important; }
+      .eyebrow { display: none !important; }
+      .lede, .lead-line, .comp-card p, .comp-card li, .diff-card p, .perf-card p, .info-row .data, .code-row .desc { color: #222 !important; }
+      section.block h2, .comp-card h3, .diff-card h4, .perf-card h4, .info-panel h3, .codes-panel h3 { color: #0c2350 !important; }
+      section.block { margin: 0.9rem auto; page-break-inside: avoid; }
+      .comp-card, .diff-card, .perf-card, .codes-panel, .info-panel, .posture, .cert-card, .fact, .final-cta {
+        background: #fff !important; border: 1px solid #c7d2e6 !important; box-shadow: none !important;
+      }
+      .code-row .code { background: #eef3fb !important; color: #0c2350 !important; border-color: #c7d2e6 !important; }
+      .section-label { color: #1a3e8c !important; }
+      .final-cta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════ SECURE STATUS BAR -->
+  <div class="secure-bar">
+    <div class="inner">
+      <span class="lock"><span class="dot"></span> SECURE CHANNEL · TLS 1.3 · gov.businessintuitive.tech</span>
+      <span class="right">CAPABILITY STATEMENT · FY2026 · NOT AN OFFICIAL U.S. GOVERNMENT SITE</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ TOPBAR -->
+  <header class="topbar">
+    <a href="https://businessintuitive.tech" class="brand-lockup">
+      <img class="brand-logo" src="/assets/brand-mark.svg" alt="Business Intuitive" />
+      <span class="brand-name">Business <span class="accent">Intuitive</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#federal-readiness">Security</a>
+      <a href="#competencies">Competencies</a>
+      <a href="#codes">Codes</a>
+      <a href="#experience">Experience</a>
+      <a href="https://intelligence.businessintuitive.tech">Intelligence ↗</a>
+      <a href="#contact" class="req" data-action="open-modal">Contact CO</a>
+    </nav>
+  </header>
+
+  <!-- ═══════════════════════════════════ HERO -->
+  <section class="hero">
+    <div class="eyebrow">Federal Capability Statement</div>
+    <h1>Secure, compliant, mission‑ready systems engineered for continuity, resilience, and operational efficiency</h1>
+    <p class="tagline">Systems Architecture &nbsp;•&nbsp; Secure Application Development &nbsp;•&nbsp; Technical Workflow Engineering</p>
+    <p class="lede">
+      Business Intuitive provides technical systems architecture, secure application development, cloud
+      infrastructure, workflow automation, and engineering support for organizations requiring scalable,
+      operationally efficient digital systems. We design and implement secure, user-centered technology
+      environments that improve reliability, reduce operational friction, and support mission continuity.
+    </p>
+    <div class="cta-row">
+      <button class="btn btn-primary" data-action="open-modal">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        Contact a Contracting Officer
+      </button>
+      <button class="btn btn-ghost" data-action="print">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+        Download Capability Statement
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ QUICK FACTS -->
+  <div class="facts reveal">
+    <div class="fact"><div class="k">Business Type</div><div class="v ok">Small Business</div></div>
+    <div class="fact"><div class="k">UEI</div><div class="v pending">Pending Reg.</div></div>
+    <div class="fact"><div class="k">SAM.gov</div><div class="v pending">In Progress</div></div>
+    <div class="fact"><div class="k">Primary NAICS</div><div class="v">541512</div></div>
+    <div class="fact"><div class="k">Geographic</div><div class="v ok">United States</div></div>
+    <div class="fact"><div class="k">Remote-Ready</div><div class="v ok">100%</div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ FEDERAL READINESS (MOVED EARLIER) -->
+  <section class="block reveal" id="federal-readiness">
+    <div class="section-label">Security & Compliance Posture</div>
+    <h2>Aligned with federal security frameworks</h2>
+    <p class="lead-line">
+      Our delivery approach aligns with NIST, FedRAMP, and HIPAA security practices. We implement zero-trust principles,
+      secure SDLC, and compliance-aware architecture for regulated environments.
+    </p>
+
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="num">NIST</div>
+        <h4>NIST 800-53 Familiarity</h4>
+        <p>Security controls aligned with NIST SP 800-53 Moderate baseline, including access control, incident response, and system protection.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">FEDRAMP</div>
+        <h4>FedRAMP-Aligned Architecture</h4>
+        <p>Cloud security posture management practices aligned with FedRAMP Moderate requirements for SaaS environments.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">HIPAA</div>
+        <h4>HIPAA / PHI Handling</h4>
+        <p>Experience with protected health information environments, secure data handling, and healthcare informatics workflows.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">ZERO</div>
+        <h4>Zero-Trust Aligned Design</h4>
+        <p>Least-privilege access, RBAC implementation, encrypted transport, and continuous verification principles.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">SDLC</div>
+        <h4>Secure Development Lifecycle</h4>
+        <p>Dependency hygiene, static analysis, secure coding practices, and audit logging throughout development.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">CSP</div>
+        <h4>Cloud Security Posture</h4>
+        <p>Hardened infrastructure, TLS 1.2/1.3 enforcement, security headers, and ongoing vulnerability management.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ CORE COMPETENCIES -->
+  <section class="block reveal" id="competencies">
+    <div class="section-label">Core Competencies</div>
+    <h2>End-to-end technical capability</h2>
+    <p class="lead-line">
+      We eliminate operational friction through secure, scalable systems architecture designed for continuity,
+      compliance, and mission execution.
+    </p>
+
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        <h3>Systems Architecture &amp; Technical Engineering</h3>
+        <ul>
+          <li>Systems design and technical workflow engineering</li>
+          <li>Business systems analysis and infrastructure planning</li>
+          <li>Technical process mapping and operational optimization</li>
+          <li>Secure digital transformation support</li>
+          <li>Engineering / technical professional support</li>
+        </ul>
+      </div>
+
+      <div class="comp-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>Application &amp; Software Development</h3>
+        <ul>
+          <li>Custom web application development</li>
+          <li>Secure Software-as-a-Service (SaaS) systems</li>
+          <li>Business application development and modernization</li>
+          <li>API integrations and systems interoperability</li>
+          <li>Database architecture and application logic</li>
+        </ul>
+      </div>
+
+      <div class="comp-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+        <h3>Cloud Infrastructure &amp; Hosting</h3>
+        <ul>
+          <li>Secure hosting environments</li>
+          <li>Cloud infrastructure deployment and management</li>
+          <li>Web hosting and data processing systems</li>
+          <li>Application performance optimization</li>
+          <li>Scalable infrastructure planning</li>
+        </ul>
+      </div>
+
+      <div class="comp-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>IT &amp; End User Technical Support</h3>
+        <ul>
+          <li>Help desk and Tier 1&ndash;2 support</li>
+          <li>Workspace and productivity tool support</li>
+          <li>Technical troubleshooting and operational continuity</li>
+          <li>User workflow optimization</li>
+          <li>Systems implementation support</li>
+        </ul>
+      </div>
+
+      <div class="comp-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>Healthcare Informatics &amp; Workflow Engineering</h3>
+        <ul>
+          <li>Clinical workflow systems analysis</li>
+          <li>Human-centered digital interface design</li>
+          <li>Health information workflow optimization</li>
+          <li>Administrative burden reduction systems</li>
+          <li>Healthcare technology usability support</li>
+        </ul>
+      </div>
+
+      <div class="comp-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Security-First Delivery</h3>
+        <ul>
+          <li>Role-based access control &amp; authentication systems</li>
+          <li>Encrypted transport (TLS 1.2/1.3) &amp; hardened hosting</li>
+          <li>Sensitive &amp; regulated data handling practices</li>
+          <li>Audit logging and least-privilege design</li>
+          <li>Secure SDLC and dependency hygiene</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ DIFFERENTIATORS (FEDERAL EVALUATION CRITERIA) -->
+  <section class="block reveal" id="differentiators">
+    <div class="section-label">Evaluation Criteria Alignment</div>
+    <h2>How we meet federal evaluation factors</h2>
+
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="num">TECH</div>
+        <h4>Technical Approach</h4>
+        <p>Secure, scalable systems architecture designed for continuity, compliance, and mission execution with full lifecycle accountability.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">MGMT</div>
+        <h4>Management Approach</h4>
+        <p>Small business agility with direct access to technical decision-makers, accelerated delivery, and reduced program risk.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">PAST</div>
+        <h4>Past Performance</h4>
+        <p>Proven delivery across secure portals, workflow automation, SaaS development, and healthcare informatics environments.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">RISK</div>
+        <h4>Risk Mitigation</h4>
+        <p>Security-first delivery with NIST-aligned controls, zero-trust design, secure SDLC, and compliance-aware architecture.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">AGILE</div>
+        <h4>Small Business Agility</h4>
+        <p>Direct stakeholder communication, faster execution, adaptability to changing requirements, and reduced administrative overhead.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">ADOPT</div>
+        <h4>Adoption & Usability</h4>
+        <p>Workflow engineering mindset focused on usability, efficiency, and human-centered design so deployed systems achieve mission outcomes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ CODES -->
+  <section class="block reveal" id="codes">
+    <div class="section-label">Federal Codes</div>
+    <h2>NAICS &amp; Product Service Codes</h2>
+    <p class="lead-line">Click any code to copy it. Provided to support market research, sources sought, and acquisition planning.</p>
+
+    <div class="codes-grid">
+      <div class="codes-panel">
+        <h3>NAICS Codes <span class="badge">PRIMARY 541512</span></h3>
+        <div class="code-row">
+          <span class="code">541512</span>
+          <span class="desc">Computer Systems Design Services</span>
+          <button class="copy-btn" data-copy="541512" aria-label="Copy 541512"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+        <div class="code-row">
+          <span class="code">541330</span>
+          <span class="desc">Engineering Services</span>
+          <button class="copy-btn" data-copy="541330" aria-label="Copy 541330"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+        <div class="code-row">
+          <span class="code">513210</span>
+          <span class="desc">Software Publishers</span>
+          <button class="copy-btn" data-copy="513210" aria-label="Copy 513210"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+        <div class="code-row">
+          <span class="code">518210</span>
+          <span class="desc">Computing Infrastructure Providers, Data Processing, Web Hosting &amp; Related Services</span>
+          <button class="copy-btn" data-copy="518210" aria-label="Copy 518210"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+      </div>
+
+      <div class="codes-panel">
+        <h3>Product Service Codes <span class="badge">PSC</span></h3>
+        <div class="code-row">
+          <span class="code">R425</span>
+          <span class="desc">Support – Professional: Engineering / Technical</span>
+          <button class="copy-btn" data-copy="R425" aria-label="Copy R425"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+        <div class="code-row">
+          <span class="code">7E20</span>
+          <span class="desc">IT &amp; Telecom – End User: Help Desk, Tier 1&ndash;2, Workspace, Print, Productivity Tools</span>
+          <button class="copy-btn" data-copy="7E20" aria-label="Copy 7E20"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+        <div class="code-row">
+          <span class="code">DA10</span>
+          <span class="desc">IT &amp; Telecom – Business Application / Application Development Software as a Service</span>
+          <button class="copy-btn" data-copy="DA10" aria-label="Copy DA10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ PAST PERFORMANCE (FEDERAL STYLE) -->
+  <section class="block reveal" id="experience">
+    <div class="section-label">Relevant Experience / Past Performance</div>
+    <h2>Representative projects</h2>
+    <p class="lead-line">
+      Structured federal-style past performance demonstrating technical capability, security considerations, and mission outcomes.
+    </p>
+
+    <div class="perf-grid">
+      <div class="perf-card">
+        <h4>Contractor Operations Portal</h4>
+        <p><strong>Project Type:</strong> Secure Document & Subcontractor Management System</p>
+        <p><strong>Customer Type:</strong> Commercial Contractor</p>
+        <p><strong>Problem:</strong> Disorganized subcontractor documentation, lack of visibility into project status, manual workflows.</p>
+        <p><strong>Solution:</strong> Role-based authentication, protected document uploads, workflow automation, operational dashboards.</p>
+        <p><strong>Outcome:</strong> Improved document control, real-time project visibility, reduced administrative overhead.</p>
+        <p><strong>Technologies:</strong> Web application, database architecture, authentication systems, role-based access control.</p>
+        <p><strong>Security:</strong> Encrypted transport, access controls, audit logging, least-privilege design.</p>
+      </div>
+      <div class="perf-card">
+        <h4>Healthcare Workflow Research</h4>
+        <p><strong>Project Type:</strong> Clinical Informatics & Usability Analysis</p>
+        <p><strong>Customer Type:</strong> Healthcare Research Environment</p>
+        <p><strong>Problem:</strong> High cognitive workload in clinical systems, inefficient workflows, usability barriers.</p>
+        <p><strong>Solution:</strong> Applied clinical informatics principles, workflow engineering, human-centered design analysis.</p>
+        <p><strong>Outcome:</strong> Identified workflow optimization opportunities, reduced administrative burden, improved system usability.</p>
+        <p><strong>Technologies:</strong> Workflow analysis tools, usability testing frameworks, data collection systems.</p>
+        <p><strong>Security:</strong> Regulated data handling, participant privacy controls, secure data collection practices.</p>
+      </div>
+      <div class="perf-card">
+        <h4>Multi-Tenant SaaS Platform</h4>
+        <p><strong>Project Type:</strong> Scalable SaaS Application Development</p>
+        <p><strong>Customer Type:</strong> Service-Based Business</p>
+        <p><strong>Problem:</strong> Manual processes, lack of automation, no integrated customer management system.</p>
+        <p><strong>Solution:</strong> Multi-tenant architecture, user authentication, payment integrations, automation logic, hosting infrastructure.</p>
+        <p><strong>Outcome:</strong> Automated workflows, scalable customer onboarding, integrated payment processing, reduced manual effort.</p>
+        <p><strong>Technologies:</strong> Cloud infrastructure, API integrations, payment systems, database architecture, authentication.</p>
+        <p><strong>Security:</strong> TLS 1.2/1.3, role-based access, encrypted data storage, secure payment processing.</p>
+      </div>
+      <div class="perf-card">
+        <h4>Federal & Research Environment</h4>
+        <p><strong>Project Type:</strong> Structured Data & Research Support</p>
+        <p><strong>Customer Type:</strong> Federally Relevant Research Environment</p>
+        <p><strong>Problem:</strong> Longitudinal data management, secure participant coordination, regulated workflow requirements.</p>
+        <p><strong>Solution:</strong> Secure data collection systems, participant coordination workflows, structured data integrity controls.</p>
+        <p><strong>Outcome:</strong> Improved data integrity, compliant participant management, operational rigor in regulated environment.</p>
+        <p><strong>Technologies:</strong> Data collection systems, workflow automation, participant management tools.</p>
+        <p><strong>Security:</strong> Sensitive information handling, regulated data practices, secure participant coordination.</p>
+      </div>
+    </div>
+
+    <p class="lead-line" style="margin-top:1.5rem;">
+      Technical examples and case studies:
+      <a href="https://intelligence.businessintuitive.tech" target="_blank" rel="noopener">intelligence.businessintuitive.tech</a>
+    </p>
+  </section>
+
+  <!-- ═══════════════════════════════════ MISSION FOCUS -->
+  <section class="block reveal" id="mission-focus">
+    <div class="section-label">Mission Focus</div>
+    <h2>Organizations we support</h2>
+    <p class="lead-line">
+      Business Intuitive supports federal, healthcare, infrastructure, and mission-driven organizations requiring secure digital systems,
+      workflow modernization, technical support, and operational continuity.
+    </p>
+
+    <div class="comp-card" style="margin-top:1.5rem;">
+      <h3>Ideal engagements include:</h3>
+      <ul>
+        <li>Workflow modernization & systems integration</li>
+        <li>Secure application development & SaaS delivery</li>
+        <li>Technical engineering support services</li>
+        <li>Help desk / workspace support environments</li>
+        <li>Cloud infrastructure & hosting support</li>
+        <li>Human-centered operational systems design</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ COMPLIANCE FRAMEWORK -->
+  <section class="block reveal" id="compliance-framework">
+    <div class="section-label">Compliance Framework</div>
+    <h2>Aligned delivery approach</h2>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="num">NIST</div>
+        <h4>NIST 800-53 Moderate</h4>
+        <p>Access control, incident response, system protection, security assessment, and maintenance controls.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">FEDRAMP</div>
+        <h4>FedRAMP Moderate</h4>
+        <p>Cloud security posture, continuous monitoring, vulnerability management, and authorization practices.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">HIPAA</div>
+        <h4>HIPAA Security Rule</h4>
+        <p>PHI handling, administrative safeguards, physical safeguards, and technical safeguards.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ TECHNICAL STACK -->
+  <section class="block reveal" id="technical-stack">
+    <div class="section-label">Technical Stack</div>
+    <h2>Core technologies</h2>
+    <div class="comp-card" style="margin-top:1.5rem;">
+      <ul>
+        <li><strong>Web Applications:</strong> Modern JavaScript frameworks (React, Next.js), TypeScript, Node.js</li>
+        <li><strong>Backend:</strong> PHP 8.3 (FastCGI), Python, PostgreSQL, SQLite</li>
+        <li><strong>Infrastructure:</strong> Nginx, Cloudflare CDN, hardened Linux environments</li>
+        <li><strong>Security:</strong> TLS 1.2/1.3, encrypted transport, RBAC, audit logging</li>
+        <li><strong>DevOps:</strong> Git version control, automated deployment, CI/CD practices</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ RISK MITIGATION -->
+  <section class="block reveal" id="risk-mitigation">
+    <div class="section-label">Risk Mitigation</div>
+    <h2>Proactive risk management</h2>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="num">01</div>
+        <h4>Security-First Design</h4>
+        <p>Security controls integrated from design through deployment, not added as an afterthought.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">02</div>
+        <h4>Least Privilege Access</h4>
+        <p>Role-based access control, minimal permissions, and regular access reviews.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">03</div>
+        <h4>Continuous Monitoring</h4>
+        <p>Ongoing vulnerability scanning, log monitoring, and incident response readiness.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">04</div>
+        <h4>Dependency Hygiene</h4>
+        <p>Regular dependency updates, vulnerability scanning, and secure supply chain practices.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ CONTINUITY & SUPPORT -->
+  <section class="block reveal" id="continuity-support">
+    <div class="section-label">Continuity & Support</div>
+    <h2>Operational continuity model</h2>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="num">SLA</div>
+        <h4>Service Level Agreements</h4>
+        <p>Defined response times, uptime commitments, and performance metrics aligned with mission requirements.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">DR</div>
+        <h4>Disaster Recovery</h4>
+        <p>Backup strategies, recovery procedures, and business continuity planning for critical systems.</p>
+      </div>
+      <div class="diff-card">
+        <div class="num">SUPPORT</div>
+        <h4>Tiered Support Model</h4>
+        <p>Help desk, Tier 1-2 technical support, escalation procedures, and direct engineering access.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ SECURE SDLC -->
+  <section class="block reveal" id="secure-sdlc">
+    <div class="section-label">Secure Development Lifecycle</div>
+    <h2>Security throughout development</h2>
+    <div class="comp-card" style="margin-top:1.5rem;">
+      <ul>
+        <li><strong>Requirements:</strong> Security requirements defined alongside functional requirements</li>
+        <li><strong>Design:</strong> Threat modeling, security architecture review, and control selection</li>
+        <li><strong>Implementation:</strong> Secure coding practices, code review, and static analysis</li>
+        <li><strong>Testing:</strong> Security testing, penetration testing, and vulnerability scanning</li>
+        <li><strong>Deployment:</strong> Secure configuration, hardened infrastructure, and access controls</li>
+        <li><strong>Maintenance:</strong> Patch management, dependency updates, and ongoing monitoring</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ CONTRACTING INFORMATION -->
+  <section class="block reveal" id="contracting-info">
+    <div class="section-label">Contracting Information</div>
+    <h2>Acquisition details</h2>
+    <div class="info-split">
+      <div class="info-panel">
+        <h3>Purchasing Options</h3>
+        <div class="info-row"><span class="label">Micro-Purchase</span><span class="data">Accepts credit card purchases up to micro-purchase threshold</span></div>
+        <div class="info-row"><span class="label">NAICS Size Standard</span><span class="data">541512 — $38.5M (Small Business)</span></div>
+        <div class="info-row"><span class="label">DUNS</span><span class="data" style="color:var(--fed-gold);">Pending Assignment</span></div>
+        <div class="info-row"><span class="label">CAGE Code</span><span class="data" style="color:var(--fed-gold);">Pending Assignment</span></div>
+        <div class="info-row"><span class="label">Contract Vehicles</span><span class="data" style="color:var(--fed-gold);">None yet — open to teaming</span></div>
+      </div>
+      <div class="info-panel">
+        <h3>Socioeconomic Status</h3>
+        <div class="info-row"><span class="label">Business Type</span><span class="data">Small Business</span></div>
+        <div class="info-row"><span class="label">WOSB</span><span class="data" style="color:var(--fed-gold);">Pending Certification</span></div>
+        <div class="info-row"><span class="label">Other Set-Asides</span><span class="data" style="color:var(--fed-gold);">Under Review</span></div>
+        <div class="info-row"><span class="label">Teaming</span><span class="data">Available for prime/subcontractor teaming</span></div>
+        <div class="info-row"><span class="label">Geographic</span><span class="data">United States (remote-ready)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ CERTIFICATIONS ROADMAP -->
+  <section class="block reveal" id="certifications">
+    <div class="section-label">Future Certifications / Set-Asides (Planned)</div>
+    <h2>Registration &amp; eligibility roadmap</h2>
+    <div class="cert-grid">
+      <div class="cert-card"><div class="status">Planned</div><h4>Small Business Registration</h4></div>
+      <div class="cert-card"><div class="status">If Applicable</div><h4>Woman-Owned Small Business (WOSB)</h4></div>
+      <div class="cert-card"><div class="status">Planned</div><h4>SBA Program Eligibility Review</h4></div>
+      <div class="cert-card"><div class="status">Planned</div><h4>Federal Contracting Compliance Readiness</h4></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ COMPANY INFO + CONTACT -->
+  <section class="block reveal" id="company">
+    <div class="section-label">Company Information</div>
+    <h2>Point of contact</h2>
+    <div class="info-split">
+      <div class="info-panel">
+        <h3>Business Intuitive</h3>
+        <div class="info-row"><span class="label">Website</span><span class="data"><a href="https://businessintuitive.tech" target="_blank" rel="noopener">businessintuitive.tech</a></span></div>
+        <div class="info-row"><span class="label">Portfolio</span><span class="data"><a href="https://intelligence.businessintuitive.tech" target="_blank" rel="noopener">intelligence.businessintuitive.tech</a></span></div>
+        <div class="info-row"><span class="label">Email</span><span class="data"><a href="mailto:hi@businessintuitive.tech">hi@businessintuitive.tech</a></span></div>
+        <div class="info-row"><span class="label">Instagram</span><span class="data"><a href="https://www.instagram.com/shebusinessintuitive" target="_blank" rel="noopener">@shebusinessintuitive</a></span></div>
+      </div>
+      <div class="info-panel">
+        <h3>Registration status</h3>
+        <div class="info-row"><span class="label">Business</span><span class="data">Small Business</span></div>
+        <div class="info-row"><span class="label">UEI</span><span class="data" style="color:var(--fed-gold);">Pending Registration</span></div>
+        <div class="info-row"><span class="label">SAM.gov</span><span class="data" style="color:var(--fed-gold);">Registration In Progress</span></div>
+        <div class="info-row"><span class="label">Geographic</span><span class="data">United States (remote-ready)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ FINAL CTA -->
+  <section class="final-cta reveal" id="contact">
+    <h2>Request a capabilities briefing</h2>
+    <p>
+      Contracting officers, program staff, and prime contractors: reach out for teaming, subcontracting,
+      sources-sought responses, or a capabilities briefing. We respond within one business day.
+    </p>
+    <div class="cta-row" style="justify-content:center;">
+      <button class="btn btn-primary" data-action="open-modal">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+        Contact Us Securely
+      </button>
+      <a class="btn btn-ghost" href="mailto:hi@businessintuitive.tech?subject=Federal%20Capabilities%20Inquiry">Email hi@businessintuitive.tech</a>
+    </div>
+    <p style="margin-top:1.5rem; font-size:0.9rem; color:var(--muted);">
+      <strong>Teaming & Subcontracting Available</strong> — We welcome partnerships with prime contractors and other small businesses.
+    </p>
+  </section>
+
+  <!-- ═══════════════════════════════════ FOOTER -->
+  <footer class="footer-strip">
+    <p><strong style="color:var(--muted);">Business Intuitive</strong> — Federal Capability Statement</p>
+    <p>
+      <a href="https://businessintuitive.tech">businessintuitive.tech</a> ·
+      <a href="mailto:hi@businessintuitive.tech">hi@businessintuitive.tech</a> ·
+      <a href="https://businessintuitive.tech/privacy">Privacy</a> ·
+      <a href="https://businessintuitive.tech/terms">Terms</a>
+    </p>
+    <p style="color:#46506a; margin-top:0.6rem;">
+      This is a contractor capability statement and is not an official website of the U.S. Government.
+      All data is transmitted over an encrypted connection (TLS 1.2/1.3).
+    </p>
+  </footer>
+
+  <!-- ═══════════════════════════════════ CONTACT MODAL -->
+  <div class="modal" id="leadModal" data-action="backdrop-close">
+    <div class="modal-card">
+      <button class="modal-close" data-action="close-modal" aria-label="Close">×</button>
+      <div class="modal-secure"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> ENCRYPTED SUBMISSION · TLS 1.3</div>
+      <h3>Contact Business Intuitive</h3>
+      <p class="sub">For contracting officers, program staff, and prime/teaming partners. We respond within one business day.</p>
+
+      <form id="leadForm" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="lf-name">Full Name</label>
+            <input id="lf-name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="lf-org">Agency / Organization</label>
+            <input id="lf-org" name="organization" type="text" required autocomplete="organization" />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="lf-role">Role / Title</label>
+            <select id="lf-role" name="role" required>
+              <option value="">Select...</option>
+              <option>Contracting Officer (CO)</option>
+              <option>Contracting Officer's Rep (COR)</option>
+              <option>Contract Specialist</option>
+              <option>Program / Project Manager</option>
+              <option>Small Business Specialist</option>
+              <option>Prime Contractor</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="lf-type">Inquiry Type</label>
+            <select id="lf-type" name="inquiry_type" required>
+              <option value="">Select...</option>
+              <option>Capabilities Briefing</option>
+              <option>Sources Sought / RFI</option>
+              <option>RFQ / RFP</option>
+              <option>Teaming Partner</option>
+              <option>Subcontracting</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="lf-email">Email</label>
+            <input id="lf-email" name="email" type="email" required autocomplete="email" placeholder="name@agency.gov" />
+          </div>
+          <div class="field">
+            <label for="lf-phone">Phone</label>
+            <input id="lf-phone" name="phone" type="tel" autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="lf-solicitation">Solicitation / NAICS (optional)</label>
+          <input id="lf-solicitation" name="solicitation" type="text" placeholder="e.g. Sol# / NAICS 541512" />
+        </div>
+
+        <div class="field">
+          <label for="lf-notes">How can we help?</label>
+          <textarea id="lf-notes" name="notes" placeholder="Requirement, scope, timeline, set-aside status, or anything relevant..."></textarea>
+        </div>
+
+        <!-- honeypot (bots fill this; humans never see it) -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="lf-company-website">Company Website</label>
+          <input id="lf-company-website" name="company_website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="lf-submit">Send Securely</button>
+        </div>
+
+        <div class="form-status" id="formStatus"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/assets/gov.js" defer></script>
+
+  <!-- First-party behavior analytics → BI analytics hub -->
+  <script defer src="/assets/bi-analytics.js"
+          data-hub="https://intelligence.businessintuitive.tech/api/track"
+          data-site="gov"></script>
+</body>
+</html>
