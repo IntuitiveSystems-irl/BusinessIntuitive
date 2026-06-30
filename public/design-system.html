@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Business Intuitive Design System</title>
+<meta name="description" content="Brand + UI system for Business Intuitive — the intelligence layer for founders." />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/brand.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bi-ocean-teal: #0F6F78; --bi-charcoal: #1A1A1C; --bi-soft-lime: #C8FF5A; --bi-dusty-pink: #F2C4D4;
+    --bi-mist-grey: #A7B4B8; --bi-deep-navy: #0A1A2A; --bi-soft-sand: #E9E1D3;
+    --bi-teal-bright: #16A2AE; --bi-teal-dim: #0B4E54; --bi-teal-deep: #073339;
+    --bi-blue: #2563EB; --bi-blue-bright: #3B82F6; --bi-blue-deep: #1D4ED8;
+    --bi-bg: #0B0C0E; --bi-surface-1: #141518; --bi-surface-2: #1A1A1C; --bi-surface-3: #202126;
+    --bi-paper: #F6F3EC; --bi-paper-2: #EFE9DD; --bi-text: #ECEFF1; --bi-text-soft: #A7B4B8;
+    --bi-text-mute: #6E777B; --bi-text-ink: #1A1A1C;
+    --bi-line: rgba(255,255,255,0.08); --bi-line-strong: rgba(255,255,255,0.16); --bi-line-teal: rgba(22,162,174,0.40); --bi-line-ink: rgba(26,26,28,0.12);
+    --bi-font-display: 'Fraunces', 'Playfair Display', Georgia, serif;
+    --bi-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --bi-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --bi-r-sm: 8px; --bi-r: 14px; --bi-r-lg: 22px; --bi-r-pill: 999px;
+    --bi-dur: 0.45s; --bi-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  body { font-family: var(--bi-font-sans); background: var(--bi-bg); color: var(--bi-text); line-height: 1.5; font-size: 15px; -webkit-font-smoothing: antialiased; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(55vw 45vh at 80% -8%, rgba(59,130,246,0.14), transparent 60%), radial-gradient(45vw 38vh at -5% 100%, rgba(22,162,174,0.12), transparent 60%); pointer-events: none; z-index: 0; }
+  .page { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 48px 32px 96px; }
+  .ds-header { border-bottom: 1px solid var(--bi-line); padding-bottom: 32px; margin-bottom: 56px; }
+  .ds-header-top { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .logo-tile { width: 44px; height: 44px; background: var(--bi-ocean-teal); border-radius: var(--bi-r); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo-tile svg { width: 26px; height: 26px; }
+  .ds-header h1 { font-family: var(--bi-font-display); font-size: 28px; font-weight: 700; letter-spacing: -0.02em; color: var(--bi-text); }
+  .ds-header p { font-size: 14px; color: var(--bi-text-soft); max-width: 640px; line-height: 1.6; }
+  .ds-meta { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .ds-meta a { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: var(--bi-r-pill); border: 1px solid var(--bi-line-strong); font-size: 12px; font-weight: 600; color: var(--bi-text-soft); text-decoration: none; transition: .15s; }
+  .ds-meta a:hover { background: rgba(22,162,174,0.08); color: var(--bi-teal-bright); border-color: var(--bi-line-teal); }
+  .section-label { font-family: var(--bi-font-mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; color: var(--bi-teal-bright); margin-bottom: 20px; margin-top: 56px; }
+  .card-group { margin-bottom: 40px; }
+  .card-group-title { font-family: var(--bi-font-display); font-size: 20px; font-weight: 600; margin-bottom: 4px; color: var(--bi-text); }
+  .card-group-sub { font-size: 13px; color: var(--bi-text-mute); margin-bottom: 16px; }
+  .specimen { background: var(--bi-surface-1); border-radius: var(--bi-r-lg); border: 1px solid var(--bi-line); padding: 28px; overflow: hidden; }
+  .specimen + .usage-note { font-size: 12px; color: var(--bi-text-mute); margin-top: 10px; padding-left: 4px; }
+  .specimen.light { background: var(--bi-paper); border-color: var(--bi-line-ink); }
+  .swatch-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch { border-radius: var(--bi-r); padding: 12px 14px 10px; min-width: 100px; flex: 1; }
+  .swatch-name { font-size: 13px; font-weight: 700; margin-bottom: 40px; color: var(--bi-text); }
+  .swatch-hex { font-size: 12px; opacity: .7; font-family: var(--bi-font-mono); color: var(--bi-text-soft); }
+  .swatch.dark .swatch-name, .swatch.dark .swatch-hex { color: rgba(255,255,255,.9); }
+  .swatch-row-sm .swatch { min-width: 80px; flex: 0 0 auto; }
+  .swatch-on-dark { border: 1px solid var(--bi-line); }
+  .swatch-on-light { border: 1px solid var(--bi-line-ink); }
+  .logo-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .lockup { border-radius: var(--bi-r-lg); padding: 24px 28px; display: flex; align-items: center; gap: 12px; flex: 1; min-width: 200px; }
+  .lockup-tile { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .lockup-words { display: flex; flex-direction: column; }
+  .lockup-name { font-family: var(--bi-font-display); font-size: 18px; font-weight: 700; line-height: 1.1; color: var(--bi-text); }
+  .lockup-sub { font-family: var(--bi-font-mono); font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--bi-text-mute); margin-top: 2px; }
+  .lockup.dark { background: var(--bi-surface-2); }
+  .lockup.light { background: var(--bi-paper); border: 1px solid var(--bi-line-ink); }
+  .lockup.light .lockup-name { color: var(--bi-text-ink); }
+  .lockup.light .lockup-sub { color: var(--bi-mist-grey); }
+  .lockup.teal-only { background: var(--bi-ocean-teal); min-width: 120px; flex: 0 0 120px; justify-content: center; }
+  .lockup.teal-only svg { width: 42px; height: 42px; }
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .do-block, .dont-block { border-radius: var(--bi-r-lg); padding: 20px; }
+  .do-block { background: var(--bi-soft-lime); }
+  .dont-block { background: var(--bi-paper); border: 1px solid var(--bi-line-ink); }
+  .do-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: rgba(26,26,28,.6); margin-bottom: 12px; }
+  .dont-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--bi-ocean-teal); margin-bottom: 12px; }
+  .do-block .stat-num, .dont-block .stat-num { font-family: var(--bi-font-display); font-size: 26px; font-weight: 700; color: var(--bi-text-ink); }
+  .do-block p, .dont-block p { font-size: 12px; color: rgba(26,26,28,.6); margin-top: 6px; }
+  .type-table { width: 100%; border-collapse: collapse; }
+  .type-table tr { border-bottom: 1px solid var(--bi-line); }
+  .type-table tr:last-child { border-bottom: none; }
+  .type-meta { font-size: 11px; color: var(--bi-text-mute); padding: 14px 0; white-space: nowrap; width: 140px; font-family: var(--bi-font-mono); vertical-align: middle; }
+  .type-sample { padding: 10px 0 10px 20px; vertical-align: middle; }
+  .t-96 { font-family: var(--bi-font-display); font-size: 64px; font-weight: 500; letter-spacing: -0.03em; line-height: .95; }
+  .t-60 { font-family: var(--bi-font-display); font-size: 48px; font-weight: 500; letter-spacing: -0.025em; line-height: .95; }
+  .t-34 { font-family: var(--bi-font-display); font-size: 34px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; }
+  .t-24 { font-family: var(--bi-font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.015em; }
+  .t-19 { font-family: var(--bi-font-sans); font-size: 19px; font-weight: 300; line-height: 1.55; }
+  .t-15 { font-family: var(--bi-font-sans); font-size: 15px; font-weight: 400; line-height: 1.6; }
+  .t-13 { font-family: var(--bi-font-sans); font-size: 13px; font-weight: 400; }
+  .t-11 { font-family: var(--bi-font-mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; color: var(--bi-teal-bright); }
+  .t-mono { font-family: var(--bi-font-mono); font-size: 13px; letter-spacing: var(--bi-track-wide); color: var(--bi-text-soft); }
+  .radius-row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
+  .radius-box { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .radius-swatch { background: var(--bi-ocean-teal); }
+  .radius-label { font-size: 12px; color: var(--bi-text-mute); text-align: center; }
+  .radius-name { font-weight: 700; font-size: 13px; color: var(--bi-text); }
+  .spacing-row { display: flex; gap: 8px; align-items: flex-end; }
+  .spacing-bar { background: var(--bi-soft-lime); border-radius: 4px 4px 0 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+  .spacing-label { font-size: 10px; color: var(--bi-text-mute); margin-top: 6px; text-align: center; }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .step-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .step-card { border-radius: var(--bi-r-lg); padding: 24px; min-height: 200px; display: flex; flex-direction: column; }
+  .step-n { font-family: var(--bi-font-mono); font-size: 13px; font-weight: 700; color: var(--bi-text-mute); }
+  .step-title { font-family: var(--bi-font-display); font-size: 26px; font-weight: 500; letter-spacing: -0.02em; color: var(--bi-text-ink); margin-top: 20px; line-height: 1.1; }
+  .step-body { font-size: 13px; color: rgba(26,26,28,.65); margin-top: 10px; line-height: 1.55; flex: 1; }
+  .feature-card { border-radius: var(--bi-r-lg); padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .feature-icon { width: 20px; height: 20px; color: var(--bi-teal-bright); }
+  .feature-title { font-family: var(--bi-font-display); font-size: 20px; font-weight: 600; color: var(--bi-text); letter-spacing: -0.015em; line-height: 1.15; }
+  .feature-body { font-size: 13px; color: var(--bi-text-soft); line-height: 1.55; }
+  .stat-card { border-radius: var(--bi-r-lg); padding: 24px; background: var(--bi-surface-2); border: 1px solid var(--bi-line); }
+  .stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--bi-text-mute); }
+  .stat-num-lg { font-family: var(--bi-font-display); font-size: 64px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; margin-top: 8px; color: var(--bi-text); }
+  .stat-desc { font-size: 13px; color: var(--bi-text-soft); margin-top: 6px; }
+  .surface-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .surface-tile { border-radius: var(--bi-r-lg); padding: 20px; min-height: 160px; display: flex; flex-direction: column; justify-content: space-between; }
+  .surface-tag { font-family: var(--bi-font-mono); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--bi-text-mute); opacity: .55; }
+  .surface-name { font-family: var(--bi-font-display); font-size: 18px; font-weight: 600; margin-top: 8px; line-height: 1.2; color: var(--bi-text); }
+  .surface-desc { font-size: 12px; color: var(--bi-text-soft); margin-top: 4px; }
+  .dark-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); border-radius: var(--bi-r); padding: 18px; color: var(--bi-text); }
+  hr { border: none; height: 1px; background: var(--bi-line); margin: 48px 0; }
+  @media (max-width: 640px) {
+    .do-dont, .step-row, .surface-row { grid-template-columns: 1fr; }
+    .t-96 { font-size: 40px; } .t-60 { font-size: 34px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Header ── -->
+  <div class="ds-header">
+    <div class="ds-header-top">
+      <div class="logo-tile">
+        <img src="https://raw.githubusercontent.com/IntuitiveSystems-irl/BusinessIntuitive/main/public/assets/brand-mark.svg" alt="Business Intuitive" width="44" height="44" />
+      </div>
+      <div><h1>Business Intuitive Design System</h1></div>
+    </div>
+    <p>The brand + UI system for Business Intuitive — the intelligence layer for founders. One dark oceanic base, a teal-lime signal layer, and a warm editorial paper surface. Fraunces for display, Inter for UI, JetBrains Mono for numbers.</p>
+    <div class="ds-meta">
+      <a href="https://github.com/IntuitiveSystems-irl/BusinessIntuitive" target="_blank">↗ GitHub</a>
+      <a href="https://businessintuitive.tech" target="_blank">↗ businessintuitive.tech</a>
+      <a href="https://businessintuitive.tech/brand.html" target="_blank">↗ Brand System /v1</a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       BRAND
+  ══════════════════════════════════════════════════ -->
+  <div class="section-label">Brand</div>
+
+  <div class="card-group">
+    <div class="card-group-title">Logo lockups</div>
+    <div class="card-group-sub">Ocean-tile mark + wordmark — on dark, paper, and teal</div>
+    <div class="specimen">
+      <div class="logo-row">
+        <div class="lockup dark">
+          <div class="lockup-tile" style="background:var(--bi-ocean-teal)">
+            <img src="https://raw.githubusercontent.com/IntuitiveSystems-irl/BusinessIntuitive/main/public/assets/brand-mark.svg" alt="Business Intuitive" width="28" height="28" />
+          </div>
+          <div class="lockup-words"><span class="lockup-name">Business Intuitive</span><span class="lockup-sub">The Intelligence Layer</span></div>
+        </div>
+        <div class="lockup light">
+          <div class="lockup-tile" style="background:var(--bi-ocean-teal)">
+            <img src="https://raw.githubusercontent.com/IntuitiveSystems-irl/BusinessIntuitive/main/public/assets/brand-mark.svg" alt="Business Intuitive" width="28" height="28" />
+          </div>
+          <div class="lockup-words"><span class="lockup-name">Business Intuitive</span><span class="lockup-sub">The Intelligence Layer</span></div>
+        </div>
+        <div class="lockup teal-only">
+          <img src="https://raw.githubusercontent.com/IntuitiveSystems-irl/BusinessIntuitive/main/public/assets/brand-mark.svg" alt="Business Intuitive" width="48" height="48" />
+        </div>
+      </div>
+    </div>
+    <p class="usage-note">Mark = ascending intelligence line resolving into a lime signal point on a teal-blue gradient. Represents intuition becoming signal. Always use the brand-mark.svg asset; never redraw.</p>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Color-block principle</div>
+    <div class="card-group-sub">Solid fills on dark or paper — never generic shadowed white cards</div>
+    <div class="specimen">
+      <div class="do-dont">
+        <div class="do-block">
+          <div class="do-label">Do — dark oceanic block</div>
+          <div class="stat-num">Run the number.</div>
+          <p>Surface 1, teal border, lime signal. Lead with the phrase.</p>
+        </div>
+        <div class="dont-block">
+          <div class="dont-label">Don't — floating white card</div>
+          <div class="stat-num">Empowering founders</div>
+          <p>Drop-shadowed white card with generic copy. Avoid on dark marketing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Three surfaces</div>
+    <div class="card-group-sub">Marketing · App dashboards · Editorial pages</div>
+    <div class="specimen">
+      <div class="surface-row">
+        <div class="surface-tile" style="background:var(--bi-ocean-teal)">
+          <span class="surface-tag" style="color:rgba(255,255,255,.7)">Audience: Founders</span>
+          <div><div class="surface-name" style="color:white">Marketing site</div><div class="surface-desc" style="color:rgba(255,255,255,.7)">Dark oceanic. Teal glow. Lime signal. Oversized Fraunces.</div></div>
+        </div>
+        <div class="surface-tile" style="background:var(--bi-surface-2)">
+          <span class="surface-tag">Audience: Operators</span>
+          <div><div class="surface-name">App dashboard</div><div class="surface-desc">Dense. Dark. Cards on Surface 1. Data-first.</div></div>
+        </div>
+        <div class="surface-tile" style="background:var(--bi-paper); border:1px solid var(--bi-line-ink)">
+          <span class="surface-tag" style="color:var(--bi-mist-grey)">Audience: Readers</span>
+          <div><div class="surface-name" style="color:var(--bi-text-ink)">Editorial / Reports</div><div class="surface-desc" style="color:var(--bi-mist-grey)">Warm paper. Serif display. Long-form legibility.</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="usage-note">One thread ties all three: teal-lime signal on a dark or warm base. Fraunces is the display voice.</p>
+  </div>
+
+  <hr />
+
+  <!-- ══════════════════════════════════════════════════
+       COLORS
+  ══════════════════════════════════════════════════ -->
+  <div class="section-label">Colors</div>
+
+  <div class="card-group">
+    <div class="card-group-title">Core palette</div>
+    <div class="card-group-sub">Ocean teal · charcoal · soft lime · dusty pink</div>
+    <div class="specimen">
+      <div class="swatch-row">
+        <div class="swatch dark swatch-on-dark" style="background:#0F6F78; min-height:140px"><div class="swatch-name" style="color:white">ocean teal</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#0F6F78</div></div>
+        <div class="swatch swatch-on-dark" style="background:#1A1A1C; min-height:140px"><div class="swatch-name" style="color:white">charcoal</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#1A1A1C</div></div>
+        <div class="swatch" style="background:#C8FF5A; min-height:140px"><div class="swatch-name" style="color:var(--bi-text-ink)">soft lime</div><div class="swatch-hex" style="color:var(--bi-text-ink)">#C8FF5A</div></div>
+        <div class="swatch" style="background:#F2C4D4; min-height:140px"><div class="swatch-name" style="color:var(--bi-text-ink)">dusty pink</div><div class="swatch-hex" style="color:var(--bi-text-ink)">#F2C4D4</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Teal scale</div>
+    <div class="card-group-sub">Depth, glow, and action</div>
+    <div class="specimen">
+      <div class="swatch-row swatch-row-sm">
+        <div class="swatch dark swatch-on-dark" style="background:#0F6F78; min-height:110px"><div class="swatch-name" style="color:white">teal</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#0F6F78</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#16A2AE; min-height:110px"><div class="swatch-name" style="color:white">teal bright</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#16A2AE</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#0B4E54; min-height:110px"><div class="swatch-name" style="color:white">teal dim</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#0B4E54</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#073339; min-height:110px"><div class="swatch-name" style="color:white">teal deep</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#073339</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Blue scale</div>
+    <div class="card-group-sub">Electric cobalt — primary action, social brand</div>
+    <div class="specimen">
+      <div class="swatch-row swatch-row-sm">
+        <div class="swatch dark swatch-on-dark" style="background:#2563EB; min-height:110px"><div class="swatch-name" style="color:white">blue</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#2563EB</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#3B82F6; min-height:110px"><div class="swatch-name" style="color:white">blue bright</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#3B82F6</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#1D4ED8; min-height:110px"><div class="swatch-name" style="color:white">blue deep</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#1D4ED8</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Secondary palette</div>
+    <div class="card-group-sub">Mist, navy, sand — supporting surfaces</div>
+    <div class="specimen">
+      <div class="swatch-row swatch-row-sm">
+        <div class="swatch" style="background:#A7B4B8; min-height:120px"><div class="swatch-name" style="color:var(--bi-text-ink)">mist grey</div><div class="swatch-hex" style="color:var(--bi-text-ink)">#A7B4B8</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#0A1A2A; min-height:120px"><div class="swatch-name" style="color:white">deep navy</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#0A1A2A</div></div>
+        <div class="swatch" style="background:#E9E1D3; min-height:120px"><div class="swatch-name" style="color:var(--bi-text-ink)">soft sand</div><div class="swatch-hex" style="color:var(--bi-text-ink)">#E9E1D3</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Surfaces</div>
+    <div class="card-group-sub">Page base, app layers, and warm paper</div>
+    <div class="specimen">
+      <div class="swatch-row swatch-row-sm">
+        <div class="swatch dark swatch-on-dark" style="background:#0B0C0E; min-height:110px"><div class="swatch-name" style="color:white">bg</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#0B0C0E</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#141518; min-height:110px"><div class="swatch-name" style="color:white">surface 1</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#141518</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#1A1A1C; min-height:110px"><div class="swatch-name" style="color:white">surface 2</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#1A1A1C</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#202126; min-height:110px"><div class="swatch-name" style="color:white">surface 3</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#202126</div></div>
+        <div class="swatch" style="background:#F6F3EC; min-height:110px"><div class="swatch-name" style="color:var(--bi-text-ink)">paper</div><div class="swatch-hex" style="color:var(--bi-text-ink)">#F6F3EC</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Status &amp; accents</div>
+    <div class="card-group-sub">Lifecycle states and supporting accents</div>
+    <div class="specimen">
+      <div class="swatch-row swatch-row-sm">
+        <div class="swatch dark swatch-on-dark" style="background:#22a06b; min-height:110px"><div class="swatch-name" style="color:white; font-size:11px; letter-spacing:.14em; text-transform:uppercase">Live</div><div class="swatch-hex" style="color:rgba(255,255,255,.7)">#22a06b</div></div>
+        <div class="swatch" style="background:#C8FF5A; min-height:110px"><div class="swatch-name" style="color:var(--bi-text-ink); font-size:11px; letter-spacing:.14em; text-transform:uppercase">Signal</div><div class="swatch-hex" style="color:var(--bi-text-ink)">#C8FF5A</div></div>
+        <div class="swatch" style="background:#F2C4D4; min-height:110px"><div class="swatch-name" style="color:var(--bi-text-ink); font-size:11px; letter-spacing:.14em; text-transform:uppercase">Warmth</div><div class="swatch-hex" style="color:var(--bi-text-ink)">#F2C4D4</div></div>
+        <div class="swatch dark swatch-on-dark" style="background:#ff6b5b; min-height:110px"><div class="swatch-name" style="color:var(--bi-text-ink); font-size:11px; letter-spacing:.14em; text-transform:uppercase">Danger</div><div class="swatch-hex" style="color:var(--bi-text-ink)">#ff6b5b</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ══════════════════════════════════════════════════
+       SPACING
+  ══════════════════════════════════════════════════ -->
+  <div class="section-label">Spacing</div>
+
+  <div class="card-group">
+    <div class="card-group-title">Radius scale</div>
+    <div class="card-group-sub">8px details → 14px cards → 22px panels → 999px pills</div>
+    <div class="specimen">
+      <div class="radius-row">
+        <div class="radius-box"><div class="radius-swatch" style="width:64px;height:64px;border-radius:8px"></div><div class="radius-label"><span class="radius-name">sm</span><br/>8px</div></div>
+        <div class="radius-box"><div class="radius-swatch" style="width:80px;height:80px;border-radius:14px"></div><div class="radius-label"><span class="radius-name">default</span><br/>14px</div></div>
+        <div class="radius-box"><div class="radius-swatch" style="width:96px;height:96px;border-radius:22px"></div><div class="radius-label"><span class="radius-name">lg</span><br/>22px</div></div>
+        <div class="radius-box"><div style="width:80px;height:40px;background:var(--bi-soft-lime);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--bi-text-ink)">pill</div><div class="radius-label"><span class="radius-name">pill</span><br/>999px</div></div>
+      </div>
+    </div>
+    <p class="usage-note">8px = small UI corners · 14px = cards, buttons · 22px = large panels, specimens · 999px = CTAs and pills</p>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Spacing scale</div>
+    <div class="card-group-sub">4px base — section rhythm 6.5rem / 10rem</div>
+    <div class="specimen">
+      <div class="spacing-row">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="spacing-bar" style="width:32px;height:8px;border-radius:4px 4px 0 0"></div><div class="spacing-label">2·8</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="spacing-bar" style="width:32px;height:16px;border-radius:4px 4px 0 0"></div><div class="spacing-label">4·16</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="spacing-bar" style="width:32px;height:24px;border-radius:4px 4px 0 0"></div><div class="spacing-label">6·24</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="spacing-bar" style="width:32px;height:32px;border-radius:4px 4px 0 0"></div><div class="spacing-label">8·32</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="spacing-bar" style="width:32px;height:48px;border-radius:4px 4px 0 0"></div><div class="spacing-label">12·48</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="spacing-bar" style="width:32px;height:64px;border-radius:4px 4px 0 0"></div><div class="spacing-label">16·64</div></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div class="spacing-bar" style="width:32px;height:80px;border-radius:4px 4px 0 0"></div><div class="spacing-label">20·80</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ══════════════════════════════════════════════════
+       TYPE
+  ══════════════════════════════════════════════════ -->
+  <div class="section-label">Type</div>
+
+  <div class="card-group">
+    <div class="card-group-title">Body &amp; UI — Inter</div>
+    <div class="card-group-sub">Prose, UI text, labels, mono</div>
+    <div class="specimen" style="background:var(--bi-surface-2)">
+      <table class="type-table">
+        <tr><td class="type-meta">lead / 300</td><td class="type-sample"><span class="t-19">Where founders go when they want the numbers to finally make sense.</span></td></tr>
+        <tr><td class="type-meta">body / 400</td><td class="type-sample"><span class="t-15">Business Intuitive is the intelligence layer for founders. We design and build the custom systems, dashboards, automation, and intelligence that turn instinct into infrastructure.</span></td></tr>
+        <tr><td class="type-meta">ui / 400</td><td class="type-sample"><span class="t-13">Dashboard · Automation · Intelligence · Payouts</span></td></tr>
+        <tr><td class="type-meta">label / mono</td><td class="type-sample"><span class="t-11">Run the number</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Display — Fraunces</div>
+    <div class="card-group-sub">Headings: tight tracking, near-1.0 line height</div>
+    <div class="specimen" style="background:var(--bi-surface-2)">
+      <table class="type-table">
+        <tr><td class="type-meta">display</td><td class="type-sample"><span class="t-96">Clarity is a system.</span></td></tr>
+        <tr><td class="type-meta">h1</td><td class="type-sample"><span class="t-60">Founders deserve intelligence.</span></td></tr>
+        <tr><td class="type-meta">h2</td><td class="type-sample"><span class="t-34">The intelligence layer</span></td></tr>
+        <tr><td class="type-meta">h3</td><td class="type-sample"><span class="t-24">We build the system your business should already have.</span></td></tr>
+      </table>
+    </div>
+    <p class="usage-note">Never mix Fraunces and another serif within one heading hierarchy. Mono is reserved for numbers, labels, and code.</p>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Numbers — JetBrains Mono</div>
+    <div class="card-group-sub">Data, metrics, proof</div>
+    <div class="specimen" style="background:var(--bi-surface-2)">
+      <div class="t-mono" style="display:flex;gap:32px;flex-wrap:wrap">
+        <span>DSCR 1.27</span><span>MRR +18.4%</span><span>CHURN 2.1%</span><span>LTV 83%</span>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ══════════════════════════════════════════════════
+       COMPONENTS
+  ══════════════════════════════════════════════════ -->
+  <div class="section-label">Components</div>
+
+  <div class="card-group">
+    <div class="card-group-title">Buttons</div>
+    <div class="card-group-sub">Primary, signal, ghost, warmth</div>
+    <div class="specimen">
+      <div class="btn-row">
+        <a class="bi-btn bi-btn--primary" href="#">Get the system →</a>
+        <a class="bi-btn bi-btn--signal" href="#">Run the number</a>
+        <a class="bi-btn bi-btn--ghost" href="#">Read the read</a>
+        <a class="bi-btn bi-btn--pink" href="#">Talk to a human</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Pills</div>
+    <div class="card-group-sub">Status, taxonomy, proof markers</div>
+    <div class="specimen">
+      <div class="badge-row">
+        <span class="bi-pill">Live</span>
+        <span class="bi-pill">Founder-grade</span>
+        <span class="bi-pill">Predictive</span>
+        <span class="bi-pill">Dashboard</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Cards</div>
+    <div class="card-group-sub">Surface 1, teal corner accent, optional hover glow</div>
+    <div class="specimen">
+      <div class="bi-card bi-card--glow" style="max-width:420px">
+        <h3 class="bi-h4">Dashboards</h3>
+        <p class="bi-body" style="margin-top:.5rem">Your numbers, finally legible. Real-time, predictive, decisive.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ══════════════════════════════════════════════════
+       MARKETING COMPONENTS
+  ══════════════════════════════════════════════════ -->
+  <div class="section-label">Marketing</div>
+
+  <div class="card-group">
+    <div class="card-group-title">Step cards</div>
+    <div class="card-group-sub">Color-blocked numbered flow</div>
+    <div class="specimen">
+      <div class="step-row">
+        <div class="step-card" style="background:var(--bi-soft-sand)"><span class="step-n">01</span><div class="step-title">Diagnostic</div><div class="step-body">We map the 10 systems that should already be running in your business.</div></div>
+        <div class="step-card" style="background:var(--bi-ocean-teal)"><span class="step-n" style="color:rgba(255,255,255,.6)">02</span><div class="step-title" style="color:white">Blueprint</div><div class="step-body" style="color:rgba(255,255,255,.75)">A build plan prioritized by leverage, not scope creep.</div></div>
+        <div class="step-card" style="background:var(--bi-soft-lime)"><span class="step-n">03</span><div class="step-title">Live system</div><div class="step-body">Deployed, measured, and iterated — your business starts running itself.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">Feature &amp; stat cards</div>
+    <div class="card-group-sub">Proof-first marketing components</div>
+    <div class="specimen">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="feature-card" style="background:var(--bi-ocean-teal)">
+          <svg class="feature-icon" style="color:white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <div class="feature-title" style="color:white">Real-time dashboards</div>
+          <div class="feature-body" style="color:rgba(255,255,255,.75)">One source of truth. No more spreadsheet sprawl.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Admin hours reclaimed</div>
+          <div class="stat-num-lg">12 hr</div>
+          <div class="stat-desc">per week, per operator</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card-group-title">App dashboard — dark glass</div>
+    <div class="card-group-sub">rgba fill + hairline border — no shadow</div>
+    <div class="specimen" style="background:var(--bi-bg); padding:24px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div class="dark-card"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.35);margin-bottom:10px">Metric</div><div style="font-size:15px;font-weight:600;color:white">MRR +18.4%</div><div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:4px">vs last month</div></div>
+        <div class="dark-card"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.35);margin-bottom:10px">Status</div><div style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(34,160,107,.15);border:1px solid rgba(34,160,107,.3);border-radius:999px"><span style="width:6px;height:6px;border-radius:50%;background:#22a06b;display:inline-block"></span><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#22a06b">Live</span></div></div>
+        <div class="dark-card"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.35);margin-bottom:10px">System</div><div style="font-family:var(--bi-font-mono);font-size:12px;color:var(--bi-soft-lime);word-break:break-all">automation.v1</div></div>
+      </div>
+    </div>
+    <p class="usage-note">Dashboard cards: bg rgba(255,255,255,.04) · border rgba(255,255,255,.06) · 14px radius · no shadow.</p>
+  </div>
+
+  <hr />
+
+  <!-- ══════════════════════════════════════════════════
+       VOICE & COPY
+  ══════════════════════════════════════════════════ -->
+  <div class="section-label">Voice &amp; Copy</div>
+
+  <div class="card-group">
+    <div class="card-group-title">Content principles</div>
+    <div class="card-group-sub">Direct. Proof-driven. No fluff. Numbers over adjectives.</div>
+    <div class="specimen">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:#22a06b;margin-bottom:10px">✓ Write this</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="padding:10px 14px;background:rgba(22,162,174,.1);border-left:3px solid var(--bi-teal-bright);border-radius:0 8px 8px 0;font-size:14px">"Run the number."</div>
+            <div style="padding:10px 14px;background:rgba(22,162,174,.1);border-left:3px solid var(--bi-teal-bright);border-radius:0 8px 8px 0;font-size:14px">"12 hours of admin reclaimed per week."</div>
+            <div style="padding:10px 14px;background:rgba(22,162,174,.1);border-left:3px solid var(--bi-teal-bright);border-radius:0 8px 8px 0;font-size:14px">"Clarity is a system."</div>
+            <div style="padding:10px 14px;background:rgba(22,162,174,.1);border-left:3px solid var(--bi-teal-bright);border-radius:0 8px 8px 0;font-size:14px">"The system your business should already have."</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:#ff6b5b;margin-bottom:10px">✕ Avoid this</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="padding:10px 14px;background:rgba(255,107,91,.08);border-left:3px solid rgba(255,107,91,.4);border-radius:0 8px 8px 0;font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">"Empowering founders"</div>
+            <div style="padding:10px 14px;background:rgba(255,107,91,.08);border-left:3px solid rgba(255,107,91,.4);border-radius:0 8px 8px 0;font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">"Seamless business journey"</div>
+            <div style="padding:10px 14px;background:rgba(255,107,91,.08);border-left:3px solid rgba(255,107,91,.4);border-radius:0 8px 8px 0;font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">"Holistic growth platform"</div>
+            <div style="padding:10px 14px;background:rgba(255,107,91,.08);border-left:3px solid rgba(255,107,91,.4);border-radius:0 8px 8px 0;font-size:14px;color:rgba(255,255,255,.5);text-decoration:line-through">"Next-generation solutions"</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:20px;padding:16px;background:rgba(255,255,255,.04);border-radius:var(--bi-r)">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--bi-text-mute);margin-bottom:10px">Casing rules</div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--bi-text-soft)">
+          <div><strong>Sentence case</strong> — all headings and body copy</div>
+          <div><strong>UPPERCASE</strong> — eyebrow labels and mono labels only, with 0.14em tracking</div>
+          <div><strong>Title Case</strong> — product names and proper nouns (Business Intuitive, The Intuitive CEO, Intelligence)</div>
+          <div><strong>No emoji</strong> in product or marketing copy. Use the lime dot only in pills.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ══════════════════════════════════════════════════
+       MOTION
+  ══════════════════════════════════════════════════ -->
+  <div class="section-label">Motion</div>
+
+  <div class="card-group">
+    <div class="card-group-title">Animation tokens</div>
+    <div class="card-group-sub">Scroll reveals, hover lift, live pulses — no bounces, no spins</div>
+    <div class="specimen">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div style="padding:16px;background:var(--bi-surface-2);border-radius:var(--bi-r);border:1px solid var(--bi-line)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--bi-text-mute);margin-bottom:8px">fadeIn</div>
+          <div style="font-size:13px;color:var(--bi-text);margin-bottom:4px">opacity 0 → 1</div>
+          <div style="font-family:var(--bi-font-mono);font-size:11px;color:var(--bi-text-mute)">0.5s ease-out<br/>once: true</div>
+        </div>
+        <div style="padding:16px;background:var(--bi-surface-2);border-radius:var(--bi-r);border:1px solid var(--bi-line)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--bi-text-mute);margin-bottom:8px">slideUp</div>
+          <div style="font-size:13px;color:var(--bi-text);margin-bottom:4px">opacity + 28px Y</div>
+          <div style="font-family:var(--bi-font-mono);font-size:11px;color:var(--bi-text-mute)">0.4s ease-out<br/>stagger 0.08*i</div>
+        </div>
+        <div style="padding:16px;background:var(--bi-surface-2);border-radius:var(--bi-r);border:1px solid var(--bi-line)">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--bi-text-mute);margin-bottom:8px">pulseSoft</div>
+          <div style="font-size:13px;color:var(--bi-text);margin-bottom:4px">opacity 1→0.5→1</div>
+          <div style="font-family:var(--bi-font-mono);font-size:11px;color:var(--bi-text-mute)">2.4s infinite<br/>live dots only</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:12px 16px;background:rgba(255,255,255,.04);border-radius:var(--bi-r);font-family:var(--bi-font-mono);font-size:12px;color:var(--bi-text-mute)">
+        easing: cubic-bezier(0.16, 1, 0.3, 1) · hover: 0.2s ease · useInView margin: '-15%'
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="margin-top:64px;padding-top:24px;border-top:1px solid var(--bi-line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <div style="font-size:12px;color:var(--bi-text-mute)">Business Intuitive Design System · Business Intuitive Inc.</div>
+    <a href="https://businessintuitive.tech" style="font-size:12px;color:var(--bi-text-soft);text-decoration:none" target="_blank">↗ businessintuitive.tech</a>
+  </div>
+
+</div>
+</body>
+</html>
